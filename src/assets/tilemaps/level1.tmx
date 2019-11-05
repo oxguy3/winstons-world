@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="64" tileheight="64" infinite="0" nextlayerid="15" nextobjectid="11">
+ <tileset firstgid="1" name="kenney_simple_platformer" tilewidth="64" tileheight="64" tilecount="98" columns="14">
+  <image source="../tilesets/platformPack_tilesheet.png" width="896" height="448"/>
+ </tileset>
+ <layer id="11" name="Platforms" width="20" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,47,47,47,47,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,47,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
+</data>
+ </layer>
+ <objectgroup id="3" name="Spikes">
+  <object id="1" gid="71" x="320" y="384" width="64" height="64"/>
+  <object id="2" gid="71" x="576" y="256" width="64" height="64"/>
+  <object id="3" gid="71" x="768" y="384" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="13" name="Events">
+  <object id="9" type="PlayerSpawn" x="95" y="372">
+   <point/>
+  </object>
+  <object id="10" type="Message" x="254" y="-7" width="68" height="428"/>
+ </objectgroup>
+</map>
