@@ -9,15 +9,23 @@ import tmLevel1 from "./assets/tilemaps/level1.json";
 import './style.css';
 
 const config = {
-  type: Phaser.AUTO,
-  parent: "phaser-example",
-  width: 800,
-  height: 600,
+  // TODO: disabling WebGL fixes tile texture bleed, but WebGL would be nice to have
+  type: Phaser.CANVAS,
+  render: {
+    pixelArt: true
+  },
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: 'main',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: 800,
+    height: 600
+  },
   physics: {
     default: 'arcade',
     arcade: {
       gravity: { y: 600 },
-      debug: true
+      debug: false
     }
   },
   scene: {
@@ -32,6 +40,7 @@ var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
+var playerSpawn;
 
 const game = new Phaser.Game(config);
 
@@ -55,16 +64,16 @@ function create () {
   const tileset = map.addTilesetImage('kenney_simple_platformer', 'tiles');
   const platforms = map.createStaticLayer('Platforms', tileset, 0, 0);
   platforms.setCollisionByExclusion(-1, true);
+
+  // set world bounds and configure collision
   this.physics.world.setBounds(platforms.x, platforms.y, platforms.width, platforms.height);
+  this.physics.world.setBoundsCollision(true, true, true, false);
 
   // handle player spawns and messages
-  let playerX = 100;
-  let playerY = 100;
   const eventObjects = map.getObjectLayer('Events')['objects'];
   eventObjects.forEach(evt => {
     if (evt.type == "PlayerSpawn") {
-      playerX = evt.x;
-      playerY = evt.y;
+      playerSpawn = new Phaser.Math.Vector2(evt.x, evt.y);
     } else if (evt.type == "Message") {
       //TODO: handle messages
     } else {
@@ -73,7 +82,7 @@ function create () {
   });
 
   // create player with physics props
-  this.player = this.physics.add.sprite(50, 300, 'dude');
+  this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'dude');
   this.player.setBounce(0.1);
   this.player.setCollideWorldBounds(true);
   this.physics.add.collider(this.player, platforms);
@@ -102,7 +111,7 @@ function create () {
 
   // camera follow the player
   let camera = this.cameras.main;
-  console.log(platforms.x, platforms.y, platforms.width, platforms.height);
+  camera.setRoundPixels(true);
   camera.setBounds(platforms.x, platforms.y, platforms.width, platforms.height);
   camera.setDeadzone(200, 400);
   camera.startFollow(this.player);
@@ -155,6 +164,7 @@ function update () {
     return;
   }
 
+  // keyboard controls
   if (cursors.left.isDown) {
     this.player.setVelocityX(-160);
     this.player.anims.play('left', true);
@@ -167,16 +177,19 @@ function update () {
     this.player.setVelocityX(0);
     this.player.anims.play('turn');
   }
-
   if (cursors.up.isDown && this.player.body.onFloor()) {
     this.player.setVelocityY(-350);
   }
+
+  // kill if out of bounds
+  if (this.player.y - 64 > this.physics.world.bounds.bottom) {
+    playerHit.call(this, this.player, null);
+  }
 }
 
-function playerHit(player, spike) {
+function playerHit(player, killedBy) {
   player.setVelocity(0, 0);
-  player.setX(50);
-  player.setY(300);
+  player.setPosition(playerSpawn.x, playerSpawn.y);
   player.setAlpha(0);
   let tw = this.tweens.add({
     targets: player,
