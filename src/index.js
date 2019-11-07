@@ -80,9 +80,10 @@ function create () {
   // create player with physics props
   this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'dude');
   this.player.setName("player");
-  this.player.setSize(this.player.width-12, this.player.height);
+  this.player.setSize(20, 40)
+  this.player.setOffset(0, 8);
   this.player.setOrigin(1, 1);
-  this.player.setBounce(0.1);
+  this.player.setBounce(0.15);
   this.player.setDamping(true);
   this.player.setMaxVelocity(320);
   this.player.setData('onIce', false);
@@ -128,6 +129,7 @@ function update () {
   }
 
   const walkVel = 160;
+  const walkAccel = 800;
   const iceAccel = 120;
 
   const onIce = this.player.getData('onIce');
@@ -137,7 +139,14 @@ function update () {
     if (onIce) {
       this.player.setAccelerationX(0-iceAccel);
     } else {
-      this.player.setVelocityX(0-walkVel);
+      if (this.player.body.velocity.x > 0-walkVel) {
+        this.player.setAccelerationX(0-walkAccel);
+        if (this.player.body.velocity.x > 0) {
+          this.player.setAccelerationX(0-walkAccel*3);
+        }
+      } else {
+        this.player.setAccelerationX(0);
+      }
     }
     this.player.anims.play('left', true);
 
@@ -145,7 +154,14 @@ function update () {
     if (onIce) {
       this.player.setAccelerationX(iceAccel);
     } else {
-      this.player.setVelocityX(walkVel);
+      if (this.player.body.velocity.x < walkVel) {
+        this.player.setAccelerationX(walkAccel);
+        if (this.player.body.velocity.x < 0) {
+          this.player.setAccelerationX(walkAccel*3);
+        }
+      } else {
+        this.player.setAccelerationX(0);
+      }
     }
     this.player.anims.play('right', true);
 
@@ -153,7 +169,7 @@ function update () {
     if (!onIce) {
       this.player.setVelocityX(0);
     }
-    this.player.setAcceleration(0);
+    this.player.setAccelerationX(0);
     this.player.anims.play('turn');
   }
   // ice physics!
@@ -161,11 +177,10 @@ function update () {
     this.player.setDragX(0.98);
   } else {
     this.player.setDragX(1);
-    this.player.setAcceleration(0);
   }
 
   if (cursors.up.isDown && this.player.body.onFloor()) {
-      this.player.setVelocityY(-350);
+      this.player.setVelocityY(-400);
   }
 
   // kill if out of bounds
