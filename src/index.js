@@ -160,6 +160,7 @@ function update () {
     this.player.setDragX(0.98);
   } else {
     this.player.setDragX(1);
+    this.player.setAcceleration(0);
   }
 
   if (cursors.up.isDown && this.player.body.onFloor()) {
