@@ -153,6 +153,7 @@ function update () {
     if (!onIce) {
       this.player.setVelocityX(0);
     }
+    this.player.setAcceleration(0);
     this.player.anims.play('turn');
   }
   // ice physics!
