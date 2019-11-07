@@ -1,11 +1,9 @@
 import Phaser from "phaser";
 import imgBackground from "./assets/images/background.png";
-import imgPlatform from "./assets/images/platform.png";
-import imgSpike from "./assets/images/spike.png";
-// import imgStar from "./assets/images/star.png";
+import imgSpike from "./assets/tilesets/minecraft-faithful/spike_iron_side.png";
 import imgDude from "./assets/images/dude.png";
-import tsTiles from "./assets/tilesets/platformPack_tilesheet.png";
-import tmLevel1 from "./assets/tilemaps/level1.json";
+import tileset from "./assets/tilesets/minecraft-faithful.png";
+import tilemap from "./assets/tilemaps/test2.json";
 import './style.css';
 
 const config = {
@@ -47,11 +45,8 @@ const game = new Phaser.Game(config);
 function preload() {
   this.load.image('background', imgBackground);
   this.load.image('spike', imgSpike);
-  this.load.image('tiles', tsTiles);
-  this.load.tilemapTiledJSON('map', tmLevel1);
-
-  this.load.image('ground', imgPlatform);
-  // this.load.image('star', imgStar);
+  this.load.image('tiles', tileset);
+  this.load.tilemapTiledJSON('map', tilemap);
   this.load.spritesheet('dude', imgDude, { frameWidth: 32, frameHeight: 48 });
 }
 
@@ -61,7 +56,7 @@ function create () {
 
   // create tile map
   const map = this.make.tilemap({ key: 'map' });
-  const tileset = map.addTilesetImage('kenney_simple_platformer', 'tiles');
+  const tileset = map.addTilesetImage('minecraft-faithful', 'tiles');
   const platforms = map.createStaticLayer('Platforms', tileset, 0, 0);
   platforms.setCollisionByExclusion(-1, true);
 
@@ -185,6 +180,11 @@ function update () {
   if (this.player.y - 64 > this.physics.world.bounds.bottom) {
     playerHit.call(this, this.player, null);
   }
+
+  // // kill if out of bounds
+  // if (this.player.y - 64 > this.matter.world.bounds.bottom) {
+  //   playerHit.call(this, this.player, null);
+  // }
 }
 
 function playerHit(player, killedBy) {
