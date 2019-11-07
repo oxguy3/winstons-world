@@ -2,8 +2,10 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  entry: './src/index.js',
   mode: "development",
   devtool: "eval-source-map",
   module: {
@@ -32,11 +34,25 @@ module.exports = {
       }
     ]
   },
+  output: {
+    path: path.join(__dirname, '../dist/')
+  },
+  resolve: {
+    alias: {
+      assets: path.resolve(__dirname, '../src/assets/'),
+    }
+  },
   devServer: {
     contentBase: path.join(__dirname, '../dist/'),
     port: 8000
   },
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'src/assets',
+        to: 'assets'
+      },
+    ]),
     new CleanWebpackPlugin({
       root: path.resolve(__dirname, "../dist/")
     }),

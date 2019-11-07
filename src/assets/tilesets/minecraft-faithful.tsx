@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.5" name="minecraft-faithful" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="8" columns="4">
  <image source="minecraft-faithful.png" width="144" height="72"/>
- <tile id="0">
+ <tile id="0" type="dirt">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="1">
+ <tile id="1" type="portal">
+  <properties>
+   <property name="collides" type="bool" value="false"/>
+   <property name="ice" type="bool" value="false"/>
+   <property name="kill" type="bool" value="false"/>
+  </properties>
+ </tile>
+ <tile id="2" type="grass">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="2">
-  <properties>
-   <property name="collides" type="bool" value="true"/>
-   <property name="ice" type="bool" value="false"/>
-   <property name="kill" type="bool" value="false"/>
-  </properties>
- </tile>
- <tile id="3">
+ <tile id="3" type="ice">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="true"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="4">
+ <tile id="4" type="arrow-up">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="5">
+ <tile id="5" type="crate">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="6">
+ <tile id="6" type="spike">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
@@ -57,7 +57,7 @@
  </tile>
  <tile id="7">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
