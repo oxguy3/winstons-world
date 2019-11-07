@@ -57,12 +57,13 @@ function create () {
   // create tile map
   const map = this.make.tilemap({ key: 'map' });
   const tileset = map.addTilesetImage('minecraft-faithful', 'tiles');
-  const platforms = map.createStaticLayer('Platforms', tileset, 0, 0);
-  platforms.setCollisionByExclusion(-1, true);
+  const platforms = map.createDynamicLayer('Platforms', tileset, 0, 0);
+  platforms.setCollisionByProperty({ collides: true });
 
   // set world bounds and configure collision
   this.physics.world.setBounds(platforms.x, platforms.y, platforms.width, platforms.height);
   this.physics.world.setBoundsCollision(true, true, true, false);
+  this.physics.world.on('tilecollide', onTileCollide);
 
   // handle player spawns and messages
   const eventObjects = map.getObjectLayer('Events')['objects'];
@@ -78,8 +79,17 @@ function create () {
 
   // create player with physics props
   this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'dude');
+  this.player.setName("player");
+  this.player.setSize(this.player.width-12, this.player.height);
+  this.player.setOrigin(1, 1);
   this.player.setBounce(0.1);
+  this.player.setDamping(true);
+  this.player.setMaxVelocity(320);
+  this.player.setData('onIce', false);
+
+  // add collision to player
   this.player.setCollideWorldBounds(true);
+  this.player.body.onCollide = true;
   this.physics.add.collider(this.player, platforms);
 
   //  Our player animations, turning, walking left and walking right.
@@ -110,48 +120,6 @@ function create () {
   camera.setBounds(platforms.x, platforms.y, platforms.width, platforms.height);
   camera.setDeadzone(200, 400);
   camera.startFollow(this.player);
-
-
-  // Create a sprite group for all spikes, set common properties to ensure that
-  // sprites in the group don't move via gravity or by player collisions
-  this.spikes = this.physics.add.group({
-    allowGravity: false,
-    immovable: true
-  });
-
-  // Let's get the spike objects, these are NOT sprites
-  const spikeObjects = map.getObjectLayer('Spikes')['objects'];
-
-  // Now we create spikes in our sprite group for each object in our map
-  spikeObjects.forEach(spikeObject => {
-    const spike = this.spikes.create(spikeObject.x, spikeObject.y - spikeObject.height, 'spike').setOrigin(0, 0);
-    spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 20);
-  });
-
-  this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
-
-  // //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-  // stars = this.physics.add.group({
-  //   key: 'star',
-  //   repeat: 11,
-  //   setXY: { x: 12, y: 0, stepX: 70 }
-  // });
-  //
-  // stars.children.iterate(function (child) {
-  //
-  //   //  Give each star a slightly different bounce
-  //   child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-  //
-  // });
-  //
-  // //  The score
-  // scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-  //
-  // //  Collide the player and the stars with the platforms
-  // this.physics.add.collider(stars, platforms);
-  //
-  // //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-  // this.physics.add.overlap(player, stars, collectStar, null, this);
 }
 
 function update () {
@@ -159,32 +127,59 @@ function update () {
     return;
   }
 
+  const walkVel = 160;
+  const iceAccel = 120;
+
+  const onIce = this.player.getData('onIce');
+
   // keyboard controls
   if (cursors.left.isDown) {
-    this.player.setVelocityX(-160);
+    if (onIce) {
+      this.player.setAccelerationX(0-iceAccel);
+    } else {
+      this.player.setVelocityX(0-walkVel);
+    }
     this.player.anims.play('left', true);
 
   } else if (cursors.right.isDown)  {
-    this.player.setVelocityX(160);
+    if (onIce) {
+      this.player.setAccelerationX(iceAccel);
+    } else {
+      this.player.setVelocityX(walkVel);
+    }
     this.player.anims.play('right', true);
 
   } else {
-    this.player.setVelocityX(0);
+    if (!onIce) {
+      this.player.setVelocityX(0);
+    }
     this.player.anims.play('turn');
   }
+  // ice physics!
+  if (onIce) {
+    this.player.setDragX(0.98);
+  } else {
+    this.player.setDragX(1);
+  }
+
   if (cursors.up.isDown && this.player.body.onFloor()) {
-    this.player.setVelocityY(-350);
+      this.player.setVelocityY(-350);
   }
 
   // kill if out of bounds
   if (this.player.y - 64 > this.physics.world.bounds.bottom) {
     playerHit.call(this, this.player, null);
   }
+}
 
-  // // kill if out of bounds
-  // if (this.player.y - 64 > this.matter.world.bounds.bottom) {
-  //   playerHit.call(this, this.player, null);
-  // }
+function onTileCollide(gameObject, tile, body) {
+  if (gameObject.name == "player") {
+    if (tile.properties.kill == true) {
+      playerHit.call(gameObject.scene, gameObject, tile);
+    }
+
+    gameObject.setData('onIce', tile.properties.ice);
+  }
 }
 
 function playerHit(player, killedBy) {
@@ -200,23 +195,3 @@ function playerHit(player, killedBy) {
   });
   this.cameras.main.shake(250, 0.005);
 }
-
-// function collectStar (player, star)
-// {
-//   star.disableBody(true, true);
-//
-//   //  Add and update the score
-//   score += 10;
-//   scoreText.setText('Score: ' + score);
-//
-//   if (stars.countActive(true) === 0)
-//   {
-//     //  A new batch of stars to collect
-//     stars.children.iterate(function (child) {
-//
-//         child.enableBody(true, child.x, 0, true, true);
-//
-//     });
-//
-//   }
-// }

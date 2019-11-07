@@ -4,42 +4,49 @@
  <tile id="0">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="1">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="2">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="3">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="true"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="4">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="5">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="6">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index">
@@ -51,6 +58,7 @@
  <tile id="7">
   <properties>
    <property name="collides" type="bool" value="true"/>
+   <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
