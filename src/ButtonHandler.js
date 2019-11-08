@@ -8,19 +8,23 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
     this.mappings = {
       up: {
         keys: [ 'W', 'UP' ],
-        pad: [ 'up' ]
+        pad: [ 'up' ],
+        leftStick: 'up'
       },
       down: {
         keys: [ 'S', 'DOWN' ],
-        pad: [ 'down' ]
+        pad: [ 'down' ],
+        leftStick: 'down'
       },
       left: {
         keys: [ 'A', 'LEFT' ],
-        pad: [ 'left' ]
+        pad: [ 'left' ],
+        leftStick: 'left'
       },
       right: {
         keys: [ 'D', 'RIGHT' ],
-        pad: [ 'right' ]
+        pad: [ 'right' ],
+        leftStick: 'right'
       },
       action: {
         keys: [ 'SPACE', 'ENTER' ],
@@ -28,7 +32,7 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
       },
       jump: {
         keys: [ 'SPACE', 'W', 'UP' ],
-        pad: [ 'up', 'A' ]
+        pad: [ 'A' ]
       },
       interact: {
         keys: [ 'E' ],
@@ -59,11 +63,34 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
       }
     }
 
-    // handle gamepad #1 (we ignore all other gamepads)
+    // handle gamepad #1
+    // TODO: handle disconnects; maybe make all gamepads work?
     let pad1 = this.input.gamepad.pad1;
     if (typeof pad1 !== 'undefined') {
       for (const b in mapping.pad) {
         if (this.input.gamepad.pad1[mapping.pad[b]]) {
+          return true;
+        }
+      }
+      if (typeof mapping.leftStick !== 'undefined') {
+        const stickTolerance = 0.1;
+        let axis, expectPositive;
+        if (mapping.leftStick == 'up') {
+          axis = pad1.leftStick.y;
+          expectPositive = true;
+        } else if (mapping.leftStick == 'down') {
+          axis = pad1.leftStick.y;
+          expectPositive = false;
+        } else if (mapping.leftStick == 'right') {
+          axis = pad1.leftStick.x;
+          expectPositive = true;
+        } else if (mapping.leftStick == 'left') {
+          axis = pad1.leftStick.x;
+          expectPositive = false;
+        }
+        let isCorrectSign = (Math.abs(axis) == axis) == expectPositive;
+        let isAboveTolerance = Math.abs(axis) >= (1-stickTolerance);
+        if (isCorrectSign && isAboveTolerance) {
           return true;
         }
       }
