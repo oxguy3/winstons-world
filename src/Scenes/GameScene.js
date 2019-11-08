@@ -1,16 +1,18 @@
 import 'phaser';
+import ButtonHandler from '../ButtonHandler';
 
 export default class GameScene extends Phaser.Scene {
 
   constructor () {
     super('game');
-    this.score = 0;
   }
 
   preload() {
   }
 
   create() {
+    this.buttons = new ButtonHandler(this.input);
+
     const backgroundImage = this.add.image(0, 0,'background').setOrigin(0, 0);
     backgroundImage.setScale(2, 0.8);
 
@@ -72,9 +74,6 @@ export default class GameScene extends Phaser.Scene {
       repeat: -1
     });
 
-    //  Input Events
-    this.cursors = this.input.keyboard.createCursorKeys();
-
     // camera follow the player
     let camera = this.cameras.main;
     camera.setRoundPixels(true);
@@ -84,7 +83,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-
     const walkVel = 160;
     const walkAccel = 800;
     const iceAccel = 120;
@@ -92,7 +90,7 @@ export default class GameScene extends Phaser.Scene {
     const onIce = this.player.getData('onIce');
 
     // keyboard controls
-    if (this.cursors.left.isDown) {
+    if (this.buttons.isDown('left')) {
       if (onIce) {
         this.player.setAccelerationX(0-iceAccel);
       } else {
@@ -107,7 +105,7 @@ export default class GameScene extends Phaser.Scene {
       }
       this.player.anims.play('left', true);
 
-    } else if (this.cursors.right.isDown)  {
+    } else if (this.buttons.isDown('right'))  {
       if (onIce) {
         this.player.setAccelerationX(iceAccel);
       } else {
@@ -136,7 +134,7 @@ export default class GameScene extends Phaser.Scene {
       this.player.setDragX(1);
     }
 
-    if (this.cursors.up.isDown && this.player.body.onFloor()) {
+    if (this.buttons.isDown('jump') && this.player.body.onFloor()) {
         this.player.setVelocityY(-400);
     }
 

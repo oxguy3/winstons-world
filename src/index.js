@@ -1,10 +1,10 @@
 import Phaser from "phaser";
-import config from './Config/config';
+import config from './config';
 import GameScene from './Scenes/GameScene';
 import BootScene from './Scenes/BootScene';
 import TitleScene from './Scenes/TitleScene';
 import OptionsScene from './Scenes/OptionsScene';
-import './style.css';
+import './assets/css/style.css';
 
 class Game extends Phaser.Game {
   constructor () {

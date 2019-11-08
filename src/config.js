@@ -6,6 +6,10 @@ export default {
   render: {
     pixelArt: true
   },
+  input: {
+    keyboard: true,
+    gamepad: true
+  },
   scale: {
     mode: Phaser.Scale.FIT,
     parent: 'main',
@@ -17,7 +21,7 @@ export default {
     default: 'arcade',
     arcade: {
       gravity: { y: 600 },
-      debug: true
+      debug: false
     }
   }/*,
   scene: {
