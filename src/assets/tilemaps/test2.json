@@ -29,6 +29,33 @@
                  "width":0,
                  "x":64,
                  "y":480
+                }, 
+                {
+                 "height":705.781400836641,
+                 "id":6,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Ice is slippery, be careful!"
+                        }, 
+                        {
+                         "name":"timeToLive",
+                         "type":"int",
+                         "value":2000
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"general"
+                        }],
+                 "rotation":0,
+                 "type":"Message",
+                 "visible":true,
+                 "width":344.309771532768,
+                 "x":159.819800493403,
+                 "y":-15.0166255497158
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -37,7 +64,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":6,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.5",

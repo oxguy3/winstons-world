@@ -29,11 +29,25 @@ export default class GameScene extends Phaser.Scene {
 
     // handle player spawns and messages
     const eventObjects = map.getObjectLayer('Events')['objects'];
+    let messageZones = [];
     eventObjects.forEach(evt => {
       if (evt.type == "PlayerSpawn") {
         this.playerSpawn = new Phaser.Math.Vector2(evt.x, evt.y);
+
       } else if (evt.type == "Message") {
-        //TODO: handle messages
+        if (evt.rectangle !== true) {
+          throw 'Message triggers must be rectangular';
+        }
+        const zone = new Phaser.GameObjects.Zone(this, evt.x, evt.y, evt.width, evt.height);
+        zone.setOrigin(0,0);
+        evt.properties.forEach(prop => {
+          zone.setData(prop.name, prop.value);
+        });
+        // zone.setData('message', evt.properties.find(function (elem) { return elem.name == "message"; }).value);
+        // zone.setData('timeToLive', evt.properties.find(function (elem) { return elem.name == "timeToLive"; }).value);
+        // zone.setData('type', evt.properties.find(function (elem) { return elem.name == "type"; }).value);
+        messageZones.push(zone);
+
       } else {
         throw "Invalid event object with type: "+evt.type;
       }
@@ -54,6 +68,17 @@ export default class GameScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.body.onCollide = true;
     this.physics.add.collider(this.player, platforms);
+
+    // add collision for messages
+    this.messages = this.physics.add.group({
+      visible: true,
+      allowDrag: false,
+      allowGravity: false,
+      allowRotation: false,
+      immovable: true
+    });
+    this.messages.addMultiple(messageZones, true);
+    // this.physics.add.overlap(this.player, this.messages, this.showMessage, null, this);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -80,6 +105,21 @@ export default class GameScene extends Phaser.Scene {
     camera.setBounds(platforms.x, platforms.y, platforms.width, platforms.height);
     camera.setDeadzone(200, 400);
     camera.startFollow(this.player);
+
+    // set up text box and timer for message displaying
+    this.messageText = this.make.text({
+      // x: 100,
+      // y: 550,
+      text: '',
+      style: {
+        font: '18px sans-serif',
+        fill: '#ffffff',
+        backgroundColor: '#000000',
+        wordWrap: { width: 600 }
+      }
+    });
+    this.positionMessageText();
+    // this.messageTimer = this.time.delayedCall(2000, function(){}, { paused: true });
   }
 
   update() {
@@ -88,6 +128,25 @@ export default class GameScene extends Phaser.Scene {
     const iceAccel = 120;
 
     const onIce = this.player.getData('onIce');
+
+    // update on-screen message if in a trigger zone
+    let newText = '';
+    this.messages.children.iterate(function(msg) {
+      if (this.physics.overlap(this.player, msg)) {
+        newText = msg.getData('message');
+      }
+    }, this);
+    this.messageText.setText(newText);
+    this.positionMessageText();
+    // if (newText != oldText && oldText != '') {
+    //   let tw = this.tweens.add({
+    //     targets: player,
+    //     alpha: 1,
+    //     duration: 100,
+    //     ease: 'Linear',
+    //     repeat: 5,
+    //   });
+    // }
 
     // keyboard controls
     if (this.buttons.isDown('left')) {
@@ -127,6 +186,10 @@ export default class GameScene extends Phaser.Scene {
       this.player.setAccelerationX(0);
       this.player.anims.play('turn');
     }
+    if (this.buttons.isDown('jump') && this.player.body.onFloor()) {
+        this.player.setVelocityY(-400);
+    }
+
     // ice physics!
     if (onIce) {
       this.player.setDragX(0.98);
@@ -134,14 +197,15 @@ export default class GameScene extends Phaser.Scene {
       this.player.setDragX(1);
     }
 
-    if (this.buttons.isDown('jump') && this.player.body.onFloor()) {
-        this.player.setVelocityY(-400);
-    }
-
     // kill if out of bounds
     if (this.player.y - 64 > this.physics.world.bounds.bottom) {
       this.playerHit(this.player, null);
     }
+  }
+
+  positionMessageText() {
+    this.messageText.setX(this.cameras.main.worldView.x + 100);
+    this.messageText.setY(this.cameras.main.worldView.y + 550);
   }
 
   onTileCollide(gameObject, tile, body) {

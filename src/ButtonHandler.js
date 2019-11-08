@@ -4,7 +4,6 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
   constructor(input) {
     // super();
     this.input = input;
-    console.log(this.input);
     this.mappings = {
       up: {
         keys: [ 'W', 'UP' ],
