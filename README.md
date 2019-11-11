@@ -19,10 +19,10 @@ Now, you need to clone the game repository to your computer. If you are using Gi
 
 Now, you will need to open the game's directory in a terminal/command prompt. If you are using GitHub Desktop, they make this easy; simply click the Repository menu and select "Open in Terminal" or "Open in Command Prompt" (the message will vary based on your OS). From the terminal/command prompt (from now on I'm just gonna say "terminal" for simplicity) that opens, you will need to run this command to install the rest of the game's dependencies: `npm install`. Note that you may need to rerun this install command in the future if the project's dependencies change.
 
-#### Setting up the Tiled map editor
+### Setting up the Tiled map editor
 We are using the Tiled map editor to design all our levels. They have documentation [over here](https://doc.mapeditor.org/en/stable/) which you can read, but you will also need more info which is specific to this game. Tiled is designed to work with a ton of games written with tons of different languages and systems. As a result, Tiled doesn't know the specifics of how our game works, so there are many features included in Tiled that will not actually do anything in our game, because I haven't added support for them.
 
-When you open Tiled for the first time, you will first need to go to Preferences (under the Tiled menu on Mac or probably the File menu on Windows). Go to General, and then turn on "Embed tilesets" and "Resolve object types and properties".
+When you open Tiled for the first time, you will first need to go to Preferences (it's under the Tiled menu on Mac or probably the File menu on Windows). Go to General, and then turn on "Embed tilesets" and "Resolve object types and properties".
 
 ## Working on the game
 Here's how you can develop on the game, after you have everything installed.
@@ -55,7 +55,7 @@ The Platforms layer contains all the tiles that make up the game world. You can 
 #### The Events layer
 The Events layer contains invisible objects that control the game's functionality (for example, the player spawn position or triggers for in-game messages). You can learn more about object layers in the [Working with Objects](https://doc.mapeditor.org/en/stable/manual/objects/) section of Tiled's manual. Currently, these types of event objects are supported:
 
-* **PlayerSpawn**: These objects define where the player will appear when they start the level or when they die. This must be a Point object, and there must be precisely one of these in every map (no more, no less). These also should be at least one tile away from any tiles that have collision, or else the player might end up out of bounds.
+* **PlayerSpawn**: These objects define where the player will appear when they start the level or when they die. This must be a Point object, and there must be precisely one of these in every map (no more, no less). These also should be at least one tile away from any tiles that have collision, or else the player might clip out of bounds.
 * **Message**: These objects define a message to be shown to the player in a dialog box. These must be Rectangle objects, and they must have a custom string property "message" that contains the text message you wish to show the player. Currently, the message will only be visible while the player is within the trigger area (the rectangle). This system doesn't give the level designer much control yet, so it will likely be expanded in the future. Here are some possible new controls I could add to Tiled (let me know which options you want):
     * Does this message stop the player's movement until they dismiss it? (yes/no checkbox)
     * Should this message only occur once, or every time the player enters the trigger area? (yes/no checkbox)
@@ -70,6 +70,10 @@ Each tile's properties can be edited in the panel on the left side of the progra
 * **collides**: If enabled, this tile will function as a platform/wall. If disabled, the player will pass through this tile (it will basically become background decoration).
 * **ice**: If enabled, this tile will turn on ice physics and thus be very slippery to walk on.
 * **kill**: If enabled, the player will instantly die if they touch this tile.
+
+There will likely be many more custom properties added as game development progresses.
+
+Do not use Tiled's collision editor, as it will have no effect. If you have a tile that does not fill the entire tile space and thus needs custom collision, it will have to be programmed in manually (the physics engine only supports hitboxes that are rectangles or circles, so try to avoid making tiles that could not be easily approximated with those shapes).
 
 To add new tiles, you will need to create a new 32x32 sprite for them and then add it to the spritesheet. I have not yet finished building the system for regenerating the spritesheet, so stay tuned...
 
