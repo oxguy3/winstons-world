@@ -3,12 +3,13 @@
 Revolution No 9ine's game project for DMC 1000 (Foundations of Digital Media) at UC, Fall 2019
 
 ## Installation
-Follow these instructions to set up the game on your own computer. The game should be installable on any OS, but I am on Mac so my instructions for Windows might sometimes be imperfect. (The game should also work fine on Linux, but I'm not going to give Linux-specific instructions most of the time; if you're savvy enough to use Linux, you probably don't need as much help from me.)
+Follow these instructions to set up the game on your own computer. The game should run on any OS, but I am on Mac, so the Windows instructions might not be perfect. (The game should also work fine on Linux, but I'm not going to provide Linux-specific instructions most of the time; if you're savvy enough to use Linux, you probably don't need as much help from me.)
 
 ### Prerequisites
 Before you can run this game on your computer, there's some software you will need. **Windows users:** Unless your computer is literally 10+ years old, use the "64-bit installer" links, not the 32-bit links.
 
 * [GitHub Desktop](https://desktop.github.com) (once you have installed it, be sure to login to your GitHub account)
+    * (If you're experienced with Git, you can use the command-line or another Git client; however, all instructions in this guide will be tailored to GitHub Desktop.)
 * [Node.js](https://nodejs.org/en/download/) (stick with "LTS"; don't select "Current")
 * [Tiled map editor](https://thorbjorn.itch.io/tiled) (they'll try to get you to donate when you click Download, but you can hit "No thanks, just take me to the downloads" to get it for free)
 
@@ -24,10 +25,13 @@ We are using the Tiled map editor to design all our levels. They have documentat
 
 When you open Tiled for the first time, you will first need to go to Preferences (it's under the Tiled menu on Mac or probably the File menu on Windows). Go to General, and then turn on "Embed tilesets" and "Resolve object types and properties".
 
-## Working on the game
-Here's how you can develop on the game, after you have everything installed.
+## Development
+Here's how you can work on the game, after you have everything installed.
 
-**N.B.** Henceforth, when I talk about "the game's main folder", I am referring to the folder where you have the game cloned on your computer. If you are using GitHub Desktop, this will likely be in your Documents folder under `GitHub/`. The folder path will probably be something like `C:\Users\YOURNAME\Documents\GitHub\ktbgame` on Windows, or `/Users/YOURNAME/Documents/GitHub/ktbgame` on Mac.
+**N.B.** Henceforth, when I talk about "the game's main folder", I am referring to the folder where you have the game cloned on your computer. If you are using GitHub Desktop, this will likely be in your Documents folder under `GitHub/`. The folder path will probably be something like this:
+
+* Windows: `C:\Users\YOURNAME\Documents\GitHub\ktbgame`
+* Mac: `/Users/YOURNAME/Documents/GitHub/ktbgame`
 
 ### Learning Git
 Git is an extremely popular tool to manage code/assets/etc used by virtually every modern software project. It's basically like Dropbox or Google Drive or whatever, but with more structure – every time any file is changed, you have to "commit" it and give a description of your changes. The master copy of the game lives on GitHub (a popular Git provider which we're using), and everyone has their own working copy on their computer. You can freely mess with your local copy of the game, and not have to worry about breaking it for everyone else until you're ready to commit your changes.
@@ -38,7 +42,7 @@ GitHub fortunately has a lot of tools and guides to make Git a lot easier to use
 You can run a test server for the game with these commands in your terminal (access the terminal the same way you did during the "Installing the game" section above).
 
 * `npm run play`: Launches the test server and opens it in your web browser.
-* `npm run start`: Launches the test server without opening it in your browser (useful if you already have it open and don't want another tab).
+* `npm run start`: Launches the test server without opening it in your browser (useful if you already have it open and don't want a second tab).
 
 When the game server is running, it will automatically detect when any changes have been made to the game files and refresh your browser page. If the game fails to start or freezes up, there is probably an error. You can view error messages (which typically appear as red text) in your browser's JavaScript (JS) console. You can quickly open the JS console with a keyboard shortcut; [this guide](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools#How_to_open_the_devtools_in_your_browser) shows how to do it on every browser and OS.
 
@@ -80,5 +84,15 @@ Tile collision hitboxes cannot be edited with Tiled; any non-square hitboxes wil
 ### Editing art assets
 Except for tilesets, all images are located in the `src/assets/images/` folder. For existing images, you can edit them to your heart's content in whatever image editor you like, as long as you do not change the size or file format of the image. If there's a new image you would like to add, it will need to be programmed into the game first.
 
-## Building the game
+## Building
 If you have a finished version of the game that you would like to deploy to web, you will first need to make a production build of the game with the command `npm run build`. This will generate a full copy of the game in the `dist/` directory of the game's main folder. You can then upload the contents of `dist/` to any web server and it should just work. This game consists entirely of static files, so you do not need to have any special software on your web server.
+
+## Issues
+Our to-do list is managed on Trello: <https://trello.com/b/GTT4ylWA/ktb-game>
+
+Bug reports and other queries from the public may be submitted as issues here on GitHub.
+
+## License
+Copyright (c) 2019 Revolution No 9ine. All rights reserved.
+
+At present, this software does not have a free or open source license, and is only available for personal use. This may change in the future. Feel free to open an issue if you would like to ask about reusing parts of this software.
