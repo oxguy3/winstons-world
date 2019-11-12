@@ -73,7 +73,7 @@ Each tile's properties can be edited in the panel on the left side of the progra
 
 There will likely be many more custom properties added as game development progresses.
 
-To add new tiles, you will need to create a new 32x32 sprite and place it in the directory for your tileset within `src/assets/tilesets/`. The sprite must be a PNG and it must be named like `X,Y-name.png`, where X and Y are the coordinates where it should appear within the tilesheet, starting from 0. For example, `1,3-whatever.png` would be placed in the 2nd row, 4th column. You'll then need to run `npm run make-tileset`. If you are editing a tileset other than the "default" one, you'll need to specify which tileset you're generating with `npm run make-tileset -- -n "NAME OF TILESET"`.
+To add new tiles, you will need to create a new 32x32 sprite and place it in the directory for your tileset within `src/assets/tilesets/`. The sprite must be a PNG and it must be named like `X,Y-name.png`, where X and Y are the coordinates where it should appear within the tilesheet, starting from 0. For example, `1,3-whatever.png` would be placed in the 2nd row, 4th column. You'll then need to run `npm run make-tilesheet`. If you are editing a tileset other than the "default" one, you'll need to specify which tileset you're generating with `npm run make-tilesheet -- -n "NAME OF TILESET"`.
 
 Tile collision hitboxes cannot be edited with Tiled; any non-square hitboxes will have to be manually programmed in.
 
