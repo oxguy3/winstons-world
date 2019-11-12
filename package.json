@@ -5,7 +5,11 @@
   "scripts": {
     "build": "webpack --config webpack/prod.js",
     "start": "webpack-dev-server --config webpack/base.js",
-    "play": "webpack-dev-server --config webpack/base.js --open"
+    "play": "webpack-dev-server --config webpack/base.js --open",
+    "make-tilesheet": "./bin/make-tilesheet.js -d src/assets/tilesets"
+  },
+  "bin": {
+    "make-tilesheet": "./bin/make-tilesheet.js"
   },
   "repository": {
     "type": "git",
@@ -21,18 +25,21 @@
     "@babel/core": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "babel-loader": "^8.0.6",
+    "chalk": "^3.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "jimp": "^0.8.5",
     "raw-loader": "^3.1.0",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "yargs": "^14.2.0"
   },
   "dependencies": {
     "phaser": "^3.20.1"

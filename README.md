@@ -73,9 +73,9 @@ Each tile's properties can be edited in the panel on the left side of the progra
 
 There will likely be many more custom properties added as game development progresses.
 
-Do not use Tiled's collision editor, as it will have no effect. If you have a tile that does not fill the entire tile space and thus needs custom collision, it will have to be programmed in manually (the physics engine only supports hitboxes that are rectangles or circles, so try to avoid making tiles that could not be easily approximated with those shapes).
+To add new tiles, you will need to create a new 32x32 sprite and place it in the directory for your tileset within `src/assets/tilesets/`. The sprite must be a PNG and it must be named like `X,Y-name.png`, where X and Y are the coordinates where it should appear within the tilesheet, starting from 0. For example, `1,3-whatever.png` would be placed in the 2nd row, 4th column. You'll then need to run `npm run make-tileset`. If you are editing a tileset other than the "default" one, you'll need to specify which tileset you're generating with `npm run make-tileset -- -n "NAME OF TILESET"`.
 
-To add new tiles, you will need to create a new 32x32 sprite for them and then add it to the spritesheet. I have not yet finished building the system for regenerating the spritesheet, so stay tuned...
+Tile collision hitboxes cannot be edited with Tiled; any non-square hitboxes will have to be manually programmed in.
 
 ### Editing art assets
 Except for tilesets, all images are located in the `src/assets/images/` folder. For existing images, you can edit them to your heart's content in whatever image editor you like, as long as you do not change the size or file format of the image. If there's a new image you would like to add, it will need to be programmed into the game first.
