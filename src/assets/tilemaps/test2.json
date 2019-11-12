@@ -23,7 +23,7 @@
                  "id":5,
                  "name":"",
                  "point":true,
-                 "rotation":180,
+                 "rotation":0,
                  "type":"PlayerSpawn",
                  "visible":true,
                  "width":0,
@@ -45,7 +45,7 @@
                  "visible":true,
                  "width":363.31,
                  "x":159.82,
-                 "y":283.9834
+                 "y":283.983
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -63,12 +63,12 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"..\/tilesets\/minecraft-faithful.png",
-         "imageheight":72,
-         "imagewidth":144,
-         "margin":2,
-         "name":"minecraft-faithful",
-         "spacing":4,
+         "image":"..\/tilesets\/default.png",
+         "imageheight":68,
+         "imagewidth":136,
+         "margin":1,
+         "name":"default",
+         "spacing":2,
          "tilecount":8,
          "tileheight":32,
          "tiles":[

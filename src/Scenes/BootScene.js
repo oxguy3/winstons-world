@@ -88,8 +88,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('checkedBox', 'assets/images/ui/blue_boxCheckmark.png');
 
     this.load.image('background', 'assets/images/background.png');
-    this.load.image('spike', 'assets/tilesets/minecraft-faithful/spike_iron_side.png');
-    this.load.image('tiles', 'assets/tilesets/minecraft-faithful.png');
+    this.load.image('tiles', 'assets/tilesets/default.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/test2.json');
     this.load.spritesheet('dude', 'assets/images/dude.png', { frameWidth: 32, frameHeight: 48 });
   }

@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
 
     // create tile map
     const map = this.make.tilemap({ key: 'map' });
-    const tileset = map.addTilesetImage('minecraft-faithful', 'tiles');
+    const tileset = map.addTilesetImage('default', 'tiles');
     const platforms = map.createDynamicLayer('Platforms', tileset, 0, 0);
     platforms.setCollisionByProperty({ collides: true });
 

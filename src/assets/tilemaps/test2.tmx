@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="42" height="51" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="9">
- <tileset firstgid="1" source="../tilesets/minecraft-faithful.tsx"/>
+ <tileset firstgid="1" source="../tilesets/default.tsx"/>
  <layer id="7" name="Platforms" width="42" height="51">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
