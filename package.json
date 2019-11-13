@@ -6,7 +6,7 @@
     "build": "webpack --config webpack/prod.js",
     "start": "webpack-dev-server --config webpack/base.js",
     "play": "webpack-dev-server --config webpack/base.js --open",
-    "make-tilesheet": "./bin/make-tilesheet.js -d src/assets/tilesets"
+    "make-tilesheet": "./bin/make-tilesheet.js -d assets/tilesets"
   },
   "bin": {
     "make-tilesheet": "./bin/make-tilesheet.js"
