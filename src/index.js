@@ -4,7 +4,7 @@ import GameScene from './Scenes/GameScene';
 import BootScene from './Scenes/BootScene';
 import TitleScene from './Scenes/TitleScene';
 import OptionsScene from './Scenes/OptionsScene';
-import './assets/css/style.css';
+import '../assets/css/style.css';
 
 class Game extends Phaser.Game {
   constructor () {

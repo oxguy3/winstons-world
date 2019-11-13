@@ -39,7 +39,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      assets: path.resolve(__dirname, '../src/assets/'),
+      assets: path.resolve(__dirname, '../assets/'),
     }
   },
   devServer: {
@@ -49,8 +49,19 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: 'src/assets',
-        to: 'assets'
+        from: '**/*.png',
+        context: 'assets/images',
+        to: 'assets/images'
+      },
+      {
+        from: '*.json',
+        context: 'assets/tilemaps',
+        to: 'assets/tilemaps'
+      },
+      {
+        from: '*.png',
+        context: 'assets/tilesets',
+        to: 'assets/tilesets'
       },
     ]),
     new CleanWebpackPlugin({
