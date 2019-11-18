@@ -37,11 +37,6 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../dist/')
   },
-  resolve: {
-    alias: {
-      assets: path.resolve(__dirname, '../assets/'),
-    }
-  },
   devServer: {
     contentBase: path.join(__dirname, '../dist/'),
     port: 8000
@@ -62,6 +57,11 @@ module.exports = {
         from: '*.png',
         context: 'assets/tilesets',
         to: 'assets/tilesets'
+      },
+      {
+        from: '**/*',
+        context: 'public',
+        to: './'
       },
     ]),
     new CleanWebpackPlugin({
