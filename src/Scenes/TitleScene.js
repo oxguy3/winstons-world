@@ -23,7 +23,7 @@ export default class TitleScene extends Phaser.Scene {
     this.positionY(titleText);
 
     this.makeButton('Play', function (pointer) {
-      this.scene.start('game');
+      this.scene.start('test2');
     });
     this.makeButton('Options', function (pointer) {
       this.scene.start('options');

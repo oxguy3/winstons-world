@@ -1,7 +1,6 @@
 import 'phaser';
 
 export default {
-  // TODO: disabling WebGL fixes tile texture bleed, but WebGL would be nice to have
   type: Phaser.AUTO,
   render: {
     pixelArt: true
@@ -18,15 +17,6 @@ export default {
     height: 600
   },
   physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 600 },
-      debug: false
-    }
-  }/*,
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  }*/
+    default: 'arcade'
+  }
 };

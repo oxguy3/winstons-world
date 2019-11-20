@@ -12,7 +12,12 @@ class Game extends Phaser.Game {
     this.scene.add('boot', BootScene);
     this.scene.add('title', TitleScene);
     this.scene.add('options', OptionsScene);
-    this.scene.add('game', GameScene);
+
+    let levels = ['test1', 'test2'];
+    for (const i in levels) {
+      const level = levels[i];
+      this.scene.add(level, new GameScene(level));
+    }
     this.scene.start('boot');
   }
 }

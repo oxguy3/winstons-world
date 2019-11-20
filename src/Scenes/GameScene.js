@@ -3,14 +3,25 @@ import ButtonHandler from '../ButtonHandler';
 
 export default class GameScene extends Phaser.Scene {
 
-  constructor () {
-    super('game');
+  constructor (name) {
+    super({
+      key: name,
+      physics: {
+        arcade: {
+          gravity: { y: 600 },
+          debug: false
+        }
+      }
+    });
+  }
+
+  init(data) {
   }
 
   preload() {
   }
 
-  create() {
+  create(data) {
     this.buttons = new ButtonHandler(this.input);
 
     const backgroundImage = this.add.image(0, 0,'background').setOrigin(0, 0);
@@ -122,7 +133,7 @@ export default class GameScene extends Phaser.Scene {
     // this.messageTimer = this.time.delayedCall(2000, function(){}, { paused: true });
   }
 
-  update() {
+  update(time, delta) {
     const walkVel = 160;
     const walkAccel = 800;
     const iceAccel = 120;
