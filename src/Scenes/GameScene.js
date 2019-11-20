@@ -93,19 +93,13 @@ export default class GameScene extends Phaser.Scene {
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
-    this.anims.create({
-      key: 'turn',
-      frames: [ { key: 'dude', frame: 4 } ],
+      key: 'stand',
+      frames: [ { key: 'dude', frame: 0 } ],
       frameRate: 20
     });
     this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+      key: 'walk',
+      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 4 }),
       frameRate: 10,
       repeat: -1
     });
@@ -173,7 +167,8 @@ export default class GameScene extends Phaser.Scene {
           this.player.setAccelerationX(0);
         }
       }
-      this.player.anims.play('left', true);
+      this.player.anims.play('walk', true);
+      this.player.setFlipX(true);
 
     } else if (this.buttons.isDown('right'))  {
       if (onIce) {
@@ -188,14 +183,16 @@ export default class GameScene extends Phaser.Scene {
           this.player.setAccelerationX(0);
         }
       }
-      this.player.anims.play('right', true);
+      this.player.anims.play('walk', true);
+      this.player.setFlipX(false);
 
     } else {
       if (!onIce) {
         this.player.setVelocityX(0);
       }
       this.player.setAccelerationX(0);
-      this.player.anims.play('turn');
+
+      this.player.anims.play('stand');
     }
     if (this.buttons.isDown('jump') && this.player.body.onFloor()) {
         this.player.setVelocityY(-400);
