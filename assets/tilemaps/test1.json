@@ -24,12 +24,12 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"message",
+                         "name":"text",
                          "type":"string",
                          "value":"Ice is slippery, be careful!"
                         }],
                  "rotation":0,
-                 "type":"Message",
+                 "type":"AreaMessage",
                  "visible":true,
                  "width":344.31,
                  "x":159.82,

@@ -1,4 +1,5 @@
 import 'phaser';
+import levels from '../../assets/levels.json';
 
 export default class TitleScene extends Phaser.Scene {
   constructor () {
@@ -10,6 +11,7 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create () {
+    console.log(levels);
 
     let titleText = this.make.text({
       x: this.cameras.main.width / 2,
@@ -23,7 +25,7 @@ export default class TitleScene extends Phaser.Scene {
     this.positionY(titleText);
 
     this.makeButton('Play', function (pointer) {
-      this.scene.start('test2');
+      this.scene.start(levels.start);
     });
     this.makeButton('Options', function (pointer) {
       this.scene.start('options');

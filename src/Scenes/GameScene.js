@@ -6,9 +6,9 @@ import Player from '../Mobs/Player';
 
 export default class GameScene extends Phaser.Scene {
 
-  constructor (name) {
+  constructor (key) {
     super({
-      key: name,
+      key: key,
       physics: {
         arcade: {
           gravity: { y: 600 },
@@ -16,6 +16,7 @@ export default class GameScene extends Phaser.Scene {
         }
       }
     });
+    this.key = key;
 
     this.mobs = null;
     this.player = null;
@@ -39,7 +40,7 @@ export default class GameScene extends Phaser.Scene {
     backgroundImage.setScale(2, 0.8);
 
     // create tile map
-    const map = this.make.tilemap({ key: 'map' });
+    const map = this.make.tilemap({ key: 'tilemap_'+this.key });
     const tileset = map.addTilesetImage('default', 'tiles');
     this.platforms = map.createDynamicLayer('Platforms', tileset, 0, 0);
     this.platforms.setCollisionByProperty({ collides: true });

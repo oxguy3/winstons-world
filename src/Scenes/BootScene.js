@@ -1,4 +1,5 @@
 import 'phaser';
+import levels from '../../assets/levels.json';
 
 export default class BootScene extends Phaser.Scene {
   constructor () {
@@ -91,7 +92,10 @@ export default class BootScene extends Phaser.Scene {
     // load level data
     this.load.image('background', 'assets/images/background.png');
     this.load.image('tiles', 'assets/tilesets/default.png');
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/test2.json');
+    for (const level of levels.list) {
+      this.load.tilemapTiledJSON('tilemap_'+level, 'assets/tilemaps/'+level+'.json');
+    }
+
 
     // load sprites
     this.load.image('placeholder', 'assets/images/placeholder.png');

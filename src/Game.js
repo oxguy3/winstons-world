@@ -6,6 +6,7 @@ import TitleScene from './Scenes/TitleScene';
 import OptionsScene from './Scenes/OptionsScene';
 import UIScene from './Scenes/UIScene';
 import '../assets/css/style.css';
+import levels from '../assets/levels.json';
 
 class Game extends Phaser.Game {
   constructor () {
@@ -15,12 +16,25 @@ class Game extends Phaser.Game {
     this.scene.add('options', OptionsScene);
     this.scene.add('ui', UIScene);
 
-    let levels = ['test1', 'test2'];
-    for (const i in levels) {
-      const level = levels[i];
+    for (const level of levels.list) {
       this.scene.add(level, new GameScene(level));
     }
     this.scene.start('boot');
+  }
+
+  switchLevel(key) {
+    let gameScene = null;
+    for (const scene of this.scene.getScenes(true)) {
+      if (scene instanceof GameScene) {
+        gameScene = scene;
+        break;
+      }
+    }
+    if (gameScene == null) {
+      console.error("Can't switch levels when no level is active");
+    } else {
+      this.scene.switch(gameScene.key, key);
+    }
   }
 }
 
