@@ -12,6 +12,7 @@ export default class Player extends Mob {
     // basic properties
     this.setSize(20, 48);
     this.setOffset(6, 0);
+    this.setDepth(100);
   }
 
   update(time, delta) {
