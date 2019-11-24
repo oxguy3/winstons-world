@@ -4,6 +4,7 @@ import Mob from './Mob';
 export default class Player extends Mob {
   constructor(scene, x, y) {
     super(scene, x, y);
+    this.name = 'Player';
 
     // movement constants
     this.walkVel = 160;

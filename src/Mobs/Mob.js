@@ -3,7 +3,7 @@ import 'phaser';
 export default class Mob extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'placeholder');
-    this.name = this.constructor.name;
+    this.name = 'Mob';
     this.spawnX = x;
     this.spawnY = y;
     this.onIce = false;

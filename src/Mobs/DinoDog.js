@@ -4,6 +4,7 @@ import Mob from './Mob';
 export default class DinoDog extends Mob {
   constructor(scene, x, y) {
     super(scene, x, y);
+    this.name = 'DinoDog';
 
     // override Mob defaults
     this.spriteFlipped = true;
