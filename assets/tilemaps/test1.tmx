@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="9">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="9">
  <properties>
   <property name="background" type="file" value="../images/background.png"/>
  </properties>
@@ -28,14 +28,16 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <objectgroup id="4" name="Events">
-  <object id="5" type="PlayerSpawn" x="64" y="480">
-   <point/>
-  </object>
+ <objectgroup id="4" name="Messages">
   <object id="6" type="Message" x="159.82" y="-15.0166" width="344.31" height="705.781">
    <properties>
     <property name="message" value="Ice is slippery, be careful!"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Mob Spawns">
+  <object id="5" type="Player" x="64" y="480">
+   <point/>
   </object>
  </objectgroup>
 </map>

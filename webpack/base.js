@@ -44,6 +44,11 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       {
+        from: '*.json',
+        context: 'assets',
+        to: 'assets'
+      },
+      {
         from: '**/*.png',
         context: 'assets/images',
         to: 'assets/images'

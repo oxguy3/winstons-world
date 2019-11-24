@@ -82,15 +82,21 @@ export default class BootScene extends Phaser.Scene {
       this.scene.start('title');
     }.bind(this));
 
+    // load UI images
     this.load.image('blueButton1', 'assets/images/ui/blue_button02.png');
     this.load.image('blueButton2', 'assets/images/ui/blue_button03.png');
     this.load.image('box', 'assets/images/ui/grey_box.png');
     this.load.image('checkedBox', 'assets/images/ui/blue_boxCheckmark.png');
 
+    // load level data
     this.load.image('background', 'assets/images/background.png');
     this.load.image('tiles', 'assets/tilesets/default.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/test2.json');
-    this.load.spritesheet('dude', 'assets/images/dude.png', { frameWidth: 32, frameHeight: 48 });
+
+    // load sprites
+    this.load.image('placeholder', 'assets/images/placeholder.png');
+    this.load.pack('sprites', 'assets/spritesheets.json');
+    this.load.animation('spriteAnims', 'assets/animations.json');
   }
 
   create () {
