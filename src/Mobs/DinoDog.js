@@ -15,8 +15,8 @@ export default class DinoDog extends Mob {
     super.init();
 
     // basic properties
-    this.setSize(30, 32);
-    this.setOffset(0, 0);
+    this.setSize(24, 28);
+    this.setOffset(4, 4);
 
     // AI behavior defaults
     this.setData('range', 100);
