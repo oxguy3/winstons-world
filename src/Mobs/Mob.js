@@ -8,6 +8,8 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.spawnY = y;
     this.onIce = false;
     this.alive = true;
+
+    this.killPlayer = false;
   }
 
   /**
@@ -148,5 +150,14 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
   damage(damager) {
     this.alive = false;
     this.setTint(0xff0000);
+  }
+
+  onCollide(obj) {}
+
+  onTileCollide(tile) {
+    if (tile.properties.kill == true) {
+      gameObject.damage(tile);
+    }
+    this.onIce = tile.properties.ice;
   }
 }

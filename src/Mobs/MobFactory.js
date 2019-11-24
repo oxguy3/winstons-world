@@ -28,7 +28,6 @@ export default class MobFactory {
     // add a physics body and enable collision
     this.scene.physics.add.existing(mob, false);
     mob.body.onCollide = true;
-    this.scene.physics.add.collider(mob, this.scene.platforms);
 
     // call the mob's setup function
     mob.init();

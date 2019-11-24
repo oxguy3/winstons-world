@@ -46,4 +46,10 @@ export default class Player extends Mob {
     // camera shake
     this.scene.cameras.main.shake(250, 0.005);
   }
+
+  onCollide(obj) {
+    if (obj.killPlayer) {
+      this.damage(obj);
+    }
+  }
 }

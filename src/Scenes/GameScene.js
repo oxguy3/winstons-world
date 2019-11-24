@@ -48,7 +48,6 @@ export default class GameScene extends Phaser.Scene {
     // set world bounds and configure collision
     this.physics.world.setBounds(this.platforms.x, this.platforms.y, this.platforms.width, this.platforms.height);
     this.physics.world.setBoundsCollision(true, true, true, false);
-    this.physics.world.on('tilecollide', this.onTileCollide);
 
     // spawn all mobs into the level
     const mobSpawns = map.getObjectLayer('Mob Spawns')['objects'];
@@ -69,7 +68,18 @@ export default class GameScene extends Phaser.Scene {
       throw "This map is missing a Player spawn point."
     }
 
-    // handle player spawns and messages
+    // add collision to mobs
+    let mobsGroup = this.physics.add.group(this.mobs);
+    this.physics.add.collider(mobsGroup, this.platforms, function(objA, objB) {
+      if (objA instanceof Mob) { objA.onTileCollide(objB); }
+      if (objB instanceof Mob) { objB.onTileCollide(objA); }
+    });
+    this.physics.add.collider(mobsGroup, mobsGroup, function(objA, objB){
+      objA.onCollide(objB);
+      objB.onCollide(objA);
+    });
+
+    // spawn all message triggers
     const messageObjects = map.getObjectLayer('Messages')['objects'];
     let messageZones = [];
     messageObjects.forEach(msg => {
@@ -154,15 +164,6 @@ export default class GameScene extends Phaser.Scene {
 
     for (const mob of this.mobs) {
       mob.update(time, delta);
-    }
-  }
-
-  onTileCollide(gameObject, tile, body) {
-    if (gameObject instanceof Mob) {
-      if (tile.properties.kill == true) {
-        gameObject.damage(tile);
-      }
-      gameObject.onIce = tile.properties.ice;
     }
   }
 };
