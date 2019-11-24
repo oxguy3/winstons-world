@@ -11,11 +11,14 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
 
     // movement constants
     this.walkVel = 120;
+    this.jumpVel = 350;
     this.iceAccel = 90;
     // is the sprite facing left in the sprite file?
     this.spriteFlipped = false;
     // does the player die if they collide with this mob?
     this.killPlayer = false;
+    // does this mob die if the player jumps on its head?
+    this.vulnerableHead = false;
   }
 
   /**
@@ -26,7 +29,8 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.setOrigin(0.5, 1); // center bottom
     this.setBounce(0.15);
     this.setDamping(true);
-    this.setMaxVelocity(this.walkVel * 2);
+    this.setDepth(10);
+    this.setMaxVelocity(this.walkVel * 2, this.scene.physics.world.gravity.y * 2);
     this.setCollideWorldBounds(true);
     this.walkAccel = this.walkVel * 5;
   }
@@ -107,7 +111,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
       this.setAccelerationX(0);
     }
     if (desires.jump && this.body.onFloor()) {
-      this.setVelocityY(-400);
+      this.setVelocityY(-1 * this.jumpVel);
     }
 
     // ice physics!
@@ -150,8 +154,23 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
   }
 
   damage(damager) {
+    // turns off their AI and interactions with other mobs
     this.alive = false;
-    this.setTint(0xff0000);
+
+    // stop animation, flip em belly up, and turn em red
+    this.playAnim('stand');
+    this.setFlipY(true);
+    this.setTint(0xff7777);
+
+    // render behind everything else
+    this.setDepth(1);
+
+    // fall in a satisfying downward arc
+    this.setMaxVelocity(this.walkVel, this.scene.physics.world.gravity.y * 2);
+    this.setVelocityY(this.jumpVel * -0.5);
+
+    // remove from the mobs physics group, which effectively removes all collision
+    this.scene.mobs.remove(this);
   }
 
   onCollide(obj) {}

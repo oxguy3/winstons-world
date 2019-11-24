@@ -9,6 +9,7 @@ export default class DinoDog extends Mob {
     // override Mob defaults
     this.spriteFlipped = true;
     this.killPlayer = true;
+    this.vulnerableHead = true;
   }
 
   init() {
