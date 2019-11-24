@@ -60,32 +60,39 @@ export default class GameScene extends Phaser.Scene {
 
       if (spawn.type == 'Player') {
         if (this.player != null) {
-          throw "This map has more than one Player spawn point.";
+          throw "This map has too many Player spawn points; there must only be one.";
         }
         this.player = mob;
       }
     });
     if (this.player == null) {
-      throw "This map doesn't have a Player spawn point."
+      throw "This map is missing a Player spawn point."
     }
 
     // handle player spawns and messages
     const messageObjects = map.getObjectLayer('Messages')['objects'];
     let messageZones = [];
     messageObjects.forEach(msg => {
-      if (msg.type == "Message") {
+      if (msg.type == "AreaMessage") {
         if (msg.rectangle !== true) {
-          throw 'Message triggers must be rectangular';
+          throw 'AreaMessages must be rectangles; other shapes are not supported.';
         }
         const zone = new Phaser.GameObjects.Zone(this, msg.x, msg.y, msg.width, msg.height);
         zone.setOrigin(0,0);
         msg.properties.forEach(prop => {
           zone.setData(prop.name, prop.value);
         });
+        if (zone.getData('text') == null) {
+          throw "This map has a message without a 'text' property set."
+        }
         messageZones.push(zone);
 
       } else {
-        throw "Invalid event object with type: "+msg.type;
+        if (msg.type == null || msg.type == '') {
+          throw "This map has a message without a 'type' set (all messages must have a type)."
+        } else {
+          throw "This map has a message with an unknown type: "+msg.type;
+        }
       }
     });
 
@@ -131,7 +138,7 @@ export default class GameScene extends Phaser.Scene {
     let newText = '';
     this.messages.children.iterate(function(msg) {
       if (this.physics.overlap(this.player, msg)) {
-        newText = msg.getData('message');
+        newText = msg.getData('text');
       }
     }, this);
     this.ui.messageText.setText(newText);

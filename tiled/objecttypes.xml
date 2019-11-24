@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="DinoDog" color="#996633"/>
- <objecttype name="Message" color="#1300e4">
-  <property name="message" type="string" default="This is a test message!"/>
+ <objecttype name="AreaMessage" color="#1300e4">
+  <property name="text" type="string" default="This is a test message!"/>
  </objecttype>
+ <objecttype name="DinoDog" color="#996633"/>
  <objecttype name="Player" color="#db0013"/>
 </objecttypes>

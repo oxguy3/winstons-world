@@ -34,9 +34,9 @@
 </data>
  </layer>
  <objectgroup id="4" name="Messages">
-  <object id="6" type="Message" x="159.82" y="283.983" width="393.343" height="294.781">
+  <object id="6" type="AreaMessage" x="159.82" y="283.983" width="393.343" height="294.781">
    <properties>
-    <property name="message" value="Ice is slippery, be careful!"/>
+    <property name="text" value="Ice is slippery, be careful!"/>
    </properties>
   </object>
  </objectgroup>
