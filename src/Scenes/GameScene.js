@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.world.setBoundsCollision(true, true, true, false);
 
     // spawn all mobs into the level
-    const mobSpawns = map.getObjectLayer('Mob Spawns')['objects'];
+    const mobSpawns = map.getObjectLayer('Mobs')['objects'];
     this.mobs = this.physics.add.group();
     this.mobFactory = new MobFactory(this);
     mobSpawns.forEach(spawn => {

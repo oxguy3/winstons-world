@@ -35,7 +35,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Mob Spawns">
+ <objectgroup id="7" name="Mobs">
   <object id="5" type="Player" x="64" y="480">
    <point/>
   </object>

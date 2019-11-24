@@ -40,12 +40,13 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="Mob Spawns">
+ <objectgroup id="8" name="Mobs">
   <object id="5" type="Player" x="64" y="480">
    <point/>
   </object>
   <object id="10" type="DinoDog" x="768" y="480">
    <properties>
+    <property name="goLeft" type="bool" value="true"/>
     <property name="range" type="int" value="100"/>
    </properties>
    <point/>

@@ -15,8 +15,8 @@ export default class Player extends Mob {
     super.init();
 
     // basic properties
-    this.setSize(20, 48);
-    this.setOffset(6, 0);
+    this.setSize(20, 45);
+    this.setOffset(6, 3);
     this.setDepth(100);
   }
 

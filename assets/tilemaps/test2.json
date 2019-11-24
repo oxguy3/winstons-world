@@ -44,7 +44,7 @@
         {
          "draworder":"topdown",
          "id":8,
-         "name":"Mob Spawns",
+         "name":"Mobs",
          "objects":[
                 {
                  "height":0,
@@ -64,6 +64,11 @@
                  "name":"",
                  "point":true,
                  "properties":[
+                        {
+                         "name":"goLeft",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"range",
                          "type":"int",

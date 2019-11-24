@@ -9,9 +9,6 @@ export default class DinoDog extends Mob {
     // override Mob defaults
     this.spriteFlipped = true;
     this.killPlayer = true;
-
-    // AI behavior
-    this.goLeft = true;
   }
 
   init() {
@@ -21,8 +18,9 @@ export default class DinoDog extends Mob {
     this.setSize(30, 32);
     this.setOffset(0, 0);
 
-    // data defaults
+    // AI behavior defaults
     this.setData('range', 100);
+    this.setData('goLeft', true);
   }
 
   update(time, delta) {
@@ -31,11 +29,11 @@ export default class DinoDog extends Mob {
 
   getMovementDesires() {
     const range = this.getData('range');
-    if (this.x < this.spawnX - range) { this.goLeft = false; }
-    if (this.x > this.spawnX + range) { this.goLeft = true; }
+    if (this.x < this.spawnX - range) { this.data.values.goLeft = false; }
+    if (this.x > this.spawnX + range) { this.data.values.goLeft = true; }
     return {
-      left: this.goLeft,
-      right: !this.goLeft,
+      left: this.data.values.goLeft,
+      right: !this.data.values.goLeft,
       jump: false
     };
   }

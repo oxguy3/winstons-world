@@ -4,6 +4,7 @@
   <property name="text" type="string" default="This is a test message!"/>
  </objecttype>
  <objecttype name="DinoDog" color="#996633">
+  <property name="goLeft" type="bool" default="true"/>
   <property name="range" type="int" default="100"/>
  </objecttype>
  <objecttype name="Player" color="#db0013"/>
