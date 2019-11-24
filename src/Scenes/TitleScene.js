@@ -11,8 +11,6 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create () {
-    console.log(levels);
-
     let titleText = this.make.text({
       x: this.cameras.main.width / 2,
       y: 0,
