@@ -55,6 +55,7 @@ export default class Player extends Mob {
   onCollide(obj) {
     if (obj.vulnerableHead && obj.body.touching.up && this.body.touching.down) {
       obj.damage(this);
+      this.setVelocityY(-0.7 * this.jumpVel);
     } else if (obj.killPlayer && obj.alive) {
       this.damage(obj);
     }
