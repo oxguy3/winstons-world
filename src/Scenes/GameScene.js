@@ -22,7 +22,6 @@ export default class GameScene extends Phaser.Scene {
     this.buttons = null;
     this.platforms = null;
     this.messages = null;
-    this.debug = false;
     this.ui = null;
   }
 
@@ -128,18 +127,17 @@ export default class GameScene extends Phaser.Scene {
     var debugKey = this.input.keyboard.addKey('BACKTICK');
     debugKey.on('down', function(event) {
       this.debug = !this.debug;
-      if (this.physics.world.debugGraphic == null) {
-        this.physics.world.createDebugGraphic();
-      }
-      this.physics.world.drawDebug = this.debug;
-      this.physics.world.debugGraphic.active = this.debug;
-      this.physics.world.debugGraphic.visible = this.debug;
     }, this);
 
     // initialize UI
     this.ui = this.scene.get('ui');
     this.scene.launch('ui', { gs: this });
     this.scene.bringToTop('ui');
+
+    // add scene to window for easy debugging
+    if (window) {
+      window.scene = this;
+    }
   }
 
   update(time, delta) {
@@ -165,5 +163,18 @@ export default class GameScene extends Phaser.Scene {
     for (const mob of this.mobs.getChildren()) {
       mob.update(time, delta);
     }
+  }
+
+  get debug() {
+    return this.physics.world.drawDebug;
+  }
+
+  set debug(val) {
+    if (val && this.physics.world.debugGraphic == null) {
+      this.physics.world.createDebugGraphic();
+    }
+    this.physics.world.drawDebug = val;
+    this.physics.world.debugGraphic.active = val;
+    this.physics.world.debugGraphic.visible = val;
   }
 };
