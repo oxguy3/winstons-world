@@ -9,6 +9,12 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.onIce = false;
     this.alive = true;
 
+    // movement constants
+    this.walkVel = 120;
+    this.iceAccel = 90;
+    // is the sprite facing left in the sprite file?
+    this.spriteFlipped = false;
+    // does the player die if they collide with this mob?
     this.killPlayer = false;
   }
 
@@ -20,13 +26,9 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.setOrigin(0.5, 1); // center bottom
     this.setBounce(0.15);
     this.setDamping(true);
-    this.setMaxVelocity(320);
+    this.setMaxVelocity(this.walkVel * 2);
     this.setCollideWorldBounds(true);
-
-    // movement constants
-    this.walkVel = 160;
     this.walkAccel = this.walkVel * 5;
-    this.iceAccel = 120;
   }
 
   /**
@@ -125,7 +127,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
 
     if (desires.left || desires.right) {
       this.playAnim('walk', true);
-      this.setFlipX(desires.left);
+      this.setFlipX(this.spriteFlipped ? desires.right : desires.left);
 
     } else {
       this.playAnim('stand');
@@ -156,7 +158,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
 
   onTileCollide(tile) {
     if (tile.properties.kill == true) {
-      gameObject.damage(tile);
+      this.damage(tile);
     }
     this.onIce = tile.properties.ice;
   }

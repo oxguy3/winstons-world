@@ -63,6 +63,12 @@
                  "id":10,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"range",
+                         "type":"int",
+                         "value":100
+                        }],
                  "rotation":0,
                  "type":"DinoDog",
                  "visible":true,

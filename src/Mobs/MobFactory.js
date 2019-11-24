@@ -11,6 +11,13 @@ export default class MobFactory {
     this.scene = scene;
   }
 
+  /**
+   * Adds a mob to the world
+   *
+   * @param {string} type - name of mob class
+   * @param {number} x - x coordinate to spawn at
+   * @param {number} y - y coordinate to spawn at
+   */
   make(type, x, y) {
     // get the JS class representing this mob
     const mobClass = classes[type];
@@ -26,15 +33,24 @@ export default class MobFactory {
     this.scene.sys.updateList.add(mob);
 
     // add a physics body and enable collision
-    this.scene.physics.add.existing(mob, false);
+    this.scene.mobs.add(mob, false);
     mob.body.onCollide = true;
 
     // call the mob's setup function
     mob.init();
 
-    // add to the scene's mobs list
-    this.scene.mobs.push(mob);
+    return mob;
+  }
 
+  makeFromSpawn(spawn) {
+    let mob = this.make(spawn.type, spawn.x, spawn.y);
+
+    // transfer properties from Tiled -- this MUST happen after mob.init()
+    if (typeof spawn.properties !== 'undefined') {
+      spawn.properties.forEach(prop => {
+        mob.setData(prop.name, prop.value);
+      });
+    }
     return mob;
   }
 }

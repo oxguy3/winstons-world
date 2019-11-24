@@ -17,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    this.mobs = [];
+    this.mobs = null;
     this.player = null;
     this.buttons = null;
     this.platforms = null;
@@ -51,11 +51,12 @@ export default class GameScene extends Phaser.Scene {
 
     // spawn all mobs into the level
     const mobSpawns = map.getObjectLayer('Mob Spawns')['objects'];
-    const mobFactory = new MobFactory(this);
+    this.mobs = this.physics.add.group();
+    this.mobFactory = new MobFactory(this);
     mobSpawns.forEach(spawn => {
 
       // create the mob, initialize it, add physics, etc
-      let mob = mobFactory.make(spawn.type, spawn.x, spawn.y);
+      let mob = this.mobFactory.makeFromSpawn(spawn);
 
       if (spawn.type == 'Player') {
         if (this.player != null) {
@@ -69,12 +70,11 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // add collision to mobs
-    let mobsGroup = this.physics.add.group(this.mobs);
-    this.physics.add.collider(mobsGroup, this.platforms, function(objA, objB) {
+    this.physics.add.collider(this.mobs, this.platforms, function(objA, objB) {
       if (objA instanceof Mob) { objA.onTileCollide(objB); }
       if (objB instanceof Mob) { objB.onTileCollide(objA); }
     });
-    this.physics.add.collider(mobsGroup, mobsGroup, function(objA, objB){
+    this.physics.add.collider(this.mobs, this.mobs, function(objA, objB){
       objA.onCollide(objB);
       objB.onCollide(objA);
     });
@@ -162,7 +162,7 @@ export default class GameScene extends Phaser.Scene {
     //   });
     // }
 
-    for (const mob of this.mobs) {
+    for (const mob of this.mobs.getChildren()) {
       mob.update(time, delta);
     }
   }

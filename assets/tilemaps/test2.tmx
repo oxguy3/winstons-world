@@ -45,6 +45,9 @@
    <point/>
   </object>
   <object id="10" type="DinoDog" x="768" y="480">
+   <properties>
+    <property name="range" type="int" value="100"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>
