@@ -1,5 +1,4 @@
-{ "compressionlevel":-1,
- "height":51,
+{ "height":51,
  "infinite":false,
  "layers":[
         {
@@ -47,23 +46,6 @@
                  "width":363.31,
                  "x":159.82,
                  "y":283.983
-                }, 
-                {
-                 "height":69.9991064248056,
-                 "id":9,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"message",
-                         "type":"string",
-                         "value":"hello"
-                        }],
-                 "rotation":0,
-                 "type":"Message",
-                 "visible":true,
-                 "width":160.41461889018,
-                 "x":705.82432311679,
-                 "y":364.578679295863
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -72,10 +54,10 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":10,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.3.0",
+ "tiledversion":"1.2.5",
  "tileheight":32,
  "tilesets":[
         {

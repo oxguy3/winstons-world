@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.0" name="default" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="8" columns="4">
+<tileset version="1.2" tiledversion="1.2.5" name="default" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="8" columns="4">
  <image source="default.png" width="136" height="68"/>
  <tile id="0" type="dirt">
   <properties>
