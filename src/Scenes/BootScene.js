@@ -93,11 +93,17 @@ export default class BootScene extends Phaser.Scene {
   }
 
   loadAssets() {
-    // load UI images
+    // load UI elements
     this.load.image('blueButton1', 'assets/images/ui/blue_button02.png');
     this.load.image('blueButton2', 'assets/images/ui/blue_button03.png');
     this.load.image('box', 'assets/images/ui/grey_box.png');
     this.load.image('checkedBox', 'assets/images/ui/blue_boxCheckmark.png');
+    this.load.image('dialogBox', 'assets/images/ui/dialogbox.png');
+    this.load.bitmapFont({
+      key: 'fool',
+      textureURL: 'assets/fonts/fool_0.png',
+      fontDataURL: 'assets/fonts/fool.fnt'
+    });
 
     // load level data
     this.load.image('background', 'assets/images/background.png');

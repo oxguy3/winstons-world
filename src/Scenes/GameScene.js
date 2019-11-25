@@ -150,7 +150,7 @@ export default class GameScene extends Phaser.Scene {
         newText = msg.getData('text');
       }
     }, this);
-    this.ui.messageText.setText(newText);
+    this.ui.setMessage(newText);
     // if (newText != oldText && oldText != '') {
     //   let tw = this.tweens.add({
     //     targets: player,

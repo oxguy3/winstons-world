@@ -49,6 +49,11 @@ module.exports = {
         to: 'assets'
       },
       {
+        from: '**/*.{fnt,png}',
+        context: 'assets/fonts',
+        to: 'assets/fonts'
+      },
+      {
         from: '**/*.png',
         context: 'assets/images',
         to: 'assets/images'

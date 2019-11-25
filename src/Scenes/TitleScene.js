@@ -11,15 +11,8 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create () {
-    let titleText = this.make.text({
-      x: this.cameras.main.width / 2,
-      y: 0,
-      text: this.game.config.gameTitle,
-      style: {
-        font: '40px sans-serif',
-        fill: '#ffffff'
-      }
-    });
+    let titleText = this.add.bitmapText(this.cameras.main.width / 2, 0, 'fool', this.game.config.gameTitle, 80);
+    titleText.setTint(0xffbbbb, 0xffbbbb, 0x550000, 0x550000);
     this.positionY(titleText);
 
     this.makeButton('Play', function (pointer) {
@@ -43,7 +36,7 @@ export default class TitleScene extends Phaser.Scene {
     let button = this.add.sprite(this.cameras.main.width/2, 0, 'blueButton1').setInteractive();
     this.positionY(button);
 
-    let buttonText = this.add.text(0, 0, label, { fontSize: '32px', fill: '#fff' });
+    let buttonText = this.add.bitmapText(10, 10, 'fool', label, 32);
     Phaser.Display.Align.In.Center(buttonText, button);
 
     button.on('pointerdown', onpointerdown.bind(this));
