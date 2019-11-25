@@ -1,0 +1,55 @@
+{
+  "anims": [
+
+    {
+      "key": "Player:stand",
+      "frames": [ { "key": "player", "frame": 0 } ]
+    },
+    {
+      "key": "Player:jump",
+      "frames": [ { "key": "player", "frame": 3 } ]
+    },
+    {
+      "key": "Player:fall",
+      "frames": [ { "key": "player", "frame": 1 } ]
+    },
+    {
+      "key": "Player:walk",
+      "frames": [
+        { "key": "player", "frame": 0 },
+        { "key": "player", "frame": 1 },
+        { "key": "player", "frame": 2 },
+        { "key": "player", "frame": 3 },
+        { "key": "player", "frame": 4 }
+      ],
+      "frameRate": 10,
+      "repeat": -1
+    },
+
+    {
+      "key": "DinoDog:stand",
+      "frames": [ { "key": "dinodog", "frame": 0 } ]
+    },
+    {
+      "key": "DinoDog:jump",
+      "frames": [ { "key": "dinodog", "frame": 1 } ]
+    },
+    {
+      "key": "DinoDog:fall",
+      "frames": [ { "key": "dinodog", "frame": 4 } ]
+    },
+    {
+      "key": "DinoDog:walk",
+      "frames": [
+        { "key": "dinodog", "frame": 0 },
+        { "key": "dinodog", "frame": 1 },
+        { "key": "dinodog", "frame": 2 },
+        { "key": "dinodog", "frame": 3 },
+        { "key": "dinodog", "frame": 4 },
+        { "key": "dinodog", "frame": 5 }
+      ],
+      "frameRate": 10,
+      "repeat": -1
+    }
+  ]
+}
