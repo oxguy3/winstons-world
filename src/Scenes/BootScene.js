@@ -1,4 +1,5 @@
 import 'phaser';
+import levels from '../../assets/levels.json';
 
 export default class BootScene extends Phaser.Scene {
   constructor () {
@@ -6,13 +7,18 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
+    this.makeLoadingScreen();
+    this.loadAssets();
+  }
+
+  makeLoadingScreen() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
 
     var titleText = this.make.text({
       x: width / 2,
       y: 150,
-      text: 'Kill the Baby?',
+      text: this.game.config.gameTitle,
       style: {
         font: '40px sans-serif',
         fill: '#ffffff'
@@ -73,26 +79,44 @@ export default class BootScene extends Phaser.Scene {
     });
 
     // remove progress bar when complete
+    this.startScenePromise = this.game.settings.get('startScene');
     this.load.on('complete', function () {
       progressBar.destroy();
       progressBox.destroy();
       loadingText.destroy();
       percentText.destroy();
       assetText.destroy();
-      this.scene.start('title');
-    }.bind(this));
+      this.startScenePromise.then(function(sceneKey) {
+        this.scene.start(sceneKey);
+      }.bind(this));
+    }, this);
+  }
 
+  loadAssets() {
+    // load UI elements
     this.load.image('blueButton1', 'assets/images/ui/blue_button02.png');
     this.load.image('blueButton2', 'assets/images/ui/blue_button03.png');
     this.load.image('box', 'assets/images/ui/grey_box.png');
     this.load.image('checkedBox', 'assets/images/ui/blue_boxCheckmark.png');
+    this.load.image('dialogBox', 'assets/images/ui/dialogbox.png');
+    this.load.bitmapFont({
+      key: 'fool',
+      textureURL: 'assets/fonts/fool_0.png',
+      fontDataURL: 'assets/fonts/fool.fnt'
+    });
 
+    // load level data
     this.load.image('background', 'assets/images/background.png');
     this.load.image('tiles', 'assets/tilesets/default.png');
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/test2.json');
-    this.load.spritesheet('dude', 'assets/images/dude.png', { frameWidth: 32, frameHeight: 48 });
+    for (const level of levels.list) {
+      this.load.tilemapTiledJSON('tilemap_'+level, 'assets/tilemaps/'+level+'.json');
+    }
+
+    // load sprites
+    this.load.image('placeholder', 'assets/images/placeholder.png');
+    this.load.pack('sprites', 'assets/spritesheets.json');
+    this.load.animation('spriteAnims', 'assets/animations.json');
   }
 
-  create () {
-  }
+  create () {}
 };
