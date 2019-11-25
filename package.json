@@ -16,7 +16,7 @@
     "url": "git+https://github.com/oxguy3/ktbgame.git"
   },
   "author": "Revolution No 9ine",
-  "license": "UNLICENSED",
+  "license": "All rights reserved",
   "bugs": {
     "url": "https://github.com/oxguy3/ktbgame/issues"
   },
@@ -42,7 +42,6 @@
     "yargs": "^14.2.0"
   },
   "dependencies": {
-    "localforage": "^1.7.3",
-    "phaser": "^3.21.0"
+    "phaser": "^3.20.1"
   }
 }

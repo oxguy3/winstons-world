@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/Game.js',
+  entry: './src/index.js',
   mode: "development",
   devtool: "eval-source-map",
   module: {
@@ -37,22 +37,17 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../dist/')
   },
+  resolve: {
+    alias: {
+      assets: path.resolve(__dirname, '../assets/'),
+    }
+  },
   devServer: {
     contentBase: path.join(__dirname, '../dist/'),
     port: 8000
   },
   plugins: [
     new CopyWebpackPlugin([
-      {
-        from: '*.json',
-        context: 'assets',
-        to: 'assets'
-      },
-      {
-        from: '**/*.{fnt,png}',
-        context: 'assets/fonts',
-        to: 'assets/fonts'
-      },
       {
         from: '**/*.png',
         context: 'assets/images',
@@ -67,11 +62,6 @@ module.exports = {
         from: '*.png',
         context: 'assets/tilesets',
         to: 'assets/tilesets'
-      },
-      {
-        from: '**/*',
-        context: 'public',
-        to: './'
       },
     ]),
     new CleanWebpackPlugin({
