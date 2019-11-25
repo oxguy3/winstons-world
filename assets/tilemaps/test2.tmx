@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="55" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="14">
- <tileset firstgid="1" source="../../src/assets/tilesets/default.tsx"/>
+ <tileset firstgid="1" source="../tilesets/default.tsx"/>
  <layer id="9" name="Platforms" width="55" height="28">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

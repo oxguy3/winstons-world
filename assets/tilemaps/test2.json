@@ -143,7 +143,7 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"..\/..\/src\/assets\/tilesets\/default.png",
+         "image":"..\/tilesets\/default.png",
          "imageheight":68,
          "imagewidth":136,
          "margin":1,
