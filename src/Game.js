@@ -22,7 +22,7 @@ class Game extends Phaser.Game {
     this.scene.start('boot');
   }
 
-  switchLevel(key) {
+  findGameScene() {
     let gameScene = null;
     for (const scene of this.scene.getScenes(true)) {
       if (scene instanceof GameScene) {
@@ -30,10 +30,24 @@ class Game extends Phaser.Game {
         break;
       }
     }
-    if (gameScene == null) {
+    return gameScene;
+  }
+
+  get level() {
+    let level = this.findGameScene();
+    if (level != null) {
+      return level.key;
+    } else {
+      return null;
+    }
+  }
+
+  set level(key) {
+    let level = this.findGameScene();
+    if (level == null) {
       console.error("Can't switch levels when no level is active");
     } else {
-      this.scene.switch(gameScene.key, key);
+      this.scene.switch(level.key, key);
     }
   }
 }
