@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import config from './config';
+import UserSettings from './Utils/UserSettings'
 import GameScene from './Scenes/GameScene';
 import BootScene from './Scenes/BootScene';
 import TitleScene from './Scenes/TitleScene';
@@ -11,6 +12,9 @@ import levels from '../assets/levels.json';
 class Game extends Phaser.Game {
   constructor () {
     super(config);
+
+    this.settings = new UserSettings();
+
     this.scene.add('boot', BootScene);
     this.scene.add('title', TitleScene);
     this.scene.add('options', OptionsScene);
@@ -31,6 +35,10 @@ class Game extends Phaser.Game {
       }
     }
     return gameScene;
+  }
+
+  get levels() {
+    return levels.list;
   }
 
   get level() {

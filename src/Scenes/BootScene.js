@@ -7,13 +7,18 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload () {
+    this.makeLoadingScreen();
+    this.loadAssets();
+  }
+
+  makeLoadingScreen() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
 
     var titleText = this.make.text({
       x: width / 2,
       y: 150,
-      text: 'Kill the Baby?',
+      text: this.game.config.gameTitle,
       style: {
         font: '40px sans-serif',
         fill: '#ffffff'
@@ -74,15 +79,20 @@ export default class BootScene extends Phaser.Scene {
     });
 
     // remove progress bar when complete
+    this.startScenePromise = this.game.settings.get('startScene');
     this.load.on('complete', function () {
       progressBar.destroy();
       progressBox.destroy();
       loadingText.destroy();
       percentText.destroy();
       assetText.destroy();
-      this.scene.start('title');
-    }.bind(this));
+      this.startScenePromise.then(function(sceneKey) {
+        this.scene.start(sceneKey);
+      }.bind(this));
+    }, this);
+  }
 
+  loadAssets() {
     // load UI images
     this.load.image('blueButton1', 'assets/images/ui/blue_button02.png');
     this.load.image('blueButton2', 'assets/images/ui/blue_button03.png');
@@ -96,13 +106,11 @@ export default class BootScene extends Phaser.Scene {
       this.load.tilemapTiledJSON('tilemap_'+level, 'assets/tilemaps/'+level+'.json');
     }
 
-
     // load sprites
     this.load.image('placeholder', 'assets/images/placeholder.png');
     this.load.pack('sprites', 'assets/spritesheets.json');
     this.load.animation('spriteAnims', 'assets/animations.json');
   }
 
-  create () {
-  }
+  create () {}
 };

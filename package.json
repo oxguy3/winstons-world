@@ -42,6 +42,7 @@
     "yargs": "^14.2.0"
   },
   "dependencies": {
+    "localforage": "^1.7.3",
     "phaser": "^3.20.1"
   }
 }

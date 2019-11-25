@@ -1,5 +1,5 @@
 import 'phaser';
-import ButtonHandler from '../ButtonHandler';
+import ButtonHandler from '../Utils/ButtonHandler';
 import Mob from '../Mobs/Mob';
 import MobFactory from '../Mobs/MobFactory';
 import Player from '../Mobs/Player';

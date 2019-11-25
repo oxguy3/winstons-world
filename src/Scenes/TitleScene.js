@@ -14,7 +14,7 @@ export default class TitleScene extends Phaser.Scene {
     let titleText = this.make.text({
       x: this.cameras.main.width / 2,
       y: 0,
-      text: 'Kill the Baby?',
+      text: this.game.config.gameTitle,
       style: {
         font: '40px sans-serif',
         fill: '#ffffff'
