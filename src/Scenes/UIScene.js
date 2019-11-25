@@ -35,6 +35,10 @@ export default class UIScene extends Phaser.Scene {
       }
       this.fpsCounter.visible = this.gs.debug;
     }
+    if (this.messageText.text.length < this.message.length) {
+      const nextChar = this.message.charAt(this.messageText.text.length);
+      this.messageText.setText(this.messageText.text + nextChar);
+    }
   }
 
   setMessage(text) {
@@ -42,15 +46,15 @@ export default class UIScene extends Phaser.Scene {
     if (text != oldText) {
       this.message = text;
       this.messageText.setText('');
-      this.time.addEvent({
-        delay: 20,
-        repeat: this.message.length,
-        callback: function() {
-          const nextChar = this.message.charAt(this.messageText.text.length);
-          this.messageText.setText(this.messageText.text + nextChar);
-        },
-        callbackScope: this
-      })
+      // this.time.addEvent({
+      //   delay: 20,
+      //   repeat: this.message.length,
+      //   callback: function() {
+      //     const nextChar = this.message.charAt(this.messageText.text.length);
+      //     this.messageText.setText(this.messageText.text + nextChar);
+      //   },
+      //   callbackScope: this
+      // });
 
       const visible = (text != null && text.length != 0);
       this.messageText.setVisible(visible);

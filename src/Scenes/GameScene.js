@@ -121,7 +121,7 @@ export default class GameScene extends Phaser.Scene {
     let camera = this.cameras.main;
     camera.setRoundPixels(true);
     camera.setBounds(this.platforms.x, this.platforms.y, this.platforms.width, this.platforms.height);
-    camera.setDeadzone(200, 400);
+    camera.setDeadzone(200, 200);
     camera.startFollow(this.player);
 
     // debug key
