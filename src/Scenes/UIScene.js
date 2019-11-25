@@ -14,6 +14,8 @@ export default class UIScene extends Phaser.Scene {
       strokeThickness: 4
     });
 
+    this.message = '';
+
     this.messageBox = this.add.image(this.cameras.main.width/2, this.cameras.main.height, 'dialogBox');
     this.messageBox.setOrigin(0.5, 1).setScale(2).setVisible(false);
 
@@ -21,7 +23,7 @@ export default class UIScene extends Phaser.Scene {
     const textY = this.cameras.main.height - this.messageBox.displayHeight + margin;
     this.messageText = this.add.bitmapText(margin, textY, 'fool', '', 32);
     this.messageText.setOrigin(0, 0).setVisible(false);
-    this.messageText.setMaxWidth(this.cameras.main.width - margin*2);
+    // this.messageText.setMaxWidth(this.cameras.main.width - margin*2);
   }
 
   update(time, delta) {
@@ -36,9 +38,20 @@ export default class UIScene extends Phaser.Scene {
   }
 
   setMessage(text) {
-    const oldText = this.messageText.text;
+    const oldText = this.message;
     if (text != oldText) {
-      this.messageText.setText(text);
+      this.message = text;
+      this.messageText.setText('');
+      this.time.addEvent({
+        delay: 20,
+        repeat: this.message.length,
+        callback: function() {
+          const nextChar = this.message.charAt(this.messageText.text.length);
+          this.messageText.setText(this.messageText.text + nextChar);
+        },
+        callbackScope: this
+      })
+
       const visible = (text != null && text.length != 0);
       this.messageText.setVisible(visible);
       this.messageBox.setVisible(visible);
