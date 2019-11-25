@@ -19,7 +19,7 @@
          "name":"Messages",
          "objects":[
                 {
-                 "height":294.781,
+                 "height":261,
                  "id":6,
                  "name":"",
                  "properties":[
@@ -31,9 +31,9 @@
                  "rotation":0,
                  "type":"AreaMessage",
                  "visible":true,
-                 "width":393.343,
-                 "x":159.82,
-                 "y":283.983
+                 "width":355,
+                 "x":166.82,
+                 "y":292.983
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -47,22 +47,68 @@
          "name":"Mobs",
          "objects":[
                 {
-                 "height":0,
-                 "id":5,
+                 "gid":10,
+                 "height":32,
+                 "id":14,
                  "name":"",
-                 "point":true,
+                 "properties":[
+                        {
+                         "name":"goLeft",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"range",
+                         "type":"int",
+                         "value":100
+                        }],
+                 "rotation":0,
+                 "type":"DinoDog",
+                 "visible":true,
+                 "width":32,
+                 "x":768,
+                 "y":512
+                }, 
+                {
+                 "gid":10,
+                 "height":32,
+                 "id":15,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"goLeft",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"range",
+                         "type":"int",
+                         "value":100
+                        }],
+                 "rotation":0,
+                 "type":"DinoDog",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":512
+                }, 
+                {
+                 "gid":9,
+                 "height":48,
+                 "id":16,
+                 "name":"",
                  "rotation":0,
                  "type":"Player",
                  "visible":true,
-                 "width":0,
-                 "x":64,
-                 "y":480
+                 "width":32,
+                 "x":32,
+                 "y":512
                 }, 
                 {
-                 "height":0,
-                 "id":10,
+                 "gid":10,
+                 "height":32,
+                 "id":28,
                  "name":"",
-                 "point":true,
                  "properties":[
                         {
                          "name":"goLeft",
@@ -77,55 +123,9 @@
                  "rotation":0,
                  "type":"DinoDog",
                  "visible":true,
-                 "width":0,
-                 "x":768,
-                 "y":480
-                }, 
-                {
-                 "height":0,
-                 "id":12,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"goLeft",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"range",
-                         "type":"int",
-                         "value":100
-                        }],
-                 "rotation":0,
-                 "type":"DinoDog",
-                 "visible":true,
-                 "width":0,
+                 "width":32,
                  "x":832,
-                 "y":480
-                }, 
-                {
-                 "height":0,
-                 "id":13,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"goLeft",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"range",
-                         "type":"int",
-                         "value":100
-                        }],
-                 "rotation":0,
-                 "type":"DinoDog",
-                 "visible":true,
-                 "width":0,
-                 "x":704,
-                 "y":480
+                 "y":512
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -134,7 +134,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":14,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.5",
@@ -345,6 +345,35 @@
                          "type":"bool",
                          "value":false
                         }]
+                }],
+         "tilewidth":32
+        }, 
+        {
+         "columns":0,
+         "firstgid":9,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"mobs",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":48,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/tilesets\/mobs\/player.png",
+                 "imageheight":48,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":1,
+                 "image":"..\/tilesets\/mobs\/dinodog.png",
+                 "imageheight":32,
+                 "imagewidth":32
                 }],
          "tilewidth":32
         }],

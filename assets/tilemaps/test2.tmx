@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="55" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="14">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="55" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="30">
  <tileset firstgid="1" source="../tilesets/default.tsx"/>
+ <tileset firstgid="9" source="../tilesets/mobs.tsx"/>
  <layer id="9" name="Platforms" width="55" height="28">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -34,36 +35,16 @@
 </data>
  </layer>
  <objectgroup id="4" name="Messages">
-  <object id="6" type="AreaMessage" x="159.82" y="283.983" width="393.343" height="294.781">
+  <object id="6" template="../../tiled/templates/Messages/AreaMessage.tx" x="166.82" y="292.983" width="355" height="261">
    <properties>
     <property name="text" value="Ice is slippery, be careful!"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="8" name="Mobs">
-  <object id="5" type="Player" x="64" y="480">
-   <point/>
-  </object>
-  <object id="10" type="DinoDog" x="768" y="480">
-   <properties>
-    <property name="goLeft" type="bool" value="true"/>
-    <property name="range" type="int" value="100"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="12" type="DinoDog" x="832" y="480">
-   <properties>
-    <property name="goLeft" type="bool" value="true"/>
-    <property name="range" type="int" value="100"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="13" type="DinoDog" x="704" y="480">
-   <properties>
-    <property name="goLeft" type="bool" value="true"/>
-    <property name="range" type="int" value="100"/>
-   </properties>
-   <point/>
-  </object>
+  <object id="14" template="../../tiled/templates/Mobs/DinoDog.tx" x="768" y="512"/>
+  <object id="15" template="../../tiled/templates/Mobs/DinoDog.tx" x="704" y="512"/>
+  <object id="16" template="../../tiled/templates/Mobs/Player.tx" x="32" y="512"/>
+  <object id="28" template="../../tiled/templates/Mobs/DinoDog.tx" x="832" y="512"/>
  </objectgroup>
 </map>

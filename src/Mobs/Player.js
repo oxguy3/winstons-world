@@ -34,9 +34,9 @@ export default class Player extends Mob {
 
   damage(attacker) {
     // reset position and movement
+    this.setVelocity(0, 0);
     this.setPosition(this.spawnX, this.spawnY);
     this.onIce = false;
-    this.setVelocity(0, 0);
 
     // flashing animation
     this.setAlpha(0);

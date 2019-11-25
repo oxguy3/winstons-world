@@ -19,8 +19,8 @@
          "name":"Messages",
          "objects":[
                 {
-                 "height":705.781,
-                 "id":6,
+                 "height":266,
+                 "id":9,
                  "name":"",
                  "properties":[
                         {
@@ -31,9 +31,9 @@
                  "rotation":0,
                  "type":"AreaMessage",
                  "visible":true,
-                 "width":344.31,
-                 "x":159.82,
-                 "y":-15.0166
+                 "width":317,
+                 "x":215,
+                 "y":296
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -47,16 +47,16 @@
          "name":"Mobs",
          "objects":[
                 {
-                 "height":0,
-                 "id":5,
+                 "gid":9,
+                 "height":48,
+                 "id":10,
                  "name":"",
-                 "point":true,
                  "rotation":0,
                  "type":"Player",
                  "visible":true,
-                 "width":0,
+                 "width":32,
                  "x":64,
-                 "y":480
+                 "y":512
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -65,7 +65,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":9,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.5",
@@ -276,6 +276,35 @@
                          "type":"bool",
                          "value":false
                         }]
+                }],
+         "tilewidth":32
+        }, 
+        {
+         "columns":0,
+         "firstgid":9,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"mobs",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":48,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/tilesets\/mobs\/player.png",
+                 "imageheight":48,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":1,
+                 "image":"..\/tilesets\/mobs\/dinodog.png",
+                 "imageheight":32,
+                 "imagewidth":32
                 }],
          "tilewidth":32
         }],
