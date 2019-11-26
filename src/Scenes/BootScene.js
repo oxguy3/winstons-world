@@ -101,8 +101,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('dialogBox', 'assets/images/ui/dialogbox.png');
     this.load.bitmapFont({
       key: 'fool',
-      textureURL: 'assets/fonts/fool_0.png',
-      fontDataURL: 'assets/fonts/fool.fnt'
+      textureURL: 'assets/fonts/foolplus.png',
+      fontDataURL: 'assets/fonts/foolplus.fnt'
     });
 
     // load level data

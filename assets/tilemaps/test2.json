@@ -31,9 +31,26 @@
                  "rotation":0,
                  "type":"AreaMessage",
                  "visible":true,
-                 "width":355,
-                 "x":166.82,
+                 "width":312.565721382736,
+                 "x":209.254278617264,
                  "y":292.983
+                }, 
+                {
+                 "height":228.267853446491,
+                 "id":30,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"Press the <key_w> or <button_up> key to jump. If you are using a gamepad, press <button_a> to jump."
+                        }],
+                 "rotation":0,
+                 "type":"AreaMessage",
+                 "visible":true,
+                 "width":95.3908093562409,
+                 "x":99.3583109087145,
+                 "y":317.739598426827
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -134,7 +151,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":30,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.5",

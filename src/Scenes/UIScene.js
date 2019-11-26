@@ -1,3 +1,5 @@
+import buttonchars from '../Utils/buttonchars';
+
 export default class UIScene extends Phaser.Scene {
 
   constructor () {
@@ -23,7 +25,7 @@ export default class UIScene extends Phaser.Scene {
     const textY = this.cameras.main.height - this.messageBox.displayHeight + margin;
     this.messageText = this.add.bitmapText(margin, textY, 'fool', '', 32);
     this.messageText.setOrigin(0, 0).setVisible(false);
-    // this.messageText.setMaxWidth(this.cameras.main.width - margin*2);
+    this.messageText.setMaxWidth(this.cameras.main.width - margin*2);
   }
 
   update(time, delta) {
@@ -36,12 +38,27 @@ export default class UIScene extends Phaser.Scene {
       this.fpsCounter.visible = this.gs.debug;
     }
     if (this.messageText.text.length < this.message.length) {
-      const nextChar = this.message.charAt(this.messageText.text.length);
+      const nextChar = [...this.message][this.messageText.text.length];
       this.messageText.setText(this.messageText.text + nextChar);
+      // workaround for https://github.com/photonstorm/phaser/issues/4881
+      this.messageText._bounds.maxWidth--;
     }
   }
 
+  convertSymbols(text) {
+    text = text.replace(/<(.*?)>/g, function(match, p1, offset, str) {
+      const index = buttonchars.indexOf(p1);
+      if (index != -1) {
+        return String.fromCodePoint(57344+index);
+      } else {
+        return match;
+      }
+    });
+    return text;
+  }
+
   setMessage(text) {
+    text = this.convertSymbols(text);
     const oldText = this.message;
     if (text != oldText) {
       this.message = text;

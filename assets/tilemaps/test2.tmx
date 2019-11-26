@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="55" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="30">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="55" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="31">
  <tileset firstgid="1" source="../tilesets/default.tsx"/>
  <tileset firstgid="9" source="../tilesets/mobs.tsx"/>
  <layer id="9" name="Platforms" width="55" height="28">
@@ -35,9 +35,14 @@
 </data>
  </layer>
  <objectgroup id="4" name="Messages">
-  <object id="6" template="../../tiled/templates/Messages/AreaMessage.tx" x="166.82" y="292.983" width="355" height="261">
+  <object id="6" template="../../tiled/templates/Messages/AreaMessage.tx" x="209.254" y="292.983" width="312.566" height="261">
    <properties>
     <property name="text" value="Ice is slippery, be careful!"/>
+   </properties>
+  </object>
+  <object id="30" template="../../tiled/templates/Messages/AreaMessage.tx" x="99.3583" y="317.74" width="95.3908" height="228.268">
+   <properties>
+    <property name="text" value="Press the &lt;key_w&gt; or &lt;button_up&gt; key to jump. If you are using a gamepad, press &lt;button_a&gt; to jump."/>
    </properties>
   </object>
  </objectgroup>
