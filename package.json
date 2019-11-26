@@ -16,7 +16,15 @@
     "url": "git+https://github.com/oxguy3/ktbgame.git"
   },
   "author": "Revolution No 9ine",
-  "license": "UNLICENSED",
+  "contributors": [
+    { "name": "Hayden Schiff" },
+    { "name": "Nick Klawitter" },
+    { "name": "Charles Harte" },
+    { "name": "Patsy Schomaeker" },
+    { "name": "Jacob Lightner" },
+    { "name": "Ekow Forson" }
+  ],
+  "license": "MIT OR CC-BY-4.0",
   "bugs": {
     "url": "https://github.com/oxguy3/ktbgame/issues"
   },
