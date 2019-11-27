@@ -1,39 +1,92 @@
-Copyright (c) 2019 Revolution No 9ine. All rights reserved.
+Copyright (c) 2019 Hayden Schiff, Nick Klawitter, Charles Harte, Patsy
+Schomaeker, Jacob Lightner, Ekow Forson
 
-At present, this software does not have a free or open source license, and is
-only available for personal use. This may change in the future. Feel free to
-open an issue if you would like to ask about reusing parts of this software.
+This project is free software.  There is no warranty; not even for
+merchantability or fitness for a particular purpose.
 
+You may use, copy, modify and redistribute all files included in this
+distribution, individually or in aggregate, subject to the terms and conditions
+of the MIT license.  The license is as follows:
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+In addition, you may -- at your option -- use, copy, modify and redistribute all
+files included in this distribution under the directory named `assets`
+according to the terms and conditions of the Creative Commons Attribution 4.0
+International License.  The license details are as follows:
+
+    This work is licensed under a Creative Commons Attribution 4.0 International
+    License. To view a copy of this license, visit:
+    <http://creativecommons.org/licenses/by/4.0/>
+
+This project also includes material from some other creators.  Those licenses
+are listed below.
 
 ------------------------
 phaser3-project-template
 ------------------------
-MIT License
+This project was originally based on this phaser3-project-template.  Little if
+any of this code remains in its original form, but some files, such as config
+files for Webpack or Babel, may still be derived from this template.  The
+template's license is included below:
 
-Copyright (c) 2017 Richard Davey
+    MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    Copyright (c) 2017 Richard Davey
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to
+    deal in the Software without restriction, including without limitation the
+    rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+    sell copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
 
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+    IN THE SOFTWARE.
 
----------
-Fool font
----------
-Source:  <https://arcade.itch.io/fool>
-Author:  Void <http://frankqbe.tumblr.com/>
-License: CC BY 4.0 <https://creativecommons.org/licenses/by/4.0/>
+----
+Fool
+----
+This font is used in much of the game. Besides file format conversions, the font
+has not been modified.  The font's license details are included below:
+
+    Source:  <https://arcade.itch.io/fool>
+    Author:  Void <http://frankqbe.tumblr.com/>
+    License: CC BY 4.0 <https://creativecommons.org/licenses/by/4.0/>
+
+----------------
+Pixel Button Set
+----------------
+A set of textures used to represent keyboard keys and gamepad buttons.  Besides
+file format conversions, the textures have not been modified.  The set's license
+details are included below:
+
+    Source:  <https://egordorichev.itch.io/key-set>
+    Author:  egordorichev
+    License: "Feel free to use it in any free/commercial game, if you want to
+    credit me, that would be nice :)"
