@@ -59,6 +59,11 @@ module.exports = {
         to: 'assets/images'
       },
       {
+        from: '*.{mp3,m4a,ogg,opus}',
+        context: 'assets/sound',
+        to: 'assets/sound'
+      },
+      {
         from: '*.json',
         context: 'assets/tilemaps',
         to: 'assets/tilemaps'

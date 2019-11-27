@@ -153,6 +153,12 @@
  "nextlayerid":10,
  "nextobjectid":31,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"music",
+         "type":"string",
+         "value":"title_screen_theme"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.2.5",
  "tileheight":32,

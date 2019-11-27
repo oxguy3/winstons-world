@@ -24,6 +24,8 @@ export default class GameScene extends Phaser.Scene {
     this.platforms = null;
     this.messages = null;
     this.ui = null;
+    this.properties = [];
+    this.music = null;
   }
 
   init(data) {
@@ -36,14 +38,29 @@ export default class GameScene extends Phaser.Scene {
 
     this.buttons = new ButtonHandler(this.input);
 
+    // retrieve map from file
+    const map = this.make.tilemap({ key: 'tilemap_'+this.key });
+
+    // handle major events
+    for (const evt of ['pause', 'resume', 'shutdown', 'sleep', 'wake']) {
+      this.events.addListener(evt, function() { this.handleEvent(evt); }, this);
+    }
+
+    // create background images
     const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
     backgroundImage.setScale(2, 0.8);
 
-    // create tile map
-    const map = this.make.tilemap({ key: 'tilemap_'+this.key });
+    // add map tiles to level
     const tileset = map.addTilesetImage('default', 'tiles');
     this.platforms = map.createDynamicLayer('Platforms', tileset, 0, 0);
     this.platforms.setCollisionByProperty({ collides: true });
+
+    // save map properties in a simple array
+    if (map.properties && map.properties.length && map.properties.length > 0) {
+      for (const prop of map.properties) {
+        this.properties[prop.name] = prop.value;
+      }
+    }
 
     // set world bounds and configure collision
     this.physics.world.setBounds(this.platforms.x, this.platforms.y, this.platforms.width, this.platforms.height);
@@ -117,6 +134,14 @@ export default class GameScene extends Phaser.Scene {
     this.messages.addMultiple(messageZones, true);
     // this.physics.add.overlap(this.player, this.messages, this.showMessage, null, this);
 
+    // initalize background music
+    if (this.properties.music) {
+      this.music = this.sound.add(this.properties.music, {
+        loop: true
+      });
+      this.music.play();
+    }
+
     // camera follow the player
     let camera = this.cameras.main;
     camera.setRoundPixels(true);
@@ -166,12 +191,35 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
+  handleEvent(type) {
+    if (this.music) {
+      switch (type) {
+        case 'pause':
+          this.music.pause();
+          break;
+        case 'resume':
+          this.music.resume();
+          break;
+        case 'shutdown':
+        case 'sleep':
+          this.music.stop();
+          break;
+        case 'wake':
+          this.music.play();
+          break;
+        default:
+          throw 'Unknown event type: ' +type;
+          break;
+      }
+    }
+  }
+
   get debug() {
     return this.physics.world.drawDebug;
   }
 
   set debug(val) {
-    if (val && this.physics.world.debugGraphic == null) {
+    if (this.physics.world.debugGraphic == null) {
       this.physics.world.createDebugGraphic();
     }
     this.physics.world.drawDebug = val;

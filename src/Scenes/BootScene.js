@@ -116,6 +116,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('placeholder', 'assets/images/placeholder.png');
     this.load.pack('sprites', 'assets/spritesheets.json');
     this.load.animation('spriteAnims', 'assets/animations.json');
+
+    // load audio
+    this.load.pack('sound', 'assets/sound.json');
   }
 
   create () {}
