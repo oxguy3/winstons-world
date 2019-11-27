@@ -31,12 +31,12 @@
                  "rotation":0,
                  "type":"AreaMessage",
                  "visible":true,
-                 "width":312.565721382736,
-                 "x":209.254278617264,
+                 "width":355,
+                 "x":166.82,
                  "y":292.983
                 }, 
                 {
-                 "height":228.267853446491,
+                 "height":228.268,
                  "id":30,
                  "name":"",
                  "properties":[
@@ -48,9 +48,9 @@
                  "rotation":0,
                  "type":"AreaMessage",
                  "visible":true,
-                 "width":95.3908093562409,
-                 "x":99.3583109087145,
-                 "y":317.739598426827
+                 "width":95.3908,
+                 "x":99.3583,
+                 "y":317.74
                 }],
          "opacity":1,
          "type":"objectgroup",
