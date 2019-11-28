@@ -4,7 +4,7 @@
   <property name="music" value="title_screen_theme"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/default.tsx"/>
- <tileset firstgid="9" source="../tilesets/mobs.tsx"/>
+ <tileset firstgid="50" source="../tilesets/mobs.tsx"/>
  <layer id="9" name="Platforms" width="55" height="28">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

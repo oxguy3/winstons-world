@@ -71,9 +71,9 @@ function run(argv) {
   const spacedTilePx = tilePx + spacingPx*2;
   let tileFiles = fs.readdirSync(path.join(baseDir, tilesetName));
   let tiles = [];
-  let totalTilesX = 0;
-  let totalTilesY = 0;
 
+  let validFiles = [];
+  let spacesNeeded = 0;
   for (const i in tileFiles) {
     let filename = tileFiles[i].toString();
     if (!/\.png$/i.test(filename)) {
@@ -81,20 +81,29 @@ function run(argv) {
       continue;
     }
 
-    let match = filename.match(/^(\d+),(\d+)-/i);
+    let match = filename.match(/^(\d+)-/i);
     if (match == null) {
       Log.warn("Skipping %s (not properly named)", filename);
       continue;
     }
-    const posX = parseInt(match[1], 10);
-    const posY = parseInt(match[2], 10);
-    totalTilesX = Math.max(totalTilesX, posX);
-    totalTilesY = Math.max(totalTilesY, posY);
-    const filePath = path.join(baseDir, tilesetName, filename);
+    const id = parseInt(match[1], 10);
+
+    if (validFiles.map(f => f.id).indexOf(id) != -1) {
+      Log.warn("Skipping %s (duplicate id %i)", filename, id);
+      continue;
+    }
+
     Log.info('Adding %s', filename);
+    spacesNeeded = Math.max(spacesNeeded, id + 1);
+    validFiles.push({ id: id, name: filename });
+  }
+
+  const numColumns = 8; //Math.ceil(Math.sqrt(spacesNeeded));
+  const numRows = Math.ceil(spacesNeeded / numColumns);
+  for (const f of validFiles) {
+    const filePath = path.join(baseDir, tilesetName, f.name);
     tiles.push({
       promise: Jimp.read(filePath).then(tile => {
-        //TODO: pad to 34x34
         const img = new Jimp(spacedTilePx, spacedTilePx);
         for (let i = 0; i < spacingPx; i++) {
           img.blit(tile, i, spacingPx, 0, 0, 1, tilePx);
@@ -105,20 +114,20 @@ function run(argv) {
         img.composite(tile, spacingPx, spacingPx);
         return img;
       }),
-      x: posX,
-      y: posY
+      x: f.id % numColumns,
+      y: Math.floor(f.id / numColumns)
     });
   }
 
-  const sheetWidth = spacedTilePx * (totalTilesX + 1);
-  const sheetHeight = spacedTilePx * (totalTilesY + 1);
+  const sheetWidth = spacedTilePx * numRows;
+  const sheetHeight = spacedTilePx * numColumns;
   const sheet = new Jimp(sheetHeight, sheetWidth, 0x00000000);
 
   Promise.all(tiles.map(s => s.promise)).then(images => {
     for (const i in tiles) {
       const tile = tiles[i];
       const image = images[i]
-      sheet.composite(image, tile.y*spacedTilePx, tile.x*spacedTilePx);
+      sheet.composite(image, tile.x*spacedTilePx, tile.y*spacedTilePx);
     }
 
     const outputPath = path.join(baseDir, tilesetName+'.png');
