@@ -17,12 +17,24 @@
   },
   "author": "Revolution No 9ine",
   "contributors": [
-    { "name": "Hayden Schiff" },
-    { "name": "Nick Klawitter" },
-    { "name": "Charles Harte" },
-    { "name": "Patsy Schomaeker" },
-    { "name": "Jacob Lightner" },
-    { "name": "Ekow Forson" }
+    {
+      "name": "Hayden Schiff"
+    },
+    {
+      "name": "Nick Klawitter"
+    },
+    {
+      "name": "Charles Harte"
+    },
+    {
+      "name": "Patsy Schomaeker"
+    },
+    {
+      "name": "Jacob Lightner"
+    },
+    {
+      "name": "Ekow Forson"
+    }
   ],
   "license": "MIT OR CC-BY-4.0",
   "bugs": {
