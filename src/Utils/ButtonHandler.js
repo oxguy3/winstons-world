@@ -41,6 +41,10 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
         keys: [ 'SHIFT' ],
         pad: [ 'R1' ]
       },
+      pause: {
+        keys: [ 'ESC', 'P' ],
+        pad: [ 7 ] // TODO: check that this is actually start
+      },
     };
     let allKeys = [];
     for (const mapping of Object.values(this.mappings)) {
@@ -67,9 +71,16 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
     let pad1 = this.input.gamepad.pad1;
     if (typeof pad1 !== 'undefined') {
       for (const b in mapping.pad) {
-        if (this.input.gamepad.pad1[mapping.pad[b]]) {
-          return true;
+        if (typeof b === 'number') {
+          if (pad1.isButtonDown(b)) {
+            return true;
+          }
+        } else {
+          if (this.input.gamepad.pad1[mapping.pad[b]]) {
+            return true;
+          }
         }
+
       }
       if (typeof mapping.leftStick !== 'undefined') {
         const stickTolerance = 0.1;

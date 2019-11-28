@@ -1,4 +1,5 @@
 import buttonchars from '../Utils/buttonchars';
+import ButtonHandler from '../Utils/ButtonHandler';
 
 export default class UIScene extends Phaser.Scene {
 
@@ -8,6 +9,10 @@ export default class UIScene extends Phaser.Scene {
 
   create (data) {
     this.gs = data.gs;
+
+    // pause button handling
+    this.buttons = new ButtonHandler(this.input);
+    this.isPauseDown = false;
 
     this.fpsCounter = this.add.text(10, 10, '', {
       font: '14px sans-serif',
@@ -50,6 +55,12 @@ export default class UIScene extends Phaser.Scene {
     this.messageText.setOrigin(0, 0).setVisible(false);
     this.messageText.setMaxWidth(camera.width - margin*3 - avatarSize);
 
+    // pause screen
+    this.pauseCover = this.add.rectangle(0, 0, camera.width, camera.height, 0x000000);
+    this.pauseCover.setOrigin(0,0).setAlpha(0.7).setVisible(false);
+
+    this.pauseText = this.add.bitmapText(camera.width/2, camera.height/2, 'fool', 'PAUSED', 64);
+    this.pauseText.setOrigin(0.5, 0.5).setVisible(false);
   }
 
   update(time, delta) {
@@ -67,6 +78,20 @@ export default class UIScene extends Phaser.Scene {
       // workaround for https://github.com/photonstorm/phaser/issues/4881
       this.messageText._bounds.maxWidth--;
     }
+    // if we are pressing pause, and we weren't last tick
+    if (!this.isPauseDown && this.buttons.isDown('pause')) {
+      const willBePaused = !this.gs.sys.isPaused();
+      this.pauseCover.setVisible(willBePaused);
+      this.pauseText.setVisible(willBePaused);
+      if (willBePaused) {
+        this.gs.sys.pause();
+        this.anims.pauseAll();
+      } else {
+        this.gs.sys.resume();
+        this.anims.resumeAll();
+      }
+    }
+    this.isPauseDown = this.buttons.isDown('pause');
   }
 
   convertSymbols(text) {
