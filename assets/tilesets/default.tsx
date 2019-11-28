@@ -15,7 +15,7 @@
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="2" type="grass">
+ <tile id="2" type="grass_T">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
@@ -50,21 +50,21 @@
    <property name="kill" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="7">
+ <tile id="7" type="lava">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="8">
+ <tile id="8" type="grass_TLRB">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="9">
+ <tile id="9" type="grass_TLB">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
@@ -73,7 +73,7 @@
  </tile>
  <tile id="10">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
@@ -83,105 +83,105 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="11">
+ <tile id="11" type="grass_L">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="12">
+ <tile id="12" type="grass_TR">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="13">
+ <tile id="13" type="grass_TRB">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="14">
+ <tile id="14" type="grass_TL">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="15">
+ <tile id="15" type="grass_R">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="16">
+ <tile id="16" type="rockspikes">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="17">
+ <tile id="17" type="sidewalk">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="18">
+ <tile id="18" type="stone">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="19">
+ <tile id="19" type="brokenstone_B">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="20">
+ <tile id="20" type="brokenstone_L">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="21">
+ <tile id="21" type="brokenstone_R">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="22">
+ <tile id="22" type="window">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="23">
+ <tile id="23" type="woodplanks">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="24">
+ <tile id="24" type="deadgrass_T">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="25">
+ <tile id="25" type="deadgrass_TLRB">
   <properties>
    <property name="collides" type="bool" value="true"/>
    <property name="ice" type="bool" value="false"/>
