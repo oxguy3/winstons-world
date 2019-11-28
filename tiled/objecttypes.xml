@@ -8,4 +8,5 @@
   <property name="range" type="int" default="100"/>
  </objecttype>
  <objecttype name="Player" color="#db0013"/>
+ <objecttype name="Worm" color="#21ff06"/>
 </objecttypes>

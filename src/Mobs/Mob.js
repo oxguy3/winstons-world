@@ -27,9 +27,11 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
   init() {
     // basic properties
     this.setOrigin(0.5, 1); // center bottom
+    this.setDepth(10);
+
+    // physics properties
     this.setBounce(0.15);
     this.setDamping(true);
-    this.setDepth(10);
     this.setMaxVelocity(this.walkVel * 2, this.scene.physics.world.gravity.y * 2);
     this.setCollideWorldBounds(true);
     this.walkAccel = this.walkVel * 5;
@@ -130,7 +132,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
   updateAnimation(desires) {
 
     if (desires.left || desires.right) {
-      this.playAnim('walk', true);
+      this.playAnim('walk');
       this.setFlipX(this.spriteFlipped ? desires.right : desires.left);
 
     } else {
@@ -148,7 +150,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
 
   }
 
-  playAnim(animName, ignoreIfPlaying = false, startFrame = 0) {
+  playAnim(animName, ignoreIfPlaying = true, startFrame = 0) {
     const key = this.name + ':' + animName;
     return this.play(key, ignoreIfPlaying, startFrame);
   }
@@ -158,7 +160,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.alive = false;
 
     // stop animation, flip em belly up, and turn em red
-    this.playAnim('stand');
+    this.playAnim('die');
     this.setFlipY(true);
     this.setTint(0xff7777);
 

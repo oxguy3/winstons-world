@@ -2,8 +2,9 @@ import Layer from './Layer';
 import Mob from '../Mobs/Mob';
 import Player from '../Mobs/Player';
 import DinoDog from '../Mobs/DinoDog';
+import Worm from '../Mobs/Worm';
 
-const classes = { Player, DinoDog };
+const classes = { Player, DinoDog, Worm };
 
 export default class MobsLayer extends Layer {
   constructor(scene, layer) {
