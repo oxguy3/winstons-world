@@ -2,7 +2,7 @@ import 'phaser';
 
 export default {
   type: Phaser.AUTO,
-  title: 'Kill the Baby?',
+  title: "Winston's World",
   render: {
     pixelArt: true
   },
