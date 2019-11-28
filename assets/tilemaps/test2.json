@@ -99,29 +99,6 @@
                  "y":512
                 }, 
                 {
-                 "gid":34,
-                 "height":32,
-                 "id":15,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"goLeft",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"range",
-                         "type":"int",
-                         "value":100
-                        }],
-                 "rotation":0,
-                 "type":"DinoDog",
-                 "visible":true,
-                 "width":32,
-                 "x":704,
-                 "y":512
-                }, 
-                {
                  "gid":33,
                  "height":48,
                  "id":16,
@@ -155,6 +132,18 @@
                  "width":32,
                  "x":832,
                  "y":512
+                }, 
+                {
+                 "gid":35,
+                 "height":32,
+                 "id":31,
+                 "name":"",
+                 "rotation":0,
+                 "type":"Worm",
+                 "visible":true,
+                 "width":32,
+                 "x":576,
+                 "y":512
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -163,7 +152,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":31,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -869,7 +858,7 @@
          "margin":0,
          "name":"mobs",
          "spacing":0,
-         "tilecount":2,
+         "tilecount":3,
          "tileheight":48,
          "tiles":[
                 {
@@ -881,6 +870,12 @@
                 {
                  "id":1,
                  "image":"..\/tilesets\/mobs\/dinodog.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":2,
+                 "image":"..\/tilesets\/mobs\/worm.png",
                  "imageheight":32,
                  "imagewidth":32
                 }],

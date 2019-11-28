@@ -36,6 +36,10 @@
       "frameRate": 10,
       "repeat": -1
     },
+    {
+      "key": "Player:die",
+      "frames": [ { "key": "player", "frame": 0 } ]
+    },
 
     {
       "key": "DinoDog:stand",
@@ -61,6 +65,38 @@
       ],
       "frameRate": 10,
       "repeat": -1
+    },
+    {
+      "key": "DinoDog:die",
+      "frames": [ { "key": "dinodog", "frame": 0 } ]
+    },
+
+    {
+      "key": "Worm:stand",
+      "frames": [
+        { "key": "worm", "frame": 0 },
+        { "key": "worm", "frame": 1 },
+        { "key": "worm", "frame": 2 },
+        { "key": "worm", "frame": 3 }
+      ],
+      "frameRate": 4,
+      "repeat": -1
+    },
+    {
+      "key": "Worm:jump",
+      "frames": [ { "key": "worm", "frame": 0 } ]
+    },
+    {
+      "key": "Worm:fall",
+      "frames": [ { "key": "worm", "frame": 0 } ]
+    },
+    {
+      "key": "Worm:walk",
+      "frames": [ { "key": "worm", "frame": 0 } ]
+    },
+    {
+      "key": "Worm:die",
+      "frames": [ { "key": "worm", "frame": 0 } ]
     }
   ]
 }
