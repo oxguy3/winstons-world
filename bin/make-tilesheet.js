@@ -95,15 +95,17 @@ function run(argv) {
 
     Log.info('Adding %s', filename);
     spacesNeeded = Math.max(spacesNeeded, id + 1);
-    validFiles.push({ id: id, name: filename });
+    validFiles[id] = filename;
   }
 
   const numColumns = 8; //Math.ceil(Math.sqrt(spacesNeeded));
   const numRows = Math.ceil(spacesNeeded / numColumns);
-  for (const f of validFiles) {
-    const filePath = path.join(baseDir, tilesetName, f.name);
-    tiles.push({
-      promise: Jimp.read(filePath).then(tile => {
+  for (let i = 0; i < numRows*numColumns; i++) {
+    const filename = validFiles[i];
+    let promise = null;
+    if (filename != null) {
+      const filePath = path.join(baseDir, tilesetName, filename);
+      promise = Jimp.read(filePath).then(tile => {
         const img = new Jimp(spacedTilePx, spacedTilePx);
         for (let i = 0; i < spacingPx; i++) {
           img.blit(tile, i, spacingPx, 0, 0, 1, tilePx);
@@ -113,9 +115,29 @@ function run(argv) {
         }
         img.composite(tile, spacingPx, spacingPx);
         return img;
-      }),
-      x: f.id % numColumns,
-      y: Math.floor(f.id / numColumns)
+      });
+    } else {
+      promise = Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
+        const img = new Jimp(spacedTilePx, spacedTilePx, '#ff00ff');
+        img.print(
+          font,
+          0,
+          0,
+          {
+            text: '?',
+            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+            alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+          },
+          spacedTilePx,
+          spacedTilePx
+        );
+        return img;
+      });
+    }
+    tiles.push({
+      promise: promise,
+      x: i % numColumns,
+      y: Math.floor(i / numColumns)
     });
   }
 
