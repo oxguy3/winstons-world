@@ -169,8 +169,8 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.setMaxVelocity(this.walkVel, this.scene.physics.world.gravity.y * 2);
     this.setVelocityY(this.jumpVel * -0.5);
 
-    // remove from the mobs physics group, which effectively removes all collision
-    this.scene.mobs.remove(this);
+    // announce that we are dead (this will make the MobsLayer remove us from collision)
+    this.emit('damage', this);
   }
 
   onCollide(obj) {}

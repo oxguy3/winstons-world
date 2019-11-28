@@ -1,8 +1,6 @@
 import 'phaser';
 import ButtonHandler from '../Utils/ButtonHandler';
-import Mob from '../Mobs/Mob';
-import MobFactory from '../Mobs/MobFactory';
-import Player from '../Mobs/Player';
+import LayerFactory from '../Layers/LayerFactory';
 import BackgroundMusicManager from '../Utils/BackgroundMusicManager';
 
 export default class GameScene extends Phaser.Scene {
@@ -12,18 +10,15 @@ export default class GameScene extends Phaser.Scene {
       key: key,
       physics: {
         arcade: {
-          gravity: { y: 600 },
-          debug: false
+          gravity: { y: 600 }
         }
       }
     });
     this.key = key;
 
-    this.mobs = null;
     this.player = null;
     this.buttons = null;
-    this.platforms = null;
-    this.messages = null;
+    this.layers = {};
     this.ui = null;
     this.properties = [];
     this.music = null;
@@ -36,20 +31,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data) {
-
+    // input handling
     this.buttons = new ButtonHandler(this.input);
 
     // retrieve map from file
     const map = this.make.tilemap({ key: 'tilemap_'+this.key });
-
-    // create background images
-    const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-    backgroundImage.setScale(2, 0.8);
-
-    // add map tiles to level
     const tileset = map.addTilesetImage('default', 'tiles');
-    this.platforms = map.createDynamicLayer('Platforms', tileset, 0, 0);
-    this.platforms.setCollisionByProperty({ collides: true });
 
     // save map properties in a simple array
     if (map.properties && map.properties.length && map.properties.length > 0) {
@@ -58,77 +45,25 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // set world bounds and configure collision
-    this.physics.world.setBounds(this.platforms.x, this.platforms.y, this.platforms.width, this.platforms.height);
-    this.physics.world.setBoundsCollision(true, true, true, false);
+    // create background image
+    const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+    backgroundImage.setScale(2, 0.8);
 
-    // spawn all mobs into the level
-    const mobSpawns = map.getObjectLayer('Mobs')['objects'];
-    this.mobs = this.physics.add.group();
-    this.mobFactory = new MobFactory(this);
-    mobSpawns.forEach(spawn => {
-
-      // create the mob, initialize it, add physics, etc
-      let mob = this.mobFactory.makeFromSpawn(spawn);
-
-      if (spawn.type == 'Player') {
-        if (this.player != null) {
-          throw "This map has too many Player spawn points; there must only be one.";
-        }
-        this.player = mob;
+    // make layers
+    const addLayer = new LayerFactory(this, map, tileset);
+    this.layers.background = addLayer.background();
+    this.platforms = addLayer.platforms();
+    this.layers.messages = addLayer.messages();
+    this.layers.mobs = addLayer.mobs();
+    for (const key of Object.keys(this.layers)) {
+      if (this.layers[key] == null) {
+        delete this.layers[key];
       }
-    });
-    if (this.player == null) {
-      throw "This map is missing a Player spawn point."
     }
 
-    // add collision to mobs
-    this.physics.add.collider(this.mobs, this.platforms, function(objA, objB) {
-      if (objA instanceof Mob) { objA.onTileCollide(objB); }
-      if (objB instanceof Mob) { objB.onTileCollide(objA); }
-    });
-    this.physics.add.collider(this.mobs, this.mobs, function(objA, objB){
-      objA.onCollide(objB);
-      objB.onCollide(objA);
-    });
-
-    // spawn all message triggers
-    const messageObjects = map.getObjectLayer('Messages')['objects'];
-    let messageZones = [];
-    messageObjects.forEach(msg => {
-      if (msg.type == "AreaMessage") {
-        if (msg.rectangle !== true) {
-          throw 'AreaMessages must be rectangles; other shapes are not supported.';
-        }
-        const zone = new Phaser.GameObjects.Zone(this, msg.x, msg.y, msg.width, msg.height);
-        zone.setOrigin(0,0);
-        msg.properties.forEach(prop => {
-          zone.setData(prop.name, prop.value);
-        });
-        if (zone.getData('text') == null) {
-          throw "This map has a message without a 'text' property set."
-        }
-        messageZones.push(zone);
-
-      } else {
-        if (msg.type == null || msg.type == '') {
-          throw "This map has a message without a 'type' set (all messages must have a type)."
-        } else {
-          throw "This map has a message with an unknown type: "+msg.type;
-        }
-      }
-    });
-
-    // add collision for messages
-    this.messages = this.physics.add.group({
-      visible: true,
-      allowDrag: false,
-      allowGravity: false,
-      allowRotation: false,
-      immovable: true
-    });
-    this.messages.addMultiple(messageZones, true);
-    // this.physics.add.overlap(this.player, this.messages, this.showMessage, null, this);
+    if (this.platforms == null) {
+      throw 'No platforms layer found!';
+    }
 
     // initalize background music
     if (this.properties.music) {
@@ -137,9 +72,10 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // camera follow the player
-    let camera = this.cameras.main;
+    const camera = this.cameras.main;
+    const bounds = this.physics.world.bounds;
     camera.setRoundPixels(true);
-    camera.setBounds(this.platforms.x, this.platforms.y, this.platforms.width, this.platforms.height);
+    camera.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
     camera.setDeadzone(200, 200);
     camera.startFollow(this.player);
 
@@ -161,27 +97,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-
-    // update on-screen message if in a trigger zone
-    let newText = '';
-    this.messages.children.iterate(function(msg) {
-      if (this.physics.overlap(this.player, msg)) {
-        newText = msg.getData('text');
-      }
-    }, this);
-    this.ui.setMessage(newText);
-    // if (newText != oldText && oldText != '') {
-    //   let tw = this.tweens.add({
-    //     targets: player,
-    //     alpha: 1,
-    //     duration: 100,
-    //     ease: 'Linear',
-    //     repeat: 5,
-    //   });
-    // }
-
-    for (const mob of this.mobs.getChildren()) {
-      mob.update(time, delta);
+    this.platforms.update(time, delta);
+    for (const layer of Object.values(this.layers)) {
+      layer.update(time, delta);
     }
   }
 
