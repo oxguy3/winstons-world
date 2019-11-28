@@ -3,6 +3,7 @@ import ButtonHandler from '../Utils/ButtonHandler';
 import Mob from '../Mobs/Mob';
 import MobFactory from '../Mobs/MobFactory';
 import Player from '../Mobs/Player';
+import BackgroundMusicManager from '../Utils/BackgroundMusicManager';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -40,11 +41,6 @@ export default class GameScene extends Phaser.Scene {
 
     // retrieve map from file
     const map = this.make.tilemap({ key: 'tilemap_'+this.key });
-
-    // handle major events
-    for (const evt of ['pause', 'resume', 'shutdown', 'sleep', 'wake']) {
-      this.events.addListener(evt, function() { this.handleEvent(evt); }, this);
-    }
 
     // create background images
     const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
@@ -136,9 +132,7 @@ export default class GameScene extends Phaser.Scene {
 
     // initalize background music
     if (this.properties.music) {
-      this.music = this.sound.add(this.properties.music, {
-        loop: true
-      });
+      this.music = new BackgroundMusicManager(this, this.properties.music);
       this.music.play();
     }
 
@@ -188,29 +182,6 @@ export default class GameScene extends Phaser.Scene {
 
     for (const mob of this.mobs.getChildren()) {
       mob.update(time, delta);
-    }
-  }
-
-  handleEvent(type) {
-    if (this.music) {
-      switch (type) {
-        case 'pause':
-          this.music.pause();
-          break;
-        case 'resume':
-          this.music.resume();
-          break;
-        case 'shutdown':
-        case 'sleep':
-          this.music.stop();
-          break;
-        case 'wake':
-          this.music.play();
-          break;
-        default:
-          throw 'Unknown event type: ' +type;
-          break;
-      }
     }
   }
 

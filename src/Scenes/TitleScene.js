@@ -1,26 +1,28 @@
 import 'phaser';
 import levels from '../../assets/levels.json';
+import BackgroundMusicManager from '../Utils/BackgroundMusicManager';
 
 export default class TitleScene extends Phaser.Scene {
   constructor () {
     super('title');
-  }
-
-  preload () {
     this.nextYPos = 150;
   }
 
+  preload () {}
+
   create () {
+    // make title text
     let titleText = this.add.bitmapText(this.cameras.main.width / 2, 0, 'fool', this.game.config.gameTitle, 80);
     titleText.setTint(0xffbbbb, 0xffbbbb, 0x550000, 0x550000);
     this.positionY(titleText);
 
+    // make buttons
     this.makeButton('Play', function (pointer) {
       this.scene.start(levels.start);
     });
-    this.makeButton('Options', function (pointer) {
-      this.scene.start('options');
-    });
+    // this.makeButton('Options', function (pointer) {
+    //   this.scene.start('options');
+    // });
 
     // hover logic
     this.input.on('pointerover', function (event, gameObjects) {
@@ -30,6 +32,10 @@ export default class TitleScene extends Phaser.Scene {
     this.input.on('pointerout', function (event, gameObjects) {
       gameObjects[0].setTexture('blueButton1');
     });
+
+    // add background music
+    this.music = new BackgroundMusicManager(this, 'title_screen_theme');
+    this.music.play();
   }
 
   makeButton(label, onpointerdown) {
