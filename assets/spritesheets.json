@@ -12,6 +12,12 @@
         "key": "dinodog",
         "url": "assets/images/dinodog.png",
         "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
+      },
+      {
+        "type": "spritesheet",
+        "key": "commander",
+        "url": "assets/images/commander.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
       }
     ]
   }
