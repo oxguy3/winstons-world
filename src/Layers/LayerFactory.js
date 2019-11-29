@@ -30,7 +30,7 @@ export default class LayerFactory {
     let layer = null;
     const dynamicLayer = this.map.createDynamicLayer(name, this.tileset, 0, 0);
     if (dynamicLayer != null) {
-      layer = new clazz(this.scene, dynamicLayer);
+      layer = new clazz(this.scene, dynamicLayer, this.map);
     }
     return layer;
   }
@@ -39,7 +39,7 @@ export default class LayerFactory {
     let layer = null;
     const objectLayer = this.map.getObjectLayer(name);
     if (objectLayer != null) {
-      layer = new clazz(this.scene, objectLayer);
+      layer = new clazz(this.scene, objectLayer, this.map);
     }
     return layer;
   }

@@ -4,8 +4,9 @@ import AreaMessage from '../Messages/AreaMessage';
 import TimedMessage from '../Messages/TimedMessage';
 
 export default class MessagesLayer extends Layer {
-  constructor(scene, layer) {
-    super(scene, layer);
+  constructor(scene, layer, tilemap) {
+    super(scene, layer, tilemap);
+    this.name = "Messages";
 
     const messageObjects = this.layer['objects'];
     this.messages = [];
@@ -18,9 +19,9 @@ export default class MessagesLayer extends Layer {
 
       } else {
         if (obj.type == null || obj.type == '') {
-          throw "This map has a message without a 'type' set (all messages must have a type)."
+          throw this.makeError("Missing 'type'", obj);
         } else {
-          throw "This map has a message with an unknown type: "+obj.type;
+          throw this.makeError("Unknown 'type'", obj);
         }
       }
     });
@@ -49,46 +50,41 @@ export default class MessagesLayer extends Layer {
     for (const msg of this.messages) {
       msg.update(time, delta);
     }
-    /*
-    // update on-screen message if in a trigger zone
-    let newText = '';
-    this.group.children.iterate(function(msg) {
-      if (this.scene.physics.overlap(this.scene.player, msg)) {
-        newText = msg.getData('text');
-      }
-    }, this);
-    this.scene.ui.setMessage(newText);
-    // if (newText != oldText && oldText != '') {
-    //   let tw = this.tweens.add({
-    //     targets: player,
-    //     alpha: 1,
-    //     duration: 100,
-    //     ease: 'Linear',
-    //     repeat: 5,
-    //   });
-    // }
-    */
+  }
+
+  /**
+   * Parse all properties and validate the universal ones (text and repeat)
+   *
+   * @param {Phaser.Types.Tilemaps.TiledObject} obj - message object
+   * @returns {object} properties
+   */
+  parseProperties(obj) {
+    if (obj.rectangle !== true) {
+      throw this.makeError("All messages must be rectangles", obj);
+    }
+    let props = {};
+    obj.properties.forEach(prop => {
+      props[prop.name] = prop.value;
+    });
+    if (props.text == null) {
+      throw this.makeError("Missing 'text' property", obj);
+    }
+    if (props.repeat == null) {
+      throw this.makeError("Missing 'repeat' property", obj);
+    }
+    return props;
   }
 
   /**
    * Creates an AreaMessage from a TiledObject
    *
    * @param {Phaser.Types.Tilemaps.TiledObject} obj - message object
+   * @returns {AreaMessage}
    */
   makeAreaMessage(obj) {
-    if (obj.rectangle !== true) {
-      throw 'AreaMessages must be rectangles; other shapes are not supported.';
-    }
-    let props = [];
-    obj.properties.forEach(prop => {
-      props[prop.name] = prop.value;
-    });
-    const text = props['text'];
-    if (text == null) {
-      throw "This map has an AreaMessage without a 'text' property set."
-    }
+    const props = this.parseProperties(obj);
 
-    const message = new AreaMessage(this.scene, text, obj.x, obj.y, obj.width, obj.height, props['repeat']);
+    const message = new AreaMessage(this.scene, props.text, obj.x, obj.y, obj.width, obj.height, props.repeat);
 
     return message;
   }
@@ -97,25 +93,15 @@ export default class MessagesLayer extends Layer {
    * Creates an TimedMessage from a TiledObject
    *
    * @param {Phaser.Types.Tilemaps.TiledObject} obj - message object
+   * @returns {TimedMessage}
    */
   makeTimedMessage(obj) {
-    if (obj.rectangle !== true) {
-      throw 'TimedMessages must be rectangles; other shapes are not supported.';
-    }
-    let props = [];
-    obj.properties.forEach(prop => {
-      props[prop.name] = prop.value;
-    });
-    const text = props['text'];
-    if (text == null) {
-      throw "This map has a TimedMessage without a 'text' property set."
-    }
-    const duration = props['duration'];
-    if (duration == null) {
-      throw "This map has a TimedMessage without a 'duration' property set."
+    const props = this.parseProperties(obj);
+    if (props.duration == null) {
+      throw this.makeError("Missing 'duration' property", obj);
     }
 
-    const message = new TimedMessage(this.scene, text, duration, obj.x, obj.y, obj.width, obj.height, props['repeat']);
+    const message = new TimedMessage(this.scene, props.text, props.duration, obj.x, obj.y, obj.width, obj.height, props.repeat);
 
     return message;
   }

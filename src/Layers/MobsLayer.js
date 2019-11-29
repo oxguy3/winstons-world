@@ -8,25 +8,26 @@ import Worm from '../Mobs/Worm';
 const classes = { BigButton, DinoDog, Player, Worm };
 
 export default class MobsLayer extends Layer {
-  constructor(scene, layer) {
-    super(scene, layer);
+  constructor(scene, layer, tilemap) {
+    super(scene, layer, tilemap);
+    this.name = "Mobs";
 
     const mobSpawns = layer['objects'];
     this.group = this.scene.physics.add.group();
-    mobSpawns.forEach(spawn => {
+    mobSpawns.forEach(obj => {
 
       // create the mob, initialize it, add physics, etc
-      let mob = this.makeFromSpawn(spawn);
+      let mob = this.make(obj);
 
-      if (spawn.type == 'Player') {
+      if (obj.type == 'Player') {
         if (this.scene.player != null) {
-          throw "This map has too many Player spawn points; there must only be one.";
+          throw this.makeError("Too many Players");
         }
         this.scene.player = mob;
       }
     });
     if (this.scene.player == null) {
-      throw "This map is missing a Player spawn point."
+      throw this.makeError("No Players found");
     }
 
     // add collision to mobs
@@ -50,23 +51,26 @@ export default class MobsLayer extends Layer {
     this.group.remove(mob);
   }
 
+
   /**
-   * Adds a mob to the world
+   * Adds a mob to the world by retrieving data from a TiledObject
    *
-   * @param {string} type - name of mob class
-   * @param {number} x - x coordinate to spawn at
-   * @param {number} y - y coordinate to spawn at
-   * @param {object} properties - (optional) custom properties for this mob type
+   * @param {Phaser.Types.Tilemaps.TiledObject} obj - mob spawn object
+   * @returns {Mob}
    */
-  make(type, x, y, properties={}) {
+  make(obj) {
+    if (obj.type == null || obj.type == '') {
+      throw this.makeError("Missing 'type'", obj);
+    }
+
     // get the JS class representing this mob
-    const mobClass = classes[type];
+    const mobClass = classes[obj.type];
     if (typeof mobClass !== 'function') {
-      throw 'Unknown mob type: ' + type;
+      throw this.makeError("Unknown 'type'", obj);
     }
 
     // instantiate the mob
-    let mob = new mobClass(this.scene, x, y);
+    let mob = new mobClass(this.scene, obj.x, obj.y);
 
     // make Phaser handle this as a Sprite (e.g. animations, etc)
     this.scene.sys.displayList.add(mob);
@@ -77,7 +81,7 @@ export default class MobsLayer extends Layer {
     mob.body.onCollide = true;
 
     // call the mob's setup function
-    mob.init(properties);
+    mob.init(obj.properties);
 
     mob.on('damage', this.onDamage, this);
 
@@ -85,12 +89,22 @@ export default class MobsLayer extends Layer {
   }
 
   /**
-   * Adds a mob to the world by retrieving data from a TiledObject
+   * Shortcut method for manually adding a mob to the world
    *
-   * @param {Phaser.Types.Tilemaps.TiledObject} spawn - mob spawn object
+   * @param {string} type - name of mob class
+   * @param {number} x - x coordinate to spawn at
+   * @param {number} y - y coordinate to spawn at
+   * @param {object} properties - (optional) custom properties for this mob type
+   * @returns {Mob}
    */
-  makeFromSpawn(spawn) {
-    let mob = this.make(spawn.type, spawn.x, spawn.y, spawn.properties);
-    return mob;
+  quickMake(type, x, y, properties={}) {
+    return this.make({
+      id: -1,
+      name: '',
+      type: type,
+      x: x,
+      y: y,
+      properties: properties
+    });
   }
 }

@@ -4,21 +4,21 @@
   <property name="repeat" type="int" default="-1"/>
   <property name="text" type="string" default="This is a test message!"/>
  </objecttype>
- <objecttype name="BigButton" color="#fc0107">
+ <objecttype name="BigButton" color="#000000">
   <property name="messageDuration" type="int" default="-1"/>
   <property name="messageText" type="string"/>
   <property name="playerOnly" type="bool" default="true"/>
   <property name="warpTo" type="string"/>
  </objecttype>
- <objecttype name="DinoDog" color="#996633">
+ <objecttype name="DinoDog" color="#000000">
   <property name="goLeft" type="bool" default="true"/>
   <property name="range" type="int" default="100"/>
  </objecttype>
- <objecttype name="Player" color="#db0013"/>
+ <objecttype name="Player" color="#000000"/>
  <objecttype name="TimedMessage" color="#108001">
   <property name="duration" type="int" default="5000"/>
   <property name="repeat" type="int" default="1"/>
   <property name="text" type="string" default="This is a test message!"/>
  </objecttype>
- <objecttype name="Worm" color="#21ff06"/>
+ <objecttype name="Worm" color="#000000"/>
 </objecttypes>

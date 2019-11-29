@@ -2,6 +2,7 @@ import 'phaser';
 import ButtonHandler from '../Utils/ButtonHandler';
 import LayerFactory from '../Layers/LayerFactory';
 import BackgroundMusicManager from '../Utils/BackgroundMusicManager';
+import TilemapError from '../Errors/TilemapError';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -61,7 +62,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (this.platforms == null) {
-      throw 'No platforms layer found!';
+      throw new TilemapError('Platforms layer is missing', null, null, map);
     }
 
     // initalize background music

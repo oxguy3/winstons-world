@@ -2,8 +2,9 @@ import 'phaser';
 import Layer from './Layer';
 
 export default class PlatformsLayer extends Layer {
-  constructor(scene, layer) {
-    super(scene, layer);
+  constructor(scene, layer, tilemap) {
+    super(scene, layer, tilemap);
+    this.name = "Platforms";
 
     this.layer.setCollisionByProperty({ collides: true });
 

@@ -74,7 +74,7 @@ class Game extends Phaser.Game {
   set level(key) {
     const success = this.setLevel(key);
     if (!success) {
-      console.error("Failed to set level");
+      console.warn("Failed to set level");
     }
     return success ? key : undefined;
   }
