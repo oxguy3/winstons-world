@@ -1,7 +1,7 @@
 {
-  "name": "ktbgame",
+  "name": "Winston's World",
   "version": "1.0.0",
-  "description": "game project for DMC 1000 (Foundations of Digital Media) at UC, Fall 2019",
+  "description": "Video game project for DMC 1000 (Foundations of Digital Media) at UC, Fall 2019",
   "scripts": {
     "build": "webpack --config webpack/prod.js",
     "start": "webpack-dev-server --config webpack/base.js",
@@ -17,24 +17,12 @@
   },
   "author": "Revolution No 9ine",
   "contributors": [
-    {
-      "name": "Hayden Schiff"
-    },
-    {
-      "name": "Nick Klawitter"
-    },
-    {
-      "name": "Charles Harte"
-    },
-    {
-      "name": "Patsy Schomaeker"
-    },
-    {
-      "name": "Jacob Lightner"
-    },
-    {
-      "name": "Ekow Forson"
-    }
+    "Hayden Schiff",
+    "Nick Klawitter",
+    "Charles Harte",
+    "Patsy Schomaeker",
+    "Jacob Lightner",
+    "Ekow Forson"
   ],
   "license": "MIT OR CC-BY-4.0",
   "bugs": {

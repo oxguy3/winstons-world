@@ -87,7 +87,7 @@ module.exports = {
       WEBGL_RENDERER: JSON.stringify(true)
     }),
     new HtmlWebpackPlugin({
-      title: 'Kill the Baby?',
+      title: "Winston's World",
       template: "./src/index.html"
     })
   ]
