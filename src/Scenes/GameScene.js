@@ -15,22 +15,16 @@ export default class GameScene extends Phaser.Scene {
       }
     });
     this.key = key;
-
-    this.player = null;
-    this.buttons = null;
-    this.layers = {};
-    this.ui = null;
-    this.properties = [];
-    this.music = null;
   }
 
-  init(data) {
-  }
+  init(data) {}
 
-  preload() {
-  }
+  preload() {}
 
   create(data) {
+    // initialize some variables
+    this.reset();
+
     // input handling
     this.buttons = new ButtonHandler(this.input);
 
@@ -84,6 +78,44 @@ export default class GameScene extends Phaser.Scene {
     camera.setDeadzone(200, 200);
     camera.startFollow(this.player);
 
+    camera.on('camerafadeoutcomplete', function(camera, effect) {
+      this.game.scene.sendToBack(this.key);
+    }, this);
+
+    // crossfade when transitioning between levels
+    this.events.on('transitionstart', function(fromScene, duration){
+      const initFadeIn = function() {
+        const fadeIn = function() {
+          this.cameras.main.fadeIn(duration);
+        }.bind(this);
+
+        // Set a listener to run the fadeIn once the scene is created, but if
+        // the scene is already created, cancel the listener and run the fadeIn
+        // immediately. We set the listener before checking if we need it to
+        // avoid a race condition (it's fine to run 2 fadeIns but not to run 0).
+        this.events.once('create', fadeIn, this);
+        if (this.sys.isActive()) {
+          this.events.removeListener('create', fadeIn, this);
+          fadeIn();
+        }
+      }.bind(this);
+
+      // if we're switching from another GameScene, we need to wait for it to
+      // fade out before we fade in
+      if (fromScene instanceof GameScene) {
+        duration = duration/2;
+        this.time.delayedCall(duration, initFadeIn, [], this);
+      } else {
+        initFadeIn();
+      }
+    }, this);
+    this.events.on('transitionout', function(targetScene, duration){
+      this.cameras.main.fadeOut(duration/2);
+    }, this);
+
+    // free up all custom variables when stopping this scene
+    this.events.on('shutdown', this.shutdown);
+
     // debug key
     var debugKey = this.input.keyboard.addKey('BACKTICK');
     debugKey.on('down', function(event) {
@@ -97,10 +129,36 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    this.platforms.update(time, delta);
-    for (const layer of Object.values(this.layers)) {
-      layer.update(time, delta);
+    if (this.sys.isActive()) {
+      this.platforms.update(time, delta);
+      for (const layer of Object.values(this.layers)) {
+        layer.update(time, delta);
+      }
     }
+  }
+
+  /**
+   * Initialize custom variables
+   */
+  reset() {
+    this.player = null;
+    this.platforms = null;
+    this.layers = {};
+    this.ui = null;
+    this.properties = [];
+    this.music = null;
+  }
+
+  /**
+   * Free up custom variables
+   */
+  shutdown() {
+    delete this.player;
+    delete this.buttons;
+    delete this.platforms;
+    delete this.layers;
+    delete this.properties;
+    delete this.music;
   }
 
   get debug() {

@@ -6,8 +6,6 @@ export default class BigButton extends Mob {
   constructor(scene, x, y) {
     super(scene, x, y, 'bigbutton');
     this.name = 'BigButton';
-
-    this.isFloor = true;
   }
 
   init(properties) {
@@ -77,7 +75,8 @@ export default class BigButton extends Mob {
       isPressed = isPressed && obj == this.scene.player;
     }
     if (isPressed) {
-      // if we weren't pressed before now, then we must have just been pressed
+      // if we weren't pressed before now, then we've just been pressed, so
+      // activate the button down logic
       if (!this.isPressed) {
         this.onDown();
       }
@@ -89,7 +88,6 @@ export default class BigButton extends Mob {
    * Called when this button is pressed
    */
   onDown() {
-    // console.log('down!'); return;
     const warpTo = this.getData('warpTo');
     const messageText = this.getData('messageText');
     const messageDuration = this.getData('messageDuration');
@@ -98,13 +96,12 @@ export default class BigButton extends Mob {
       const msg = new EventMessage(this.scene, messageText, messageDuration, 1);
       this.scene.ui.addMessage(msg);
       msg.events.on('hide', function() {
-        console.log(warpTo);
-        this.scene.game.level = warpTo;
+        this.scene.game.setLevel(warpTo);
       }, this);
       msg.show();
 
     } else if (warpTo != null) {
-      this.scene.game.level = warpTo;
+      this.scene.game.setLevel(warpTo);
     }
   }
 }

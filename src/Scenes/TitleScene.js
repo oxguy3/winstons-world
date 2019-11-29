@@ -18,7 +18,7 @@ export default class TitleScene extends Phaser.Scene {
 
     // make buttons
     this.makeButton('Play', function (pointer) {
-      this.scene.start(levels.start);
+      this.game.setLevel(levels.start);
     });
     // this.makeButton('Options', function (pointer) {
     //   this.scene.start('options');
