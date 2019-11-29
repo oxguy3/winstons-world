@@ -1,162 +1,113 @@
 import 'phaser';
 
+/**
+ * A game object base class with a number of useful features. Mobs can be kill
+ * or be killed; mobs know where they spawned into the world; and mobs'
+ * animations can be easily defined in assets/animations.json.
+ *
+ * See also WalkingMob, a sub-class which adds a simple movement system.
+ */
 export default class Mob extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
-    super(scene, x, y, 'placeholder');
+  constructor(scene, x, y, texture = 'placeholder', frame=0) {
+    super(scene, x, y, texture, frame);
     this.name = 'Mob';
     this.spawnX = x;
     this.spawnY = y;
-    this.onIce = false;
     this.alive = true;
+    this.onFloorMob = false;
+    // Tracks whether the last tile this mob touched was slippery/ice.
+    // This value is updated for all Mobs, but is currently only utilized by
+    // the WalkingMob class.
+    this.onIce = false;
 
-    // movement constants
-    this.walkVel = 120;
-    this.jumpVel = 350;
-    this.iceAccel = 90;
-    // is the sprite facing left in the sprite file?
+    // PROPERTIES MEANT TO BE OVERRIDDEN
+    // Is the sprite facing left in the sprite file?
     this.spriteFlipped = false;
-    // does the player die if they collide with this mob?
+    // Does the player die if they collide with this mob?
     this.killPlayer = false;
-    // does this mob die if the player jumps on its head?
+    // Does this mob die if the player jumps on its head?
     this.vulnerableHead = false;
   }
 
   /**
    * Called after physics have been added to this game object
    */
-  init() {
+  init(properties) {
     // basic properties
     this.setOrigin(0.5, 1); // center bottom
     this.setDepth(10);
 
     // physics properties
-    this.setBounce(0.15);
-    this.setDamping(true);
-    this.setMaxVelocity(this.walkVel * 2, this.scene.physics.world.gravity.y * 2);
     this.setCollideWorldBounds(true);
-    this.walkAccel = this.walkVel * 5;
+
+    // import custom properties from Tiled
+    this.preIngestData();
+    this.ingestData(properties);
+    this.postIngestData();
   }
+
+  /**
+   * Called before data is ingested from the TiledObject properties. This is
+   * ideal for assigning default values before the real data is ingested.
+   */
+  preIngestData() {}
+
+  /**
+   * Ingests data from TiledObject properties. Before overriding this method,
+   * see if your use case could be handled by the preIngestData() or
+   * postIngestData() methods.
+   *
+   * @param {array} properties - properties from a TiledObject
+   */
+  ingestData(properties) {
+    if (typeof properties !== 'undefined') {
+      properties.forEach(prop => {
+        this.setData(prop.name, prop.value);
+      });
+    }
+  }
+
+  /**
+   * Called after data is ingested from the TiledObject properties. This is
+   * ideal for validating the ingested data.
+   */
+  postIngestData() {}
 
   /**
    * Called every time the Scene updates (in other words, every game tick).
    * See Phaser.Scene.update() for parameter details.
    */
   update(time, delta) {
-    let desires;
 
-    if (this.alive) {
-      desires = this.getMovementDesires();
-    } else {
-      // dead mobs cannot exercise free will
-      desires = {
-        left: false,
-        right: false,
-        jump: false
-      };
-    }
-
-    this.updateMovement(desires);
-    this.updateAnimation(desires);
-  }
-
-  /**
-   * Returns an object that represents how the mob intends to move at this
-   * instant. This is used to calculate movement on every game tick. This
-   * method should be overriden by every class extending Mob.
-   */
-  getMovementDesires() {
-    return {
-      left: false,
-      right: false,
-      jump: false
-    };
-  }
-
-  /**
-   * Handles movement based on desires. This method should NOT be overriden;
-   * instead, override the getMovementDesires() method.
-   */
-  updateMovement(desires) {
-
-    if (desires.left) {
-      if (this.onIce) {
-        this.setAccelerationX(0-this.iceAccel);
-      } else {
-        if (this.body.velocity.x > 0-this.walkVel) {
-          this.setAccelerationX(0-this.walkAccel);
-          if (this.body.velocity.x > 0) {
-            this.setAccelerationX(0-this.walkAccel*3);
-          }
-        } else {
-          this.setAccelerationX(0);
-        }
-      }
-
-    } else if (desires.right)  {
-      if (this.onIce) {
-        this.setAccelerationX(this.iceAccel);
-      } else {
-        if (this.body.velocity.x < this.walkVel) {
-          this.setAccelerationX(this.walkAccel);
-          if (this.body.velocity.x < 0) {
-            this.setAccelerationX(this.walkAccel*3);
-          }
-        } else {
-          this.setAccelerationX(0);
-        }
-      }
-
-    } else {
-      if (!this.onIce) {
-        this.setVelocityX(0);
-      }
-      this.setAccelerationX(0);
-    }
-    if (desires.jump && this.body.onFloor()) {
-      this.setVelocityY(-1 * this.jumpVel);
-    }
-
-    // ice physics!
-    if (this.onIce) {
-      this.setDragX(0.98);
-    } else {
-      this.setDragX(1);
+    // check if we're still on a floor mob
+    if (this.onFloorMob && !this.body.touching.down) {
+      this.onFloorMob = false;
     }
 
     // kill if out of bounds
     if (this.y - 64 > this.scene.physics.world.bounds.bottom) {
       this.damage(this.scene.physics.world);
     }
-  }
 
-  updateAnimation(desires) {
-
-    if (desires.left || desires.right) {
-      this.playAnim('walk');
-      this.setFlipX(this.spriteFlipped ? desires.right : desires.left);
-
-    } else {
-      this.playAnim('stand');
-    }
-
-    // jump animation
-    if (!this.body.onFloor()) {
-      if (this.body.velocity.y > 0) {
-        this.playAnim('jump');
-      } else {
-        this.playAnim('fall');
-      }
-    }
-
+    this.updateAnimation();
   }
 
   playAnim(animName, ignoreIfPlaying = true, startFrame = 0) {
-    const key = this.name + ':' + animName;
+    let key = this.name + ':' + animName;
+    if (!this.scene.anims.exists(key)) {
+      key = this.name + ':default';
+    }
     return this.play(key, ignoreIfPlaying, startFrame);
   }
 
+  getAnimKey() {
+    const key = this.anims.getCurrentKey();
+    const anim = key.split(':')[1];
+    return anim;
+  }
+
   damage(damager) {
-    // turns off their AI and interactions with other mobs
+    // turns off interactions with other mobs
     this.alive = false;
 
     // stop animation, flip em belly up, and turn em red
@@ -164,23 +115,44 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.setFlipY(true);
     this.setTint(0xff7777);
 
-    // render behind everything else
+    // render behind all other mobs
     this.setDepth(1);
 
     // fall in a satisfying downward arc
-    this.setMaxVelocity(this.walkVel, this.scene.physics.world.gravity.y * 2);
-    this.setVelocityY(this.jumpVel * -0.5);
+    if (typeof this.body == Phaser.Physics.Arcade.Body) {
+      this.body.allowGravity = true;
+      this.setVelocityY(-200);
+    }
 
     // announce that we are dead (this will make the MobsLayer remove us from collision)
     this.emit('damage', this);
   }
 
-  onCollide(obj) {}
+  updateAnimation() {
+    this.playAnim('stand', true);
+  }
+
+  onMobCollide(obj) {
+    // if we're on top of an immovable no-gravity mob, treat it like a floor
+    if (this.body.touching.down && obj.body.touching.up) {
+      this.onFloorMob = !obj.body.allowGravity && obj.body.immovable;
+    }
+  }
 
   onTileCollide(tile) {
     if (tile.properties.kill == true) {
       this.damage(tile);
     }
     this.onIce = tile.properties.ice;
+  }
+
+  /**
+   * A replacement for Mob.body.onFloor() which also considers this Mob to be on
+   * a floor if they are on top of an immovable no-gravity Mob
+   */
+  onFloor() {
+    let onFloor = this.body.onFloor();
+    onFloor = onFloor || (this.body.touching.down && this.onFloorMob);
+    return onFloor;
   }
 }

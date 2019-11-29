@@ -1,10 +1,11 @@
 import Layer from './Layer';
 import Mob from '../Mobs/Mob';
-import Player from '../Mobs/Player';
+import BigButton from '../Mobs/BigButton';
 import DinoDog from '../Mobs/DinoDog';
+import Player from '../Mobs/Player';
 import Worm from '../Mobs/Worm';
 
-const classes = { Player, DinoDog, Worm };
+const classes = { BigButton, DinoDog, Player, Worm };
 
 export default class MobsLayer extends Layer {
   constructor(scene, layer) {
@@ -34,8 +35,8 @@ export default class MobsLayer extends Layer {
       if (objB instanceof Mob) { objB.onTileCollide(objA); }
     });
     this.scene.physics.add.collider(this.group, this.group, function(objA, objB){
-      objA.onCollide(objB);
-      objB.onCollide(objA);
+      objA.onMobCollide(objB);
+      objB.onMobCollide(objA);
     });
   }
 
@@ -55,8 +56,9 @@ export default class MobsLayer extends Layer {
    * @param {string} type - name of mob class
    * @param {number} x - x coordinate to spawn at
    * @param {number} y - y coordinate to spawn at
+   * @param {object} properties - (optional) custom properties for this mob type
    */
-  make(type, x, y) {
+  make(type, x, y, properties={}) {
     // get the JS class representing this mob
     const mobClass = classes[type];
     if (typeof mobClass !== 'function') {
@@ -75,22 +77,20 @@ export default class MobsLayer extends Layer {
     mob.body.onCollide = true;
 
     // call the mob's setup function
-    mob.init();
+    mob.init(properties);
 
     mob.on('damage', this.onDamage, this);
 
     return mob;
   }
 
+  /**
+   * Adds a mob to the world by retrieving data from a TiledObject
+   *
+   * @param {Phaser.Types.Tilemaps.TiledObject} spawn - mob spawn object
+   */
   makeFromSpawn(spawn) {
-    let mob = this.make(spawn.type, spawn.x, spawn.y);
-
-    // transfer properties from Tiled -- this MUST happen after mob.init()
-    if (typeof spawn.properties !== 'undefined') {
-      spawn.properties.forEach(prop => {
-        mob.setData(prop.name, prop.value);
-      });
-    }
+    let mob = this.make(spawn.type, spawn.x, spawn.y, spawn.properties);
     return mob;
   }
 }

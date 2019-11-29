@@ -3,7 +3,7 @@ import Mob from './Mob';
 
 export default class Worm extends Mob {
   constructor(scene, x, y) {
-    super(scene, x, y);
+    super(scene, x, y, 'worm');
     this.name = 'Worm';
 
     // override Mob defaults
@@ -21,13 +21,5 @@ export default class Worm extends Mob {
 
   update(time, delta) {
     super.update(time, delta);
-  }
-
-  getMovementDesires() {
-    return {
-      left: false,
-      right: false,
-      jump: false
-    };
   }
 }

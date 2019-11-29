@@ -1,10 +1,12 @@
 import buttonchars from '../Utils/buttonchars';
 import ButtonHandler from '../Utils/ButtonHandler';
+import Message from '../Messages/Message';
 
 export default class UIScene extends Phaser.Scene {
 
   constructor () {
     super({ key: 'ui' });
+    this.messages = [];
   }
 
   create (data) {
@@ -72,12 +74,15 @@ export default class UIScene extends Phaser.Scene {
       }
       this.fpsCounter.visible = this.gs.debug;
     }
+
+    // animate message text appearing char by char
     if (this.messageText.text.length < this.message.length) {
       const nextChar = [...this.message][this.messageText.text.length];
       this.messageText.setText(this.messageText.text + nextChar);
       // workaround for https://github.com/photonstorm/phaser/issues/4881
       this.messageText._bounds.maxWidth--;
     }
+
     // if we are pressing pause, and we weren't last tick
     if (!this.isPauseDown && this.buttons.isDown('pause')) {
       const willBePaused = !this.gs.sys.isPaused();
@@ -106,6 +111,37 @@ export default class UIScene extends Phaser.Scene {
     return text;
   }
 
+  /**
+   * @param {array.Message} messages
+   */
+  initMessages(messages) {
+    // for (const msg of this.messages) {
+    //   msg.events.off('show', null, this);
+    //   msg.events.off('hide', null, this);
+    //   msg.events.off('destroy', null, this);
+    // }
+    // this.messages = [];
+    for (const msg of messages) {
+      this.addMessage(msg);
+    }
+  }
+
+  addMessage(message) {
+    this.messages.push(message);
+    message.events.on('show', function() {
+      this.currentMessage = message;
+      this.setMessage(message.text);
+    }, this);
+    const hideMessage = function() {
+      if (this.currentMessage == message) {
+        this.currentMessage = null;
+        this.unsetMessage();
+      }
+    };
+    message.events.on('hide', hideMessage, this);
+    message.events.on('destroy', hideMessage, this);
+  }
+
   setMessage(text) {
     text = this.convertSymbols(text);
     const oldText = this.message;
@@ -127,5 +163,9 @@ export default class UIScene extends Phaser.Scene {
       this.messageBox.setVisible(visible);
       this.avatar.setVisible(visible);
     }
+  }
+
+  unsetMessage() {
+    this.setMessage('');
   }
 }

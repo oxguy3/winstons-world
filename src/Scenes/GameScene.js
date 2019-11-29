@@ -34,6 +34,11 @@ export default class GameScene extends Phaser.Scene {
     // input handling
     this.buttons = new ButtonHandler(this.input);
 
+    // initialize UI
+    this.ui = this.scene.get('ui');
+    this.scene.launch('ui', { gs: this });
+    this.scene.bringToTop('ui');
+
     // retrieve map from file
     const map = this.make.tilemap({ key: 'tilemap_'+this.key });
     const tileset = map.addTilesetImage('default', 'tiles');
@@ -84,11 +89,6 @@ export default class GameScene extends Phaser.Scene {
     debugKey.on('down', function(event) {
       this.debug = !this.debug;
     }, this);
-
-    // initialize UI
-    this.ui = this.scene.get('ui');
-    this.scene.launch('ui', { gs: this });
-    this.scene.bringToTop('ui');
 
     // add scene to window for easy debugging
     if (window) {

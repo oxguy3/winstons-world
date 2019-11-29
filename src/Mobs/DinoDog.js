@@ -1,9 +1,9 @@
 import 'phaser';
-import Mob from './Mob';
+import WalkingMob from './WalkingMob';
 
-export default class DinoDog extends Mob {
+export default class DinoDog extends WalkingMob {
   constructor(scene, x, y) {
-    super(scene, x, y);
+    super(scene, x, y, 'dinodog');
     this.name = 'DinoDog';
 
     // override Mob defaults
@@ -18,7 +18,9 @@ export default class DinoDog extends Mob {
     // basic properties
     this.setSize(24, 28);
     this.setOffset(4, 4);
+  }
 
+  preIngestData() {
     // AI behavior defaults
     this.setData('range', 100);
     this.setData('goLeft', true);

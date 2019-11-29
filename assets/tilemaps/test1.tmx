@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="11">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="12">
  <tileset firstgid="1" source="../tilesets/default.tsx"/>
- <tileset firstgid="50" source="../tilesets/mobs.tsx"/>
+ <tileset firstgid="33" source="../tilesets/mobs.tsx"/>
  <layer id="5" name="Platforms" width="42" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

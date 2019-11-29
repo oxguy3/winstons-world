@@ -1,9 +1,9 @@
 import 'phaser';
-import Mob from './Mob';
+import WalkingMob from './WalkingMob';
 
-export default class Player extends Mob {
+export default class Player extends WalkingMob {
   constructor(scene, x, y) {
-    super(scene, x, y);
+    super(scene, x, y, 'player');
     this.name = 'Player';
 
     // movement constants
@@ -18,10 +18,6 @@ export default class Player extends Mob {
     this.setSize(20, 45);
     this.setOffset(6, 3);
     this.setDepth(100);
-  }
-
-  update(time, delta) {
-    super.update(time, delta);
   }
 
   getMovementDesires() {
@@ -52,7 +48,9 @@ export default class Player extends Mob {
     this.scene.cameras.main.shake(250, 0.005);
   }
 
-  onCollide(obj) {
+  onMobCollide(obj) {
+    super.onMobCollide(obj);
+
     if (obj.vulnerableHead && obj.body.touching.up && this.body.touching.down) {
       obj.damage(this);
       this.setVelocityY(-0.7 * this.jumpVel);
