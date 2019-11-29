@@ -1,7 +1,7 @@
 /**
  * Error indicating that the game is in a state that shouldn't be possible
  */
-class ImpossibleStateError extends Error {
+export default class ImpossibleStateError extends Error {
   constructor(...params) {
     super(...params);
 
