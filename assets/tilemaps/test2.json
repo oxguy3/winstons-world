@@ -75,7 +75,7 @@
                  "y":312.009
                 }, 
                 {
-                 "height":268.183790421613,
+                 "height":268.184,
                  "id":36,
                  "name":"",
                  "properties":[
@@ -98,8 +98,8 @@
                  "type":"TimedMessage",
                  "visible":true,
                  "width":171,
-                 "x":72.8612361850184,
-                 "y":289.807613589849
+                 "x":72.8612,
+                 "y":289.808
                 }],
          "opacity":1,
          "type":"objectgroup",

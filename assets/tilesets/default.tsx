@@ -188,7 +188,7 @@
    <property name="kill" type="bool" value="false"/>
   </properties>
  </tile>
- <tile id="26">
+ <tile id="26" type="firehydrant">
   <properties>
    <property name="collides" type="bool" value="false"/>
    <property name="ice" type="bool" value="false"/>
