@@ -28,7 +28,7 @@ export default class BigButton extends Mob {
 
   ingestData(properties) {
     properties.forEach(prop => {
-      let hasValue = prop.value != null;;
+      let hasValue = prop.value != null;
       switch(prop.type) {
         case "string":
           hasValue = hasValue && prop.value != "";
@@ -46,7 +46,7 @@ export default class BigButton extends Mob {
   postIngestData() {
     // validate that warpTo level actually exists
     const warpTo = this.getData('warpTo');
-    if (warpTo != null && this.scene.scene.get(warpTo) == null) {
+    if (typeof warpTo !== 'undefined' && this.scene.scene.get(warpTo) == null) {
       throw "This button has a 'warpTo' property set to a non-existent level: "+warpTo;
     }
 
@@ -54,11 +54,11 @@ export default class BigButton extends Mob {
     // and that they're all the right type
     const messageText = this.getData('messageText');
     const messageDuration = this.getData('messageDuration');
-    if ((messageText == null) != (messageDuration == null)) {
+    if ((typeof messageText === 'undefined') != (typeof messageDuration === 'undefined')) {
       throw 'All buttons with messages must have both messageText and messageDuration set (this button only has one of them).';
-    } else if (typeof messageText !== 'string') {
+    } else if (!['string', 'undefined'].includes(typeof messageText)) {
       throw 'This button has a messageText that is not a string.';
-    } else if (typeof messageDuration !== 'number') {
+    } else if (!['number', 'undefined'].includes(typeof messageText)) {
       throw 'This button has a messageDuration that is not a number.';
     }
   }
