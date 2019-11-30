@@ -58,7 +58,7 @@ export default class BigButton extends Mob {
       throw 'All buttons with messages must have both messageText and messageDuration set (this button only has one of them).';
     } else if (!['string', 'undefined'].includes(typeof messageText)) {
       throw 'This button has a messageText that is not a string.';
-    } else if (!['number', 'undefined'].includes(typeof messageText)) {
+    } else if (!['number', 'undefined'].includes(typeof messageDuration)) {
       throw 'This button has a messageDuration that is not a number.';
     }
   }
