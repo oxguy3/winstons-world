@@ -10,6 +10,7 @@ Our to-do list is managed on Trello: <https://trello.com/b/GTT4ylWA/ktb-game>
 Bug reports and other queries from the public may be submitted as issues here on GitHub.
 
 ## License
-Copyright (c) 2019 Revolution No 9ine. All rights reserved.
+Copyright (c) 2019 Hayden Schiff, Nick Klawitter, Charles Harte, and Patsy
+Schomaeker
 
-At present, this software does not have a free or open source license, and is only available for personal use. This may change in the future. Feel free to open an issue if you would like to ask about reusing parts of this software.
+This project is dual-licensed under both the MIT License and the Creative Commons Attribution 4.0 license. See the LICENSE file for details.
