@@ -1,13 +1,16 @@
 import localforage from "localforage";
 
 const types = {
+  // overrides the starting scene of the game, as a shortcut for level designers
   startScene: { default: 'title' },
-  volumeMaster: { default: 1.0 },
-  volumeMusic: { default: 1.0 },
-  volumeSfx: { default: 1.0 },
-  muteMaster: { default: false },
-  muteMusic: { default: false },
-  muteSfx: { default: false },
+  // the last level the user played
+  lastLevel: { default: null }
+  // volumeMaster: { default: 1.0 },
+  // volumeMusic: { default: 1.0 },
+  // volumeSfx: { default: 1.0 },
+  // muteMaster: { default: false },
+  // muteMusic: { default: false },
+  // muteSfx: { default: false },
 };
 
 export default class UserSettings {

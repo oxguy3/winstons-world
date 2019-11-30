@@ -96,12 +96,12 @@ export default class BigButton extends Mob {
       const msg = new EventMessage(this.scene, messageText, messageDuration, 1);
       this.scene.ui.addMessage(msg);
       msg.events.on('hide', function() {
-        this.scene.game.setLevel(warpTo);
+        this.scene.game.setScene(warpTo);
       }, this);
       msg.show();
 
     } else if (warpTo != null) {
-      this.scene.game.setLevel(warpTo);
+      this.scene.game.setScene(warpTo);
     }
   }
 }

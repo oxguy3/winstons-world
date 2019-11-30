@@ -15,29 +15,18 @@ export default class BootScene extends Phaser.Scene {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
 
-    var titleText = this.make.text({
-      x: width / 2,
-      y: 150,
-      text: this.game.config.gameTitle,
-      style: {
-        font: '40px sans-serif',
-        fill: '#ffffff'
-      }
-    });
-    titleText.setOrigin(0.5, 0.5);
-
     // display progress bar
     var progressBar = this.add.graphics();
     var progressBox = this.add.graphics();
-    progressBox.fillStyle(0x222222, 0.8);
+    progressBox.fillStyle(0x550000, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
 
     var loadingText = this.make.text({
       x: width / 2,
-      y: height / 2 - 50,
+      y: height / 2 - 60,
       text: 'Loading...',
       style: {
-        font: '20px monospace',
+        font: '32px sans-serif',
         fill: '#ffffff'
       }
     });
@@ -48,7 +37,7 @@ export default class BootScene extends Phaser.Scene {
       y: height / 2 - 5,
       text: '0%',
       style: {
-        font: '18px monospace',
+        font: '18px sans-serif',
         fill: '#ffffff'
       }
     });
@@ -59,7 +48,7 @@ export default class BootScene extends Phaser.Scene {
       y: height / 2 + 50,
       text: '',
       style: {
-        font: '18px monospace',
+        font: '18px sans-serif',
         fill: '#ffffff'
       }
     });
@@ -108,14 +97,14 @@ export default class BootScene extends Phaser.Scene {
     // load level data
     this.load.image('background', 'assets/images/background.png');
     this.load.image('tiles', 'assets/tilesets/default.png');
-    for (const level of levels.list) {
+    for (const level of Object.keys(levels.list)) {
       this.load.tilemapTiledJSON('tilemap_'+level, 'assets/tilemaps/'+level+'.json');
     }
 
     // load sprites
     this.load.image('placeholder', 'assets/images/placeholder.png');
     this.load.pack('sprites', 'assets/spritesheets.json');
-    this.load.animation('spriteAnims', 'assets/animations.json');
+    this.load.animation('animations', 'assets/animations.json');
 
     // load audio
     this.load.pack('sound', 'assets/sound.json');

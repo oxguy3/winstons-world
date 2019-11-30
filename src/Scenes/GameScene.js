@@ -6,7 +6,7 @@ import TilemapError from '../Errors/TilemapError';
 
 export default class GameScene extends Phaser.Scene {
 
-  constructor (key) {
+  constructor (key, config={}) {
     super({
       key: key,
       physics: {
@@ -16,6 +16,7 @@ export default class GameScene extends Phaser.Scene {
       }
     });
     this.key = key;
+    this.config = config;
   }
 
   init(data) {}
@@ -117,6 +118,11 @@ export default class GameScene extends Phaser.Scene {
     // free up all custom variables when stopping this scene
     this.events.on('shutdown', this.shutdown);
 
+    // update the user's save progress
+    this.game.settings.set('lastLevel', this.key).then(function(key) {
+      console.log(`Saved the user's progress to level '${key}'`)
+    });
+
     // debug key
     var debugKey = this.input.keyboard.addKey('BACKTICK');
     debugKey.on('down', function(event) {
@@ -163,7 +169,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   get debug() {
-    return this.physics.world.drawDebug;
+    return !!(this.physics && this.physics.world && this.physics.world.drawDebug);
   }
 
   set debug(val) {

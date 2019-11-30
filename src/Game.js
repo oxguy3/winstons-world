@@ -21,8 +21,9 @@ class Game extends Phaser.Game {
     this.scene.add('options', OptionsScene);
     this.scene.add('ui', UIScene);
 
-    for (const level of levels.list) {
-      this.scene.add(level, new GameScene(level));
+    for (const key of Object.keys(levels.list)) {
+      const config = levels.list[key];
+      this.scene.add(key, new GameScene(key, config));
     }
     this.scene.start('boot');
   }
@@ -62,17 +63,17 @@ class Game extends Phaser.Game {
   }
 
   /**
-   * Initiates a transition from the current level to a new one
+   * Initiates a transition from the current scene to a new one
    *
    * This setter is convenient for use in the JS console, but otherwise, the
-   * setLevel(key) method is recommended over this.
+   * setScene(key) method is recommended over this.
    *
    * @param {string} key - key of the new GameScene
    * @returns {(string|undefined)} key of the new GameScene, if the transition
    * was successfully started; else, undefined
    */
   set level(key) {
-    const success = this.setLevel(key);
+    const success = this.setScene(key);
     if (!success) {
       console.warn("Failed to set level");
     }
@@ -80,7 +81,7 @@ class Game extends Phaser.Game {
   }
 
   /**
-   * Initiates a transition from the current scene to a GameScene
+   * Initiates a transition from the current scene to another
    *
    * @param {string} key - key of the new GameScene
    * @param {number} [fadeDuration] - how long each fade effect should take (in
@@ -88,7 +89,7 @@ class Game extends Phaser.Game {
    * many fade effects occur (either 1 or 2).
    * @returns {boolean} whether or not the transition was successfully started
    */
-  setLevel(key, fadeDuration=500) {
+  setScene(key, fadeDuration=500) {
     let level = this.findGameScene();
     let scene, duration, sceneName;
     if (level == null) {
