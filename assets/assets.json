@@ -17,11 +17,6 @@
     "files": [
       {
         "type": "image",
-        "key": "background",
-        "url": "assets/images/background.png"
-      },
-      {
-        "type": "image",
         "key": "placeholder",
         "url": "assets/images/placeholder.png"
       },
