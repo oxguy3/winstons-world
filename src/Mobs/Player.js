@@ -32,7 +32,6 @@ export default class Player extends WalkingMob {
       this.scene.game.settings.get('alwaysIce'),
       this.scene.game.settings.get('flippedControls')
     ]).then(function(values) {
-      console.log(values);
       this.alwaysIce = values[0];
       this.flippedControls = values[1];
     }.bind(this));
