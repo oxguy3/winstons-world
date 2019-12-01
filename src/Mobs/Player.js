@@ -34,6 +34,9 @@ export default class Player extends WalkingMob {
     this.setPosition(this.spawnX, this.spawnY);
     this.onIce = false;
 
+    // sound effect
+    this.scene.sound.play('sfx_death', { volume: 0.7 });
+
     // flashing animation
     this.setAlpha(0);
     let tw = this.scene.tweens.add({
@@ -54,6 +57,8 @@ export default class Player extends WalkingMob {
     if (obj.vulnerableHead && obj.body.touching.up && this.body.touching.down) {
       obj.damage(this);
       this.setVelocityY(-0.7 * this.jumpVel);
+
+      this.scene.sound.play('sfx_enemy_stomp');
     } else if (obj.killPlayer && obj.alive) {
       this.damage(obj);
     }

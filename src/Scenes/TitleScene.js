@@ -55,22 +55,27 @@ export default class TitleScene extends Phaser.Scene {
     // hover logic
     const hoverHeightDiff = 4;
     this.input.on('pointerover', function (event, gameObjects) {
+      // update button texture
       const button = gameObjects[0];
       button.setTexture('ui_button_hover');
-      button.setY(button.y + hoverHeightDiff);
 
+      // reposition based on hover texture
       const buttonText = button.getData('text');
-      // buttonText.setTint(0x000000);
+      button.setY(button.y + hoverHeightDiff);
       buttonText.setY(buttonText.y + hoverHeightDiff);
+
+      // sound effect
+      this.sound.play('sfx_mouse');
     }, this);
 
     this.input.on('pointerout', function (event, gameObjects) {
+      // update button texture
       const button = gameObjects[0];
       button.setTexture('ui_button');
-      button.setY(button.y - hoverHeightDiff);
 
+      // reposition based on non-hover texture
       const buttonText = button.getData('text');
-      // buttonText.setTint(0xffffff);
+      button.setY(button.y - hoverHeightDiff);
       buttonText.setY(buttonText.y - hoverHeightDiff);
     }, this);
 

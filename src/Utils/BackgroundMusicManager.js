@@ -60,7 +60,7 @@ export default class BackgroundMusicManager {
   }
 
   play() {
-    return this.music.play();
+    return this.music.play({ volume: 0.4 });
   }
 
   stop() {
