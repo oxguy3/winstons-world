@@ -4,8 +4,10 @@ import UserSettings from './Utils/UserSettings'
 import GameScene from './Scenes/GameScene';
 import BootScene from './Scenes/BootScene';
 import TitleScene from './Scenes/TitleScene';
+import CreditsScene from './Scenes/CreditsScene';
 import OptionsScene from './Scenes/OptionsScene';
 import UIScene from './Scenes/UIScene';
+import BackgroundScene from './Scenes/BackgroundScene';
 import ImpossibleStateError from './Errors/ImpossibleStateError';
 import '../assets/css/style.css';
 import levels from '../assets/levels.json';
@@ -18,8 +20,10 @@ class Game extends Phaser.Game {
 
     this.scene.add('boot', BootScene);
     this.scene.add('title', TitleScene);
+    this.scene.add('credits', CreditsScene);
     this.scene.add('options', OptionsScene);
     this.scene.add('ui', UIScene);
+    this.scene.add('background', BackgroundScene);
 
     for (const key of Object.keys(levels.list)) {
       const config = levels.list[key];
@@ -114,7 +118,8 @@ class Game extends Phaser.Game {
     } else {
       scene.scene.transition({
           target: key,
-          duration: fadeDuration * 2
+          duration: fadeDuration * 2,
+          moveBelow: true
       });
     }
     return true;

@@ -3,6 +3,7 @@ import ButtonHandler from '../Utils/ButtonHandler';
 import LayerFactory from '../Layers/LayerFactory';
 import BackgroundMusicManager from '../Utils/BackgroundMusicManager';
 import TilemapError from '../Errors/TilemapError';
+import levels from '../../assets/levels.json';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -30,6 +31,17 @@ export default class GameScene extends Phaser.Scene {
     // input handling
     this.buttons = new ButtonHandler(this.input);
 
+    // retrieve data from levels.json
+    for (const key of Object.keys(levels.list)) {
+      if (key == this.key) {
+        const config = levels.list[key];
+        for (const prop of Object.keys(config)) {
+          this.data.set(prop, config[prop]);
+        }
+        break;
+      }
+    }
+
     // initialize UI
     this.ui = this.scene.get('ui');
     this.scene.launch('ui', { gs: this });
@@ -46,9 +58,14 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // create background image
-    const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-    backgroundImage.setScale(2, 0.8);
+    const bounds = this.physics.world.bounds;
+    const camera = this.cameras.main;
+
+    // // create background image
+    // const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+    // backgroundImage.setScale(2, 0.8);
+    // this.background = this.add.tileSprite(camera.x, camera.y, camera.width, camera.height, 'bg_level1');
+    // this.background.setOrigin(0,0).setTileScale(2);
 
     // make layers
     const addLayer = new LayerFactory(this, map, tileset);
@@ -66,15 +83,7 @@ export default class GameScene extends Phaser.Scene {
       throw new TilemapError('Platforms layer is missing', null, null, map);
     }
 
-    // initalize background music
-    if (this.properties.music) {
-      this.music = new BackgroundMusicManager(this, this.properties.music);
-      this.music.play();
-    }
-
     // camera follow the player
-    const camera = this.cameras.main;
-    const bounds = this.physics.world.bounds;
     camera.setRoundPixels(true);
     camera.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
     camera.setDeadzone(200, 200);
@@ -86,8 +95,28 @@ export default class GameScene extends Phaser.Scene {
 
     // crossfade when transitioning between levels
     this.events.on('transitionstart', function(fromScene, duration){
+
+      // needs to be invisible while the other scene is fading out
+      this.sys.setVisible(false);
+
       const initFadeIn = function() {
         const fadeIn = function() {
+
+          // make it visible so we can fade in
+          this.sys.setVisible(true);
+
+          // initialize background scene
+          this.background = this.scene.get('background');
+          this.scene.launch('background', { gs: this });
+          this.scene.moveAbove('background', this.key);
+
+          // initalize background music
+          if (this.data.get('music')) {
+            this.music = new BackgroundMusicManager(this, this.data.get('music'));
+            this.music.play();
+          }
+
+          // fade in the camera
           this.cameras.main.fadeIn(duration);
         }.bind(this);
 
@@ -113,6 +142,9 @@ export default class GameScene extends Phaser.Scene {
     }, this);
     this.events.on('transitionout', function(targetScene, duration){
       this.cameras.main.fadeOut(duration/2);
+      this.time.delayedCall(duration/2, function() {
+        this.music.stop();
+      }, [], this);
     }, this);
 
     // free up all custom variables when stopping this scene

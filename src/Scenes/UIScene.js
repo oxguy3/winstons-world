@@ -1,3 +1,4 @@
+import 'phaser';
 import buttonchars from '../Utils/buttonchars';
 import ButtonHandler from '../Utils/ButtonHandler';
 import Message from '../Messages/Message';

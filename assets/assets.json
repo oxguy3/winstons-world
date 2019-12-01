@@ -1,0 +1,147 @@
+{
+  "background": {
+    "files": [
+      {
+        "type": "image",
+        "key": "bg_title",
+        "url": "assets/images/backgrounds/title.png"
+      },
+      {
+        "type": "image",
+        "key": "bg_level1",
+        "url": "assets/images/backgrounds/level1.png"
+      }
+    ]
+  },
+  "image": {
+    "files": [
+      {
+        "type": "image",
+        "key": "background",
+        "url": "assets/images/background.png"
+      },
+      {
+        "type": "image",
+        "key": "placeholder",
+        "url": "assets/images/placeholder.png"
+      },
+      {
+        "type": "image",
+        "key": "tiles",
+        "url": "assets/tilesets/default.png"
+      }
+    ]
+  },
+  "ui": {
+    "files": [
+      {
+        "type": "image",
+        "key": "ui_button",
+        "url": "assets/images/ui/grey_button03.png"
+      },
+      {
+        "type": "image",
+        "key": "ui_button_hover",
+        "url": "assets/images/ui/grey_button02.png"
+      },
+      {
+        "type": "bitmapFont",
+        "key": "fool",
+        "textureURL": "assets/fonts/foolplus.png",
+        "fontDataURL": "assets/fonts/foolplus.fnt"
+      }
+    ]
+  },
+  "sfx": {
+    "files": [
+      {
+        "type": "audio",
+        "key": "sfx_death",
+        "url": "assets/sound/fx/death.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "sfx_enemy_stomp",
+        "url": "assets/sound/fx/enemy_stomp.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "sfx_jump",
+        "url": "assets/sound/fx/jump.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "sfx_level_complete",
+        "url": "assets/sound/fx/level_complete.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "sfx_mouse",
+        "url": "assets/sound/fx/mouse.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "sfx_mouse_2",
+        "url": "assets/sound/fx/mouse_2.mp3"
+      }
+    ]
+  },
+  "music": {
+    "files": [
+      {
+        "type": "audio",
+        "key": "music_title",
+        "url": "assets/sound/music/title.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "music_level1",
+        "url": "assets/sound/music/level1.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "music_level2",
+        "url": "assets/sound/music/level2.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "music_level3",
+        "url": "assets/sound/music/level3.mp3"
+      }
+    ]
+  },
+  "spritesheet": {
+    "files": [
+      {
+        "type": "spritesheet",
+        "key": "player",
+        "url": "assets/images/spritesheets/player.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 48 }
+      },
+      {
+        "type": "spritesheet",
+        "key": "dinodog",
+        "url": "assets/images/spritesheets/dinodog.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
+      },
+      {
+        "type": "spritesheet",
+        "key": "worm",
+        "url": "assets/images/spritesheets/worm.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
+      },
+      {
+        "type": "spritesheet",
+        "key": "bigbutton",
+        "url": "assets/images/spritesheets/bigbutton.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
+      },
+      {
+        "type": "spritesheet",
+        "key": "commander",
+        "url": "assets/images/spritesheets/commander.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
+      }
+    ]
+  }
+}

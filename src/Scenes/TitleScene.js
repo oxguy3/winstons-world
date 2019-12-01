@@ -10,14 +10,33 @@ export default class TitleScene extends Phaser.Scene {
   preload () {}
 
   create () {
-    this.nextYPos = 150;
+    this.nextYPos = 200;
+
+    let background = this.add.image(0, 0, 'bg_title');
+    background.setOrigin(0, 0).setScale(2);
 
     // make title text
-    let titleText = this.add.bitmapText(this.cameras.main.width / 2, 0, 'fool', this.game.config.gameTitle, 80);
-    titleText.setTint(0xffbbbb, 0xffbbbb, 0x550000, 0x550000);
+    let titleText = this.add.bitmapText(this.cameras.main.width / 2, 0, 'fool', this.game.config.gameTitle, 112);
+    titleText.setTint(0xbb3333, 0xbb3333, 0x550000, 0x550000);
     this.positionY(titleText);
 
+    // warning if some files failed to load
+    const totalFilesFailed = this.game.registry.get('totalFilesFailed');
+    if (totalFilesFailed > 0) {
+      let errorText = this.make.text({
+        x: 10,
+        y: 10,
+        text: `WARNING: ${totalFilesFailed} asset${totalFilesFailed != 1 ? 's' : ''} failed to load. Game may not run correctly!`,
+        style: {
+          font: '20px sans-serif',
+          fill: '#ff0000'
+        }
+      });
+      errorText.setOrigin(0, 0);
+    }
+
     // make buttons
+    this.buttons = [];
     this.game.settings.get('lastLevel').then(function(levelKey) {
       if (levelKey != null) {
         this.makeButton('Continue', function (pointer) {
@@ -34,25 +53,41 @@ export default class TitleScene extends Phaser.Scene {
     }.bind(this));
 
     // hover logic
+    const hoverHeightDiff = 4;
     this.input.on('pointerover', function (event, gameObjects) {
-      gameObjects[0].setTexture('blueButton2');
-    });
+      const button = gameObjects[0];
+      button.setTexture('ui_button_hover');
+      button.setY(button.y + hoverHeightDiff);
+
+      const buttonText = button.getData('text');
+      // buttonText.setTint(0x000000);
+      buttonText.setY(buttonText.y + hoverHeightDiff);
+    }, this);
 
     this.input.on('pointerout', function (event, gameObjects) {
-      gameObjects[0].setTexture('blueButton1');
-    });
+      const button = gameObjects[0];
+      button.setTexture('ui_button');
+      button.setY(button.y - hoverHeightDiff);
+
+      const buttonText = button.getData('text');
+      // buttonText.setTint(0xffffff);
+      buttonText.setY(buttonText.y - hoverHeightDiff);
+    }, this);
 
     // add background music
-    this.music = new BackgroundMusicManager(this, 'title_screen_theme');
+    this.music = new BackgroundMusicManager(this, 'music_title');
     this.music.play();
   }
 
   makeButton(label, onpointerdown) {
-    let button = this.add.sprite(this.cameras.main.width/2, 0, 'blueButton1').setInteractive();
+    let button = this.add.sprite(this.cameras.main.width/2, 0, 'ui_button');
+    button.setInteractive();
     this.positionY(button);
 
     let buttonText = this.add.bitmapText(10, 10, 'fool', label, 32);
     Phaser.Display.Align.In.Center(buttonText, button);
+    buttonText.setTint(0x550000);
+    button.setData('text', buttonText)
 
     button.on('pointerdown', onpointerdown.bind(this));
     return button;

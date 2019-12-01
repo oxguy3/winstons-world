@@ -2,20 +2,29 @@
   "start": "level1",
   "list": {
     "test1": {
-      "title": "test1"
+      "title": "test1",
+      "background": "bg_level1",
+      "music": "music_level1"
     },
     "test2": {
-      "title": "test2"
+      "title": "test2",
+      "background": "bg_level1",
+      "music": "music_level1"
     },
     "level1": {
-      "title": "Level 1"
+      "title": "Level 1",
+      "background": "bg_level1",
+      "music": "music_level1"
     },
     "level2": {
-      "title": "Level 2"
+      "title": "Level 2",
+      "background": "bg_level1",
+      "music": "music_level2"
     },
     "level3": {
-      "title": "level 3"
-  }
-   
+      "title": "Level 3",
+      "background": "bg_level1",
+      "music": "music_level3"
+    }
   }
 }
