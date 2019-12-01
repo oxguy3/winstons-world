@@ -189,6 +189,16 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"enableAlwaysIce",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"enableFlippedControls",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"messageDuration",
                          "type":"int",
                          "value":3000
