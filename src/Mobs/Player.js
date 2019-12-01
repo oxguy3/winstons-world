@@ -35,7 +35,7 @@ export default class Player extends WalkingMob {
     this.onIce = false;
 
     // sound effect
-    this.scene.sound.play('sfx_death', { volume: 0.7 });
+    this.scene.game.playSfx('sfx_death', { volume: 0.7 });
 
     // flashing animation
     this.setAlpha(0);
@@ -58,7 +58,7 @@ export default class Player extends WalkingMob {
       obj.damage(this);
       this.setVelocityY(-0.7 * this.jumpVel);
 
-      this.scene.sound.play('sfx_enemy_stomp');
+      this.scene.game.playSfx('sfx_enemy_stomp', { volume: 0.7 });
     } else if (obj.killPlayer && obj.alive) {
       this.damage(obj);
     }

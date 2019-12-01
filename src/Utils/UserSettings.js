@@ -4,13 +4,13 @@ const types = {
   // overrides the starting scene of the game, as a shortcut for level designers
   startScene: { default: 'title' },
   // the last level the user played
-  lastLevel: { default: null }
-  // volumeMaster: { default: 1.0 },
-  // volumeMusic: { default: 1.0 },
-  // volumeSfx: { default: 1.0 },
-  // muteMaster: { default: false },
-  // muteMusic: { default: false },
-  // muteSfx: { default: false },
+  lastLevel: { default: null },
+  volumeMaster: { default: 1.0 },
+  volumeMusic: { default: 1.0 },
+  volumeSfx: { default: 1.0 },
+  muteMaster: { default: false },
+  muteMusic: { default: false },
+  muteSfx: { default: false }
 };
 
 export default class UserSettings {
@@ -20,11 +20,11 @@ export default class UserSettings {
       name: 'ktbgame'
     });
 
-    // create getters/setters for all known properties (for debugging)
+    // create getters/setters for all known properties
     for (const type in types) {
       Object.defineProperty(this, type, {
         get: function() {
-          return this.get(type).then(console.log);
+          return this.get(type);
         },
         set: function(value) {
           if (value == null) { return this.remove(type); }

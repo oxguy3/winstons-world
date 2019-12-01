@@ -1,9 +1,10 @@
 /**
  * Class to manage a background music track for a Scene
  */
-const DEFAULT_CONFIG = { loop: true };
+const DEFAULT_CONFIG = { volume: 0.4, loop: true };
 
 export default class BackgroundMusicManager {
+
   /**
    * @param {Phaser.Scene} scene - reference to scene
    * @param {string} key - id of the sound asset to be played
@@ -11,7 +12,8 @@ export default class BackgroundMusicManager {
    */
   constructor(scene, key, config=DEFAULT_CONFIG) {
     this.scene = scene;
-    this.music = this.scene.sound.add(key, config);
+    this.key = key;
+    this.music = this.scene.game.addMusic(this.key, config);
 
     // handle scene events
     for (const evt of ['pause', 'resume', 'shutdown', 'sleep', 'wake']) {
@@ -26,16 +28,19 @@ export default class BackgroundMusicManager {
    * @param {Phaser.Types.Sound.SoundConfig} config - optional
    */
   switchMusic(key, config=DEFAULT_CONFIG) {
-    const isPlaying = this.isPlaying;
-    this.music.stop();
-    this.music.destroy();
+    return this.music.then(function(music) {
+      const isPlaying = music.isPlaying;
+      this.key = key;
+      music.stop();
+      music.destroy();
 
-    this.music = this.scene.sound.add(key, config);
+      music = this.scene.sound.add(key, config);
 
-    // if the old track was playing, start the new track immediately
-    if (isPlaying) {
-      this.music.play();
-    }
+      // if the old track was playing, start the new track immediately
+      if (isPlaying) {
+        music.play();
+      }
+    });
   }
 
   handleEvent(type) {
@@ -60,35 +65,45 @@ export default class BackgroundMusicManager {
   }
 
   play() {
-    return this.music.play({ volume: 0.4 });
+    return this.music.then(function(music) {
+      return music.play({ volume: 0.4 });
+    });
   }
 
   stop() {
-    return this.music.stop();
+    return this.music.then(function(music) {
+      return music.stop();
+    });
   }
 
   resume() {
-    return this.music.resume();
+    return this.music.then(function(music) {
+      return music.resume();
+    });
   }
 
   pause() {
-    return this.music.pause();
+    return this.music.then(function(music) {
+      return music.pause();
+    });
   }
 
   get isPlaying() {
-    return this.music.isPlaying;
+    return this.music.then(function(music) {
+      return music.isPlaying;
+    });
   }
 
   get isPaused() {
-    return this.music.isPaused;
+    return this.music.then(function(music) {
+      return music.isPaused;
+    });
   }
 
   get duration() {
-    return this.music.duration;
-  }
-
-  get key() {
-    return this.music.key;
+    return this.music.then(function(music) {
+      return music.duration;
+    });
   }
 
 }

@@ -65,7 +65,7 @@ export default class TitleScene extends Phaser.Scene {
       buttonText.setY(buttonText.y + hoverHeightDiff);
 
       // sound effect
-      this.sound.play('sfx_mouse');
+      this.game.playSfx('sfx_mouse');
     }, this);
 
     this.input.on('pointerout', function (event, gameObjects) {

@@ -124,6 +124,68 @@ class Game extends Phaser.Game {
     }
     return true;
   }
+
+  addSfx(key, extra={}, callback=null) {
+
+    const settings = this.settings;
+    let promise = Promise.all([
+      settings.volumeMaster,
+      settings.volumeSfx,
+      settings.muteMaster,
+      settings.muteSfx
+    ]).then(function(values) {
+      const volume = values[0] * values[1];
+      const mute = values[2] || values[3];
+
+      // set defaults
+      if (typeof extra.volume === 'undefined') { extra.volume = 1; }
+      if (typeof extra.mute === 'undefined') { extra.mute = false; }
+
+      // override volume and mute to match user settings
+      extra.volume = extra.volume * volume;
+      extra.mute = extra.mute || mute
+      return this.sound.add(key, extra);
+    }.bind(this));
+
+    return promise;
+  }
+
+  playSfx(key, extra={}, callback=null) {
+    return this.addSfx(key, extra, callback).then(function(sound) {
+      sound.play();
+    });
+  }
+
+  addMusic(key, extra={}, callback=null) {
+
+    const settings = this.settings;
+    let promise = Promise.all([
+      settings.volumeMaster,
+      settings.volumeMusic,
+      settings.muteMaster,
+      settings.muteMusic
+    ]).then(function(values) {
+      const volume = values[0] * values[1];
+      const mute = values[2] || values[3];
+
+      // set defaults
+      if (typeof extra.volume === 'undefined') { extra.volume = 1; }
+      if (typeof extra.mute === 'undefined') { extra.mute = false; }
+
+      // override volume and mute to match user settings
+      extra.volume = extra.volume * volume;
+      extra.mute = extra.mute || mute
+      return this.sound.add(key, extra);
+    }.bind(this));
+
+    return promise;
+  }
+
+  playMusic(key, extra={}, callback=null) {
+    return this.addMusic(key, extra, callback).then(function(sound) {
+      sound.play();
+    });
+  }
 }
 
 window.game = new Game();
