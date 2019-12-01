@@ -158,12 +158,12 @@
   <object id="27" template="../../tiled/templates/Mobs/DinoDog.tx" x="2954" y="1395.33"/>
   <object id="28" template="../../tiled/templates/Mobs/BigButton.tx" x="5024" y="864">
    <properties>
-    <property name="warpTo" value="level3"/>
+    <property name="warpTo" value=""/>
    </properties>
   </object>
   <object id="29" template="../../tiled/templates/Mobs/BigButton.tx" x="5024" y="1056">
    <properties>
-    <property name="warpTo" value="level3"/>
+    <property name="warpTo" value=""/>
    </properties>
   </object>
   <object id="30" x="5734.5" y="1184.5" width="83" height="19">
