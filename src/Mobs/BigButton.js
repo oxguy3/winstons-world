@@ -103,5 +103,12 @@ export default class BigButton extends Mob {
     } else if (warpTo != null) {
       this.scene.game.setScene(warpTo);
     }
+
+    if (this.getData('enableAlwaysIce')) {
+      this.scene.game.settings.set('alwaysIce', true);
+    }
+    if (this.getData('enableFlippedControls')) {
+      this.scene.game.settings.set('flippedControls', true);
+    }
   }
 }

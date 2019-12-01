@@ -90,6 +90,8 @@
   <object id="31" template="../../tiled/templates/Mobs/Worm.tx" x="896" y="512"/>
   <object id="34" template="../../tiled/templates/Mobs/BigButton.tx" x="480" y="512">
    <properties>
+    <property name="enableAlwaysIce" type="bool" value="true"/>
+    <property name="enableFlippedControls" type="bool" value="true"/>
     <property name="messageDuration" type="int" value="3000"/>
     <property name="messageText" value="You will now be sent to test1!"/>
     <property name="warpTo" value="test1"/>

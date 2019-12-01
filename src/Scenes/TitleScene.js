@@ -45,7 +45,13 @@ export default class TitleScene extends Phaser.Scene {
       }
     }.bind(this)).finally(function() {
       this.makeButton('Play', function (pointer) {
-        this.game.setScene(levels.start);
+        Promise.all([
+          this.game.settings.remove('lastLevel'),
+          this.game.settings.remove('alwaysIce'),
+          this.game.settings.remove('flippedControls')
+        ]).then(function() {
+          this.game.setScene(levels.start);
+        }.bind(this));
       });
       // this.makeButton('Options', function (pointer) {
       //   this.scene.start('options');

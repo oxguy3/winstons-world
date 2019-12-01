@@ -5,6 +5,12 @@ const types = {
   startScene: { default: 'title' },
   // the last level the user played
   lastLevel: { default: null },
+
+  // narrator's punishments
+  alwaysIce: { default: false },
+  flippedControls: { default: false },
+
+  // audio settings
   volumeMaster: { default: 1.0 },
   volumeMusic: { default: 1.0 },
   volumeSfx: { default: 1.0 },
