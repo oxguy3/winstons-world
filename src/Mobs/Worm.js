@@ -11,8 +11,8 @@ export default class Worm extends Mob {
     this.vulnerableHead = true;
   }
 
-  init() {
-    super.init();
+  init(properties) {
+    super.init(properties);
 
     // basic properties
     this.setSize(30, 30);

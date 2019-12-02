@@ -98,7 +98,7 @@ export default class MobsLayer extends Layer {
    * @param {object} properties - (optional) custom properties for this mob type
    * @returns {Mob}
    */
-  quickMake(type, x, y, properties={}) {
+  quickMake(type, x, y, properties=[]) {
     return this.make({
       id: -1,
       name: '',

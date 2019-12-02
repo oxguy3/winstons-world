@@ -11,8 +11,8 @@ export default class WalkingMob extends Mob {
     this.iceAccel = 90;
   }
 
-  init() {
-    super.init();
+  init(properties) {
+    super.init(properties);
 
     // physics properties
     // this.setBounce(0.15);

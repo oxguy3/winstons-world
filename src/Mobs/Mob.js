@@ -63,9 +63,9 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
    */
   ingestData(properties) {
     if (typeof properties !== 'undefined') {
-      properties.forEach(prop => {
+      for (const prop of properties) {
         this.setData(prop.name, prop.value);
-      });
+      };
     }
   }
 

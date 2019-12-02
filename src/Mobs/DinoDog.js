@@ -12,8 +12,8 @@ export default class DinoDog extends WalkingMob {
     this.vulnerableHead = true;
   }
 
-  init() {
-    super.init();
+  init(properties) {
+    super.init(properties);
 
     // basic properties
     this.setSize(24, 28);
