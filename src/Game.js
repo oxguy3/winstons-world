@@ -16,6 +16,8 @@ class Game extends Phaser.Game {
   constructor () {
     super(config);
 
+    this.godMode = false;
+
     this.settings = new UserSettings();
     this.settings.init().then(function() {
       this.scene.add('boot', BootScene);

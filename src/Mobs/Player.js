@@ -38,6 +38,9 @@ export default class Player extends WalkingMob {
   }
 
   damage(attacker) {
+    if (this.scene.game.godMode) {
+      return;
+    }
     super.damage(attacker);
     // sound effect
     this.scene.game.playSfx('sfx_death', { volume: 0.7 });

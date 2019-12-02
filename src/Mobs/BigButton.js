@@ -103,6 +103,20 @@ export default class BigButton extends Mob {
         this.scene.music.stop();
       }
       sound.play();
+      if (this.getData('explosion')) {
+        const camera = this.scene.cameras.main;
+        camera.flash(300);
+        camera.shake(10000, 0.05);
+        this.scene.time.delayedCall(1000, function() {
+          camera.flash(300);
+          this.scene.time.delayedCall(800, function() {
+            camera.flash(300);
+            this.scene.time.delayedCall(600, function() {
+              camera.fadeOut(1000, 255, 255, 255);
+            }, [], this);
+          }, [], this);
+        }, [], this);
+      }
     }
 
     if (messageText != null) {

@@ -212,6 +212,7 @@
   <object id="28" template="../../tiled/templates/Mobs/BigButton.tx" x="5024" y="864">
    <properties>
     <property name="enableFlippedControls" type="bool" value="false"/>
+    <property name="explosion" type="bool" value="true"/>
     <property name="messageDuration" type="int" value="5000"/>
     <property name="messageText" value="Good boy. See you on the other side."/>
     <property name="warpTo" value="credits"/>
@@ -219,6 +220,7 @@
   </object>
   <object id="29" template="../../tiled/templates/Mobs/BigButton.tx" x="5024" y="1056">
    <properties>
+    <property name="explosion" type="bool" value="true"/>
     <property name="messageDuration" type="int" value="5000"/>
     <property name="messageText" value="Good boy. See you on the other side."/>
     <property name="warpTo" value="credits"/>
