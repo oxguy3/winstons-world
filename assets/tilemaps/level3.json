@@ -656,6 +656,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"explosion",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"messageDuration",
                          "type":"int",
                          "value":5000
@@ -697,6 +702,11 @@
                          "name":"enableFlippedControls",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"explosion",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"messageDuration",
