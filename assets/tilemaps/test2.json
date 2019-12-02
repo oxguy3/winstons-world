@@ -191,12 +191,12 @@
                         {
                          "name":"enableAlwaysIce",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"enableFlippedControls",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"messageDuration",
