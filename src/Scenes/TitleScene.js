@@ -56,41 +56,30 @@ export default class TitleScene extends Phaser.Scene {
       }.bind(this));
     }.bind(this), 'X');
 
-    this.diffButton = this.makeButton('Difficulty: ???', function (pointer) {
+    this.diffButton = this.makeButton('Difficulty: EasyHard', function (pointer) {
       this.game.settings.isHard = !this.game.settings.isHard;
       this.updateDifficultyText();
     }.bind(this), 'Y');
     this.updateDifficultyText();
+
+    this.makeButton('Credits', function (pointer) {
+      this.game.setScene('credits');
+    }.bind(this), 'B');
 
     // hover logic
     const hoverHeightDiff = 4;
     this.input.on('pointerover', function (event, gameObjects) {
       // update button texture
       const button = gameObjects[0];
-
-      // reposition based on hover texture
-      const buttonText = button.getData('text');
-      button.setY(button.y + hoverHeightDiff);
-      button.setSize(button.width, button.height + hoverHeightDiff);
-      buttonText.setY(buttonText.y + hoverHeightDiff);
-
       button.setTexture('ui_button_hover');
-
 
       // sound effect
       this.game.playSfx('sfx_mouse');
     }, this);
 
     this.input.on('pointerout', function (event, gameObjects) {
-      const button = gameObjects[0];
-
-      // reposition based on non-hover texture
-      const buttonText = button.getData('text');
-      button.setY(button.y - hoverHeightDiff);
-      button.setSize(button.width, button.height - hoverHeightDiff);
-      buttonText.setY(buttonText.y - hoverHeightDiff);
-
       // update button texture
+      const button = gameObjects[0];
       button.setTexture('ui_button');
     }, this);
 
@@ -122,7 +111,6 @@ export default class TitleScene extends Phaser.Scene {
   makeButton(label, onpointerdown, binding) {
     let button = this.add.sprite(this.cameras.main.width/2, 0, 'ui_button');
     button.setInteractive();
-    button.setOrigin(0, 1);
     this.positionY(button);
 
     let buttonText = this.add.bitmapText(10, 10, 'fool', label, 32);

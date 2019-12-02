@@ -97,6 +97,7 @@ class Game extends Phaser.Game {
    */
   setScene(key, fadeDuration=500) {
     let level = this.findGameScene();
+    let target = this.scene.getScene(key);
     let scene, duration, sceneName;
     if (level == null) {
       const activeScenes = this.scene.getScenes(true);
@@ -105,7 +106,11 @@ class Game extends Phaser.Game {
         throw new ImpossibleStateError("There are multiple scenes active, but none of them is a GameScene.");
       }
       scene = activeScenes[0];
-      duration = fadeDuration; // no fade out if it's not a GameScene
+      if (target instanceof GameScene) {
+        duration = fadeDuration; // no fade out if it's not a GameScene
+      } else {
+        duration = 0;
+      }
       sceneName = typeof scene;
     } else {
       scene = level;
@@ -118,10 +123,16 @@ class Game extends Phaser.Game {
       console.warn(`Ignoring request to switch out of ${sceneName}, as it was already in the middle of switching.`);
       return false;
     } else {
+      if (scene instanceof GameScene && !(target instanceof GameScene)) {
+        target.events.once('transitioncomplete', function() {
+          this.scene.stop('ui');
+          this.scene.stop('background');
+        }, this);
+      }
       scene.scene.transition({
-          target: key,
-          duration: fadeDuration * 2,
-          moveBelow: true
+        target: key,
+        duration: duration,
+        moveAbove: true
       });
     }
     return true;
