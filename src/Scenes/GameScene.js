@@ -87,38 +87,6 @@ export default class GameScene extends Phaser.Scene {
       this.game.scene.sendToBack(this.key);
     }, this);
 
-    // crossfade when transitioning between levels
-    this.events.on('transitionstart', function(fromScene, duration) {
-
-      // needs to be invisible while the other scene is fading out
-      this.sys.setVisible(false);
-
-      // if we're switching from another GameScene, we need to wait for it to
-      // fade out before we fade in
-      if (fromScene instanceof GameScene) {
-        duration = duration/2;
-        this.time.delayedCall(duration, this.onCreate, [duration], this);
-      } else {
-        this.onCreate(duration);
-      }
-    }, this);
-    this.events.on('transitionout', function(targetScene, duration){
-      this.cameras.main.fadeOut(duration/2);
-      this.time.delayedCall(duration/2, function() {
-        this.music.stop();
-      }, [], this);
-    }, this);
-
-    // listener to run onCreate() in rare cases where we don't use transitions
-    this.events.on('create', function(){
-      if (!this.sys.isTransitionIn()) {
-        this.onCreate(500);
-      }
-    }.bind(this));
-
-    // free up all custom variables when stopping this scene
-    this.events.on('shutdown', this.shutdown, this);
-
     // update the user's save progress
     this.game.settings.set('lastLevel', this.key).then(function(key) {
       console.log(`Saved the user's progress to level '${key}'`)
@@ -137,24 +105,58 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onCreate() {
-    // make it visible so we can fade in
-    this.sys.setVisible(true);
+    console.log('create');
+    if (!this.sys.isTransitionIn()) {
+      this.transitionDuration = 500;
+      this.transitionDelay = 0;
+    }
+    const transitionIn = function() {
+      // make it visible so we can fade in
+      this.sys.setVisible(true);
 
-    // initialize background scene
-    this.background = this.scene.get('background');
-    this.scene.launch('background', { gs: this });
-    this.scene.moveAbove('background', this.key);
+      // initialize background scene
+      this.background = this.scene.get('background');
+      this.scene.launch('background', { gs: this });
+      this.scene.moveAbove('background', this.key);
 
-    // initalize background music
-    if (this.data.get('music') && !this.music) {
-      this.music = new BackgroundMusicManager(this, this.data.get('music'));
-      this.music.play();
+      // initalize background music
+      if (this.data.get('music') && !this.music) {
+        this.music = new BackgroundMusicManager(this, this.data.get('music'));
+        this.music.play();
+      }
+
+      // fade in the camera
+      this.cameras.main.fadeIn(this.transitionDuration);
+    }.bind(this);
+    if (this.transitionDelay == 0) {
+      transitionIn();
     } else {
-      this.music.resume();
+      this.time.delayedCall(this.transitionDelay, transitionIn, [], this);
     }
 
-    // fade in the camera
-    this.cameras.main.fadeIn(this.transitionDuration);
+  }
+
+  onTransitionStart(fromScene, duration) {
+    console.log('transitionstart');
+    // needs to be invisible while the other scene is fading out
+    this.sys.setVisible(false);
+
+    // if we're switching from another GameScene, we need to wait for it to
+    // fade out before we fade in
+    if (fromScene instanceof GameScene) {
+      this.transitionDuration = duration/2;
+      this.transitionDelay = duration/2;
+    } else {
+      this.transitionDuration = duration;
+      this.transitionDelay = 0;
+    }
+  }
+
+  onTransitionOut(targetScene, duration) {
+    this.cameras.main.fadeOut(duration/2);
+    this.time.delayedCall(duration/2, function() {
+      this.music.stop();
+    }, [], this);
   }
 
   update(time, delta) {
@@ -177,12 +179,22 @@ export default class GameScene extends Phaser.Scene {
     this.background = null;
     this.properties = [];
     this.music = null;
+
+    this.events.on('transitionstart', this.onTransitionStart, this);
+    this.events.on('transitionout', this.onTransitionOut, this);
+    this.events.on('create', this.onCreate, this);
+    this.events.on('shutdown', this.shutdown, this);
   }
 
   /**
    * Free up custom variables
    */
   shutdown() {
+    this.events.off('transitionstart', this.onTransitionStart, this);
+    this.events.off('transitionout', this.onTransitionOut, this);
+    this.events.off('create', this.onCreate, this);
+    this.events.off('shutdown', this.shutdown, this);
+
     delete this.player;
     delete this.buttons;
     delete this.platforms;
