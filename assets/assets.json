@@ -10,6 +10,16 @@
         "type": "image",
         "key": "bg_level1",
         "url": "assets/images/backgrounds/level1.png"
+      },
+      {
+        "type": "image",
+        "key": "bg_level2",
+        "url": "assets/images/backgrounds/level2.png"
+      },
+      {
+        "type": "image",
+        "key": "bg_level3",
+        "url": "assets/images/backgrounds/level3.png"
       }
     ]
   },
