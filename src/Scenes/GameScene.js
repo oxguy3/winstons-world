@@ -101,7 +101,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onCreate() {
-    console.log('create');
     if (!this.sys.isTransitionIn()) {
       this.transitionDuration = 500;
       this.transitionDelay = 0;
@@ -133,7 +132,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onTransitionStart(fromScene, duration) {
-    console.log('transitionstart');
     // needs to be invisible while the other scene is fading out
     this.sys.setVisible(false);
 

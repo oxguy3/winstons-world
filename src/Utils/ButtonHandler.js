@@ -8,43 +8,52 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
       up: {
         keys: [ 'W', 'UP' ],
         pad: [ 'up' ],
-        leftStick: 'up'
+        leftStick: 'up',
+        char: 'button_up'
       },
       down: {
         keys: [ 'S', 'DOWN' ],
         pad: [ 'down' ],
-        leftStick: 'down'
+        leftStick: 'down',
+        char: 'button_down'
       },
       left: {
         keys: [ 'A', 'LEFT' ],
         pad: [ 'left' ],
-        leftStick: 'left'
+        leftStick: 'left',
+        char: 'button_left'
       },
       right: {
         keys: [ 'D', 'RIGHT' ],
         pad: [ 'right' ],
-        leftStick: 'right'
+        leftStick: 'right',
+        char: 'button_right'
       },
       action: {
         keys: [ 'SPACE', 'ENTER' ],
-        pad: [ 'A' ]
+        pad: [ 'A' ],
+        char: 'button_a'
       },
       jump: {
         keys: [ 'SPACE', 'W', 'UP' ],
-        pad: [ 'A' ]
+        pad: [ 'A' ],
+        char: 'button_a'
       },
-      interact: {
+      action2: {
         keys: [ 'E' ],
-        pad: [ 'B' ]
+        pad: [ 'X' ],
+        char: 'button_x'
       },
-      sprint: {
-        keys: [ 'SHIFT' ],
-        pad: [ 'R1' ]
+      action3: {
+        keys: [ 'R' ],
+        pad: [ 'Y' ],
+        char: 'button_y'
       },
       pause: {
         keys: [ 'ESC', 'P' ],
-        pad: [ 7 ] // TODO: check that this is actually start
-      },
+        pad: [ 7 ], // TODO: check that this is actually start
+        char: 'dpad_left'
+      }
     };
     let allKeys = [];
     for (const mapping of Object.values(this.mappings)) {

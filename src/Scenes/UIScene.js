@@ -1,5 +1,5 @@
 import 'phaser';
-import buttonchars from '../Utils/buttonchars';
+import TextUtils from '../Utils/TextUtils';
 import ButtonHandler from '../Utils/ButtonHandler';
 import Message from '../Messages/Message';
 
@@ -100,18 +100,6 @@ export default class UIScene extends Phaser.Scene {
     this.isPauseDown = this.buttons.isDown('pause');
   }
 
-  convertSymbols(text) {
-    text = text.replace(/<(.*?)>/g, function(match, p1, offset, str) {
-      const index = buttonchars.indexOf(p1);
-      if (index != -1) {
-        return String.fromCodePoint(57344+index);
-      } else {
-        return match;
-      }
-    });
-    return text;
-  }
-
   /**
    * @param {array.Message} messages
    */
@@ -144,7 +132,7 @@ export default class UIScene extends Phaser.Scene {
   }
 
   setMessage(text) {
-    text = this.convertSymbols(text);
+    text = TextUtils.convertSymbols(text);
     const oldText = this.message;
     if (text != oldText) {
       this.message = text;
