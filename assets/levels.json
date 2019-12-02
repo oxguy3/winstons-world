@@ -18,12 +18,12 @@
     },
     "level2": {
       "title": "Level 2",
-      "background": "bg_level1",
+      "background": "bg_level2",
       "music": "music_level2"
     },
     "level3": {
       "title": "Level 3",
-      "background": "bg_level1",
+      "background": "bg_level3",
       "music": "music_level3"
     }
   }
