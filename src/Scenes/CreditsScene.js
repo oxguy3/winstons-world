@@ -33,7 +33,7 @@ export default class CreditsScene extends Phaser.Scene {
     titleButton.setX
 
     const infoButton = this.makeButton(800-190-buttonSpacing*2, buttonY, 'More Info', function (pointer) {
-      window.location = 'https://github.com/oxguy3/ktbgame'
+      window.location = 'https://github.com/oxguy3/winstons-world'
     }.bind(this), 'Y');
 
     // hover logic

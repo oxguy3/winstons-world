@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oxguy3/ktbgame.git"
+    "url": "git+https://github.com/oxguy3/winstons-world.git"
   },
   "author": "Revolution No 9ine",
   "contributors": [
@@ -24,9 +24,9 @@
   ],
   "license": "MIT OR CC-BY-4.0",
   "bugs": {
-    "url": "https://github.com/oxguy3/ktbgame/issues"
+    "url": "https://github.com/oxguy3/winstons-world/issues"
   },
-  "homepage": "https://github.com/oxguy3/ktbgame#readme",
+  "homepage": "https://www.playwinstonsworld.com",
   "devDependencies": {
     "@babel/core": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
