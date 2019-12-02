@@ -146,7 +146,7 @@
     <property name="text" value="I WILL MAKE THEM REGRET THE DAY THEY WERE BORN!!!"/>
    </properties>
   </object>
-  <object id="49" template="../../tiled/templates/Messages/AreaMessage.tx" x="4551.25" y="728.017" width="474.02" height="459.183">
+  <object id="49" template="../../tiled/templates/Messages/AreaMessage.tx" x="4551.25" y="491.411" width="474.02" height="695.789">
    <properties>
     <property name="text" value="You made it to the end! Press the button ON TOP to call the airstrike to this wretched city! "/>
    </properties>
@@ -197,7 +197,7 @@
   <object id="28" template="../../tiled/templates/Mobs/BigButton.tx" x="5024" y="864">
    <properties>
     <property name="enableAlwaysIce" type="bool" value="false"/>
-    <property name="messageDuration" type="int" value="5000"/>
+    <property name="messageDuration" type="int" value="3000"/>
     <property name="messageText" value="Well done! Time to watch this city BURN!"/>
     <property name="warpTo" value="level3"/>
    </properties>
@@ -205,8 +205,8 @@
   <object id="29" template="../../tiled/templates/Mobs/BigButton.tx" x="5024" y="1056">
    <properties>
     <property name="enableAlwaysIce" type="bool" value="true"/>
-    <property name="messageDuration" type="int" value="3000"/>
-    <property name="messageText" value="WINSTON! THAT WAS AN ORDER! \nJust for that, you'll have to wear these boots with no traction. EVERY SURFACE WILL FEEL LIKE ICE."/>
+    <property name="messageDuration" type="int" value="5000"/>
+    <property name="messageText" value="WINSTON! THAT WAS AN ORDER! Just for that, you'll have to wear these boots with no traction. EVERY SURFACE WILL FEEL LIKE ICE."/>
     <property name="warpTo" value="level3"/>
    </properties>
   </object>
