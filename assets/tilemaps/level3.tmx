@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="200" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="35">
- <editorsettings>
-  <export target="level3.json" format="json"/>
- </editorsettings>
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="41">
  <tileset firstgid="1" source="../tilesets/default.tsx"/>
  <tileset firstgid="33" source="../tilesets/mobs.tsx"/>
  <layer id="9" name="Background" width="200" height="50">
@@ -113,7 +110,38 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <objectgroup id="4" name="Messages"/>
+ <objectgroup id="4" name="Messages">
+  <object id="35" template="../../tiled/templates/Messages/TimedMessage.tx" x="98" y="1244" width="225" height="205">
+   <properties>
+    <property name="text" value="WINSTON! This is Commander Simon speaking. The war on the Dino Dogs is underway!"/>
+   </properties>
+  </object>
+  <object id="36" template="../../tiled/templates/Messages/TimedMessage.tx" x="656" y="1176" width="252" height="251">
+   <properties>
+    <property name="text" value="Get to the end of the city to win the battle and BOOST YOUR SCORE!"/>
+   </properties>
+  </object>
+  <object id="37" template="../../tiled/templates/Messages/TimedMessage.tx" x="1210" y="1148" width="260" height="211">
+   <properties>
+    <property name="text" value="I went to a coffee shop near here once, but when I got my cup. . ."/>
+   </properties>
+  </object>
+  <object id="38" template="../../tiled/templates/Messages/TimedMessage.tx" x="1690" y="1271" width="203" height="198">
+   <properties>
+    <property name="text" value="IT SAID LYMAN!!!"/>
+   </properties>
+  </object>
+  <object id="39" template="../../tiled/templates/Messages/TimedMessage.tx" x="2065" y="1298" width="171" height="154">
+   <properties>
+    <property name="text" value="I AM COMMANDER SIMON! S! I! M! O! N! I WILL NOT BE DISRESPECTED BY A MEASLY DINO DOG!!!"/>
+   </properties>
+  </object>
+  <object id="40" template="../../tiled/templates/Messages/TimedMessage.tx" x="2651" y="838" width="257" height="240">
+   <properties>
+    <property name="text" value="I'm just . . . really glad we declared war."/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="7" name="Mobs">
   <object id="10" template="../../tiled/templates/Mobs/Player.tx" x="64" y="1440"/>
   <object id="11" template="../../tiled/templates/Mobs/DinoDog.tx" x="768" y="1280">
