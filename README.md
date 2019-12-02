@@ -1,5 +1,5 @@
-# ktbgame
-Revolution No 9ine's game project for DMC 1000 (Foundations of Digital Media) at UC, Fall 2019
+# Winston's World
+Revolution No 9ine's game project for DMC 1000 (Foundations of Digital Media) at UC, Fall 2019. Play online at <https://playwinstonsworld.com>.
 
 ## Development
 Information on how to install and work on the game can be found on [the project wiki](https://github.com/oxguy3/ktbgame/wiki).
