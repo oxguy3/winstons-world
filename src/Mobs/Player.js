@@ -72,7 +72,7 @@ export default class Player extends WalkingMob {
       obj.damage(this);
       this.setVelocityY(-0.7 * this.jumpVel);
 
-      this.scene.game.playSfx('sfx_enemy_stomp', { volume: 0.7 });
+      this.scene.game.playSfx('sfx_enemy_stomp', { volume: 1 });
     } else if (obj.killPlayer && obj.alive) {
       this.damage(obj);
     }

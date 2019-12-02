@@ -1,7 +1,7 @@
 /**
  * Class to manage a background music track for a Scene
  */
-const DEFAULT_CONFIG = { volume: 0.4, loop: true };
+const DEFAULT_CONFIG = { volume: 0.5, loop: true };
 
 export default class BackgroundMusicManager {
 

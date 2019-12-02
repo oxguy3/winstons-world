@@ -104,6 +104,9 @@ export default class WalkingMob extends Mob {
     }
     if (desires.jump && this.onFloor()) {
       this.setVelocityY(-1 * this.jumpVel);
+
+      // sound effect
+      this.scene.game.playSfx('sfx_jump', { volume: 0.7 });
     }
 
     // ice physics!
