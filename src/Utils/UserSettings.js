@@ -26,6 +26,8 @@ export default class UserSettings {
       name: 'ktbgame'
     });
 
+    this.data = {};
+
     // create getters/setters for all known properties
     for (const type in types) {
       Object.defineProperty(this, type, {
@@ -40,29 +42,34 @@ export default class UserSettings {
     }
   }
 
-  get(key, callback = null) {
-    // intermediate function to parse the DB response before returning it
-    const parseValue = function(value) {
-      if (value == null && types[key] != null) {
-        return types[key].default;
-      } else {
-        return value;
-      }
-    };
-
-    // maintain support for both promises and callbacks
-    if (callback == null) {
-      return localforage.getItem(key).then(parseValue);
-    } else {
-      return localforage.getItem(key, value => callback(parseValue(value)));
+  init() {
+    let promises = [];
+    for (const type in types) {
+      const promise = localforage.getItem(type).then(function(value) {
+        let cleanValue;
+        if (value == null && types[type] != null) {
+          cleanValue = types[type].default;
+        } else {
+          cleanValue = value;
+        }
+        this.data[type] = cleanValue;
+      }.bind(this));
+      promises.push(promise);
     }
+    return Promise.all(promises);
+  }
+
+  get(key) {
+    return this.data[key];
   }
 
   set(key, value, callback) {
+    this.data[key] = value;
     return localforage.setItem(key, value, callback);
   }
 
   remove(key, callback) {
+    delete this.data[key];
     return localforage.removeItem(key, callback);
   }
 

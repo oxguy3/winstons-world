@@ -133,9 +133,7 @@ export default class BootScene extends Phaser.Scene {
       assetText.destroy();
       errorText.destroy();
       this.game.registry.set('totalFilesFailed', this.load.totalFailed);
-      this.startScenePromise.then(function(sceneKey) {
-        this.scene.start(sceneKey);
-      }.bind(this));
+      this.scene.start(this.game.settings.startScene);
     }, this);
   }
 

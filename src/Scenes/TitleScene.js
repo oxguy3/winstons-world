@@ -37,26 +37,21 @@ export default class TitleScene extends Phaser.Scene {
 
     // make buttons
     this.buttons = [];
-    this.game.settings.get('lastLevel').then(function(levelKey) {
-      if (levelKey != null) {
-        this.makeButton('Continue', function (pointer) {
-          this.game.setScene(levelKey);
-        });
-      }
-    }.bind(this)).finally(function() {
-      this.makeButton('Play', function (pointer) {
-        Promise.all([
-          this.game.settings.remove('lastLevel'),
-          this.game.settings.remove('alwaysIce'),
-          this.game.settings.remove('flippedControls')
-        ]).then(function() {
-          this.game.setScene(levels.start);
-        }.bind(this));
+    const levelKey = this.game.settings.lastLevel;
+    if (levelKey != null) {
+      this.makeButton('Continue', function (pointer) {
+        this.game.setScene(levelKey);
       });
-      // this.makeButton('Options', function (pointer) {
-      //   this.scene.start('options');
-      // });
-    }.bind(this));
+    }
+    this.makeButton('Play', function (pointer) {
+      Promise.all([
+        this.game.settings.remove('lastLevel'),
+        this.game.settings.remove('alwaysIce'),
+        this.game.settings.remove('flippedControls')
+      ]).then(function() {
+        this.game.setScene(levels.start);
+      }.bind(this));
+    });
 
     // hover logic
     const hoverHeightDiff = 4;

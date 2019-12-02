@@ -61,12 +61,6 @@ export default class GameScene extends Phaser.Scene {
     const bounds = this.physics.world.bounds;
     const camera = this.cameras.main;
 
-    // // create background image
-    // const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-    // backgroundImage.setScale(2, 0.8);
-    // this.background = this.add.tileSprite(camera.x, camera.y, camera.width, camera.height, 'bg_level1');
-    // this.background.setOrigin(0,0).setTileScale(2);
-
     // make layers
     const addLayer = new LayerFactory(this, this.map, tileset);
     this.layers.background = addLayer.background();
@@ -79,7 +73,7 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    if (this.platforms == null) {
+    if (typeof this.platforms === 'undefined') {
       throw new TilemapError('Platforms layer is missing', null, null, this.map);
     }
 
@@ -94,50 +88,18 @@ export default class GameScene extends Phaser.Scene {
     }, this);
 
     // crossfade when transitioning between levels
-    this.events.on('transitionstart', function(fromScene, duration){
+    this.events.on('transitionstart', function(fromScene, duration) {
 
       // needs to be invisible while the other scene is fading out
       this.sys.setVisible(false);
-
-      const initFadeIn = function() {
-        const fadeIn = function() {
-
-          // make it visible so we can fade in
-          this.sys.setVisible(true);
-
-          // initialize background scene
-          this.background = this.scene.get('background');
-          this.scene.launch('background', { gs: this });
-          this.scene.moveAbove('background', this.key);
-
-          // initalize background music
-          if (this.data.get('music')) {
-            this.music = new BackgroundMusicManager(this, this.data.get('music'));
-            this.music.play();
-          }
-
-          // fade in the camera
-          this.cameras.main.fadeIn(duration);
-        }.bind(this);
-
-        // Set a listener to run the fadeIn once the scene is created, but if
-        // the scene is already created, cancel the listener and run the fadeIn
-        // immediately. We set the listener before checking if we need it to
-        // avoid a race condition (it's fine to run 2 fadeIns but not to run 0).
-        this.events.once('create', fadeIn, this);
-        if (this.sys.isActive()) {
-          this.events.removeListener('create', fadeIn, this);
-          fadeIn();
-        }
-      }.bind(this);
 
       // if we're switching from another GameScene, we need to wait for it to
       // fade out before we fade in
       if (fromScene instanceof GameScene) {
         duration = duration/2;
-        this.time.delayedCall(duration, initFadeIn, [], this);
+        this.time.delayedCall(duration, this.onCreate, [duration], this);
       } else {
-        initFadeIn();
+        this.onCreate(duration);
       }
     }, this);
     this.events.on('transitionout', function(targetScene, duration){
@@ -146,6 +108,13 @@ export default class GameScene extends Phaser.Scene {
         this.music.stop();
       }, [], this);
     }, this);
+
+    // listener to run onCreate() in rare cases where we don't use transitions
+    this.events.on('create', function(){
+      if (!this.sys.isTransitionIn()) {
+        this.onCreate(500);
+      }
+    }.bind(this));
 
     // free up all custom variables when stopping this scene
     this.events.on('shutdown', this.shutdown);
@@ -165,6 +134,25 @@ export default class GameScene extends Phaser.Scene {
     if (window) {
       window.scene = this;
     }
+  }
+
+  onCreate() {
+    // make it visible so we can fade in
+    this.sys.setVisible(true);
+
+    // initialize background scene
+    this.background = this.scene.get('background');
+    this.scene.launch('background', { gs: this });
+    this.scene.moveAbove('background', this.key);
+
+    // initalize background music
+    if (this.data.get('music')) {
+      this.music = new BackgroundMusicManager(this, this.data.get('music'));
+      this.music.play();
+    }
+
+    // fade in the camera
+    this.cameras.main.fadeIn(this.transitionDuration);
   }
 
   update(time, delta) {

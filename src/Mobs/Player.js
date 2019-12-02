@@ -18,36 +18,19 @@ export default class Player extends WalkingMob {
     this.setSize(20, 45);
     this.setOffset(6, 3);
     this.setDepth(100);
-
-    // check if alwaysIce is on
-    this.alwaysIce = false;
-    this.scene.game.settings.get('alwaysIce').then(function(value) {
-      this.alwaysIce = value;
-    }.bind(this));
-
-    // check for narrator's punishments
-    this.alwaysIce = false;
-    this.flippedControls = false;
-    Promise.all([
-      this.scene.game.settings.get('alwaysIce'),
-      this.scene.game.settings.get('flippedControls')
-    ]).then(function(values) {
-      this.alwaysIce = values[0];
-      this.flippedControls = values[1];
-    }.bind(this));
   }
 
   getMovementDesires() {
     // this is a REALLY HACKY way to force onIce to always be true when update()
     // is called
-    if (this.alwaysIce) {
+    if (this.scene.game.settings.alwaysIce) {
       this.onIce = true;
     }
     const isLeftDown = this.scene.buttons.isDown('left');
     const isRightDown = this.scene.buttons.isDown('right');
     return {
-      left: this.flippedControls ? isRightDown : isLeftDown,
-      right: this.flippedControls ? isLeftDown : isRightDown,
+      left: this.scene.game.settings.flippedControls ? isRightDown : isLeftDown,
+      right: this.scene.game.settings.flippedControls ? isLeftDown : isRightDown,
       jump: this.scene.buttons.isDown('jump')
     };
   }

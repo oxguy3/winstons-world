@@ -17,19 +17,21 @@ class Game extends Phaser.Game {
     super(config);
 
     this.settings = new UserSettings();
+    this.settings.init().then(function() {
+      this.scene.add('boot', BootScene);
+      this.scene.add('title', TitleScene);
+      this.scene.add('credits', CreditsScene);
+      this.scene.add('options', OptionsScene);
+      this.scene.add('ui', UIScene);
+      this.scene.add('background', BackgroundScene);
 
-    this.scene.add('boot', BootScene);
-    this.scene.add('title', TitleScene);
-    this.scene.add('credits', CreditsScene);
-    this.scene.add('options', OptionsScene);
-    this.scene.add('ui', UIScene);
-    this.scene.add('background', BackgroundScene);
+      for (const key of Object.keys(levels.list)) {
+        const config = levels.list[key];
+        this.scene.add(key, new GameScene(key, config));
+      }
+      this.scene.start('boot');
+    }.bind(this));
 
-    for (const key of Object.keys(levels.list)) {
-      const config = levels.list[key];
-      this.scene.add(key, new GameScene(key, config));
-    }
-    this.scene.start('boot');
   }
 
   /**
@@ -128,63 +130,39 @@ class Game extends Phaser.Game {
   addSfx(key, extra={}, callback=null) {
 
     const settings = this.settings;
-    let promise = Promise.all([
-      settings.volumeMaster,
-      settings.volumeSfx,
-      settings.muteMaster,
-      settings.muteSfx
-    ]).then(function(values) {
-      const volume = values[0] * values[1];
-      const mute = values[2] || values[3];
 
-      // set defaults
-      if (typeof extra.volume === 'undefined') { extra.volume = 1; }
-      if (typeof extra.mute === 'undefined') { extra.mute = false; }
+    // set defaults
+    if (typeof extra.volume === 'undefined') { extra.volume = 1; }
+    if (typeof extra.mute === 'undefined') { extra.mute = false; }
 
-      // override volume and mute to match user settings
-      extra.volume = extra.volume * volume;
-      extra.mute = extra.mute || mute
-      return this.sound.add(key, extra);
-    }.bind(this));
-
-    return promise;
+    // override volume and mute to match user settings
+    extra.volume = extra.volume * settings.volumeMaster * settings.volumeSfx;
+    extra.mute = extra.mute || settings.muteMaster || settings.muteSfx;
+    return this.sound.add(key, extra);
   }
 
   playSfx(key, extra={}, callback=null) {
-    return this.addSfx(key, extra, callback).then(function(sound) {
-      sound.play();
-    });
+    const sound = this.addSfx(key, extra, callback);
+    return sound.play();
   }
 
   addMusic(key, extra={}, callback=null) {
 
     const settings = this.settings;
-    let promise = Promise.all([
-      settings.volumeMaster,
-      settings.volumeMusic,
-      settings.muteMaster,
-      settings.muteMusic
-    ]).then(function(values) {
-      const volume = values[0] * values[1];
-      const mute = values[2] || values[3];
 
-      // set defaults
-      if (typeof extra.volume === 'undefined') { extra.volume = 1; }
-      if (typeof extra.mute === 'undefined') { extra.mute = false; }
+    // set defaults
+    if (typeof extra.volume === 'undefined') { extra.volume = 1; }
+    if (typeof extra.mute === 'undefined') { extra.mute = false; }
 
-      // override volume and mute to match user settings
-      extra.volume = extra.volume * volume;
-      extra.mute = extra.mute || mute
-      return this.sound.add(key, extra);
-    }.bind(this));
-
-    return promise;
+    // override volume and mute to match user settings
+    extra.volume = extra.volume * settings.volumeMaster * settings.volumeMusic;
+    extra.mute = extra.mute || settings.muteMaster || settings.muteMusic;
+    return this.sound.add(key, extra);
   }
 
   playMusic(key, extra={}, callback=null) {
-    return this.addMusic(key, extra, callback).then(function(sound) {
-      sound.play();
-    });
+    const sound = this.addMusic(key, extra, callback);
+    return sound.play();
   }
 }
 

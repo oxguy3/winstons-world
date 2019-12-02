@@ -13,7 +13,10 @@ export default class BackgroundMusicManager {
   constructor(scene, key, config=DEFAULT_CONFIG) {
     this.scene = scene;
     this.key = key;
-    this.music = this.scene.game.addMusic(this.key, config);
+
+    let newConfig = {};
+    Object.assign(newConfig, config);
+    this.music = this.scene.game.addMusic(this.key, newConfig);
 
     // handle scene events
     for (const evt of ['pause', 'resume', 'shutdown', 'sleep', 'wake']) {
@@ -26,21 +29,22 @@ export default class BackgroundMusicManager {
   /**
    * @param {string} key - id of the sound asset to be played
    * @param {Phaser.Types.Sound.SoundConfig} config - optional
+   * @returns {boolean} success?
    */
   switchMusic(key, config=DEFAULT_CONFIG) {
-    return this.music.then(function(music) {
-      const isPlaying = music.isPlaying;
-      this.key = key;
-      music.stop();
-      music.destroy();
+    const isPlaying = this.music.isPlaying;
+    this.key = key;
+    this.music.stop();
+    this.music.destroy();
 
-      music = this.scene.sound.add(key, config);
+    this.music = this.scene.sound.add(key, config);
 
-      // if the old track was playing, start the new track immediately
-      if (isPlaying) {
-        music.play();
-      }
-    });
+    // if the old track was playing, start the new track immediately
+    if (isPlaying) {
+      return this.music.play();
+    } else {
+      return true;
+    }
   }
 
   handleEvent(type) {
@@ -65,45 +69,31 @@ export default class BackgroundMusicManager {
   }
 
   play() {
-    return this.music.then(function(music) {
-      return music.play({ volume: 0.4 });
-    });
+    return this.music.play();
   }
 
   stop() {
-    return this.music.then(function(music) {
-      return music.stop();
-    });
+    return this.music.stop();
   }
 
   resume() {
-    return this.music.then(function(music) {
-      return music.resume();
-    });
+    return this.music.resume();
   }
 
   pause() {
-    return this.music.then(function(music) {
-      return music.pause();
-    });
+    return this.music.pause();
   }
 
   get isPlaying() {
-    return this.music.then(function(music) {
-      return music.isPlaying;
-    });
+    return this.music.isPlaying;
   }
 
   get isPaused() {
-    return this.music.then(function(music) {
-      return music.isPaused;
-    });
+    return this.music.isPaused;
   }
 
   get duration() {
-    return this.music.then(function(music) {
-      return music.duration;
-    });
+    return this.music.duration;
   }
 
 }
