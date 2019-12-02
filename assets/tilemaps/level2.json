@@ -220,7 +220,7 @@
                  "y":844.045
                 }, 
                 {
-                 "height":459.183,
+                 "height":695.78861938346,
                  "id":49,
                  "name":"",
                  "properties":[
@@ -239,7 +239,7 @@
                  "visible":true,
                  "width":474.02,
                  "x":4551.25,
-                 "y":728.017
+                 "y":491.41138061654
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -651,7 +651,7 @@
                         {
                          "name":"messageDuration",
                          "type":"int",
-                         "value":5000
+                         "value":3000
                         }, 
                         {
                          "name":"messageText",
@@ -694,12 +694,12 @@
                         {
                          "name":"messageDuration",
                          "type":"int",
-                         "value":3000
+                         "value":5000
                         }, 
                         {
                          "name":"messageText",
                          "type":"string",
-                         "value":"WINSTON! THAT WAS AN ORDER! \\nJust for that, you'll have to wear these boots with no traction. EVERY SURFACE WILL FEEL LIKE ICE."
+                         "value":"WINSTON! THAT WAS AN ORDER! Just for that, you'll have to wear these boots with no traction. EVERY SURFACE WILL FEEL LIKE ICE."
                         }, 
                         {
                          "name":"playerOnly",
