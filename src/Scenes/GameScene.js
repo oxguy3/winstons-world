@@ -83,10 +83,6 @@ export default class GameScene extends Phaser.Scene {
     camera.setDeadzone(200, 200);
     camera.startFollow(this.player);
 
-    camera.on('camerafadeoutcomplete', function(camera, effect) {
-      this.game.scene.sendToBack(this.key);
-    }, this);
-
     // update the user's save progress
     this.game.settings.set('lastLevel', this.key).then(function(key) {
       console.log(`Saved the user's progress to level '${key}'`)
@@ -154,9 +150,10 @@ export default class GameScene extends Phaser.Scene {
 
   onTransitionOut(targetScene, duration) {
     this.cameras.main.fadeOut(duration/2);
-    this.time.delayedCall(duration/2, function() {
+    this.cameras.main.once('camerafadeoutcomplete', function(camera, effect) {
+      this.game.scene.sendToBack(this.key);
       this.music.stop();
-    }, [], this);
+    }, this);
   }
 
   update(time, delta) {

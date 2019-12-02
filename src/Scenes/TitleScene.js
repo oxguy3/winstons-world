@@ -41,7 +41,7 @@ export default class TitleScene extends Phaser.Scene {
     if (levelKey != null) {
       this.makeButton('Continue', function (pointer) {
         this.game.setScene(levelKey);
-      });
+      }.bind(this));
     }
     this.makeButton('Play', function (pointer) {
       Promise.all([
@@ -51,7 +51,13 @@ export default class TitleScene extends Phaser.Scene {
       ]).then(function() {
         this.game.setScene(levels.start);
       }.bind(this));
-    });
+    }.bind(this));
+
+    this.diffButton = this.makeButton('Difficulty: ???', function (pointer) {
+      this.game.settings.isHard = !this.game.settings.isHard;
+      this.updateDifficultyText();
+    }.bind(this));
+    this.updateDifficultyText();
 
     // hover logic
     const hoverHeightDiff = 4;
@@ -85,6 +91,14 @@ export default class TitleScene extends Phaser.Scene {
     this.music.play();
   }
 
+  updateDifficultyText() {
+    if (this.diffButton) {
+      const isHard = this.game.settings.isHard;
+      const text = `Mode: ${isHard ? 'Hard' : 'Easy'}`
+      this.setButtonText(this.diffButton, text);
+    }
+  }
+
   makeButton(label, onpointerdown) {
     let button = this.add.sprite(this.cameras.main.width/2, 0, 'ui_button');
     button.setInteractive();
@@ -95,8 +109,17 @@ export default class TitleScene extends Phaser.Scene {
     buttonText.setTint(0x550000);
     button.setData('text', buttonText)
 
-    button.on('pointerdown', onpointerdown.bind(this));
+    button.on('pointerdown', function(pointer) {
+      this.game.playSfx('sfx_mouse_2');
+      onpointerdown(pointer);
+    }, this);
     return button;
+  }
+
+  setButtonText(button, text) {
+    const buttonText = button.getData('text');
+    buttonText.setText(text);
+    Phaser.Display.Align.In.Center(buttonText, button);
   }
 
   /**

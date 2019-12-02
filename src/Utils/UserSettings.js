@@ -6,6 +6,9 @@ const types = {
   // the last level the user played
   lastLevel: { default: null },
 
+  // game difficulty
+  isHard: { default: false },
+
   // narrator's punishments
   alwaysIce: { default: false },
   flippedControls: { default: false },

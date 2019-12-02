@@ -1,6 +1,8 @@
 import 'phaser';
 import WalkingMob from './WalkingMob';
 
+const DEPTH = 100;
+
 export default class Player extends WalkingMob {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
@@ -11,13 +13,13 @@ export default class Player extends WalkingMob {
     this.iceAccel = 120;
   }
 
-  init() {
-    super.init();
+  init(properties) {
+    super.init(properties);
 
     // basic properties
     this.setSize(20, 45);
     this.setOffset(6, 3);
-    this.setDepth(100);
+    this.setDepth(DEPTH);
   }
 
   getMovementDesires() {
@@ -46,31 +48,20 @@ export default class Player extends WalkingMob {
     this.scene.time.delayedCall(1000, function() {
       const duration = 500;
       this.scene.cameras.main.fadeOut(duration);
-      this.scene.time.delayedCall(500, function() {
-        this.scene.scene.restart();
-      }, [], this);
-    }, [], this);
+      this.scene.cameras.main.once('camerafadeoutcomplete', function(camera, fade) {
+        if (this.scene.game.settings.isHard) {
+          // hard mode: reset the entire level
+          this.scene.scene.restart();
+        } else {
+          // easy mode: respawn player at start of level
+          this.scene.cameras.main.fadeIn(duration);
 
-    // // reset position and movement
-    // this.setVelocity(0, 0);
-    // this.setPosition(this.spawnX, this.spawnY);
-    // this.onIce = false;
-    //
-    // // sound effect
-    // this.scene.game.playSfx('sfx_death', { volume: 0.7 });
-    //
-    // // flashing animation
-    // this.setAlpha(0);
-    // let tw = this.scene.tweens.add({
-    //   targets: this,
-    //   alpha: 1,
-    //   duration: 100,
-    //   ease: 'Linear',
-    //   repeat: 5,
-    // });
-    //
-    // // camera shake
-    // this.scene.cameras.main.shake(250, 0.005);
+          // remake player object
+          this.scene.player = this.scene.layers.mobs.quickMake(this.constructor.name, this.spawnX, this.spawnY, this.properties)
+          this.destroy();
+        }
+      }, this);
+    }, [], this);
   }
 
   onMobCollide(obj) {
