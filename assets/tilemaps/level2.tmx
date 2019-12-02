@@ -136,7 +136,7 @@
     <property name="text" value="Man, this place is gross. Those things are everywhere!"/>
    </properties>
   </object>
-  <object id="47" template="../../tiled/templates/Messages/TimedMessage.tx" x="3695.83" y="1095.44" width="251.764" height="273.666">
+  <object id="47" template="../../tiled/templates/Messages/TimedMessage.tx" x="3695.83" y="1095.44" width="251.764" height="229.926">
    <properties>
     <property name="text" value="Dino Dogs are like soldiers that fail me."/>
    </properties>
@@ -146,7 +146,7 @@
     <property name="text" value="I WILL MAKE THEM REGRET THE DAY THEY WERE BORN!!!"/>
    </properties>
   </object>
-  <object id="49" template="../../tiled/templates/Messages/AreaMessage.tx" x="4551.25" y="491.411" width="474.02" height="695.789">
+  <object id="49" template="../../tiled/templates/Messages/AreaMessage.tx" x="4744.8" y="645.594" width="280.472" height="448.659">
    <properties>
     <property name="text" value="You made it to the end! Press the button ON TOP to call the airstrike to this wretched city! "/>
    </properties>
@@ -165,10 +165,8 @@
    </properties>
   </object>
   <object id="13" template="../../tiled/templates/Mobs/DinoDog.tx" x="1504" y="1344"/>
-  <object id="14" template="../../tiled/templates/Mobs/DinoDog.tx" x="1792" y="1344"/>
-  <object id="15" template="../../tiled/templates/Mobs/DinoDog.tx" gid="34" x="1920" y="1344"/>
-  <object id="16" template="../../tiled/templates/Mobs/DinoDog.tx" x="2016" y="1344"/>
-  <object id="17" template="../../tiled/templates/Mobs/DinoDog.tx" x="2144" y="1344"/>
+  <object id="15" template="../../tiled/templates/Mobs/DinoDog.tx" gid="34" x="1856" y="1344"/>
+  <object id="16" template="../../tiled/templates/Mobs/DinoDog.tx" x="2080" y="1344"/>
   <object id="18" template="../../tiled/templates/Mobs/DinoDog.tx" x="2752" y="992">
    <properties>
     <property name="range" type="int" value="10"/>
