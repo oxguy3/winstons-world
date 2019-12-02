@@ -71,6 +71,7 @@ export default class MobsLayer extends Layer {
 
     // instantiate the mob
     let mob = new mobClass(this.scene, obj.x, obj.y);
+    mob.id = obj.id;
 
     // make Phaser handle this as a Sprite (e.g. animations, etc)
     this.scene.sys.displayList.add(mob);

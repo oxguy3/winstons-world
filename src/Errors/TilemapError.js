@@ -18,15 +18,15 @@ export default class TilemapError extends Error {
     let item = '';
     let suffix = '';
     if (obj != null) {
-      item = `${obj.type} object #${this.obj.id}`;
+      item = `${this.obj.type} object #${this.obj.id}`;
       suffix = ` (${this.layer.name} layer on ${this.tilemap.scene.key} map)`
     } else if (layer != null) {
-      item = `layer '${this.layer.name}'`;
+      item = `Layer '${this.layer.name}'`;
       suffix = ` (map ${this.tilemap.scene.key})`
     } else {
-      item = `map '${this.tilemap.scene.key}'`
+      item = `Map '${this.tilemap.scene.key}'`
     }
-    this.message = `${this.message} on ${item}${suffix}`;
+    this.message = `${item}: ${this.message}${suffix}`;
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {

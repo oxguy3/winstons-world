@@ -48,12 +48,12 @@ export default class GameScene extends Phaser.Scene {
     this.scene.bringToTop('ui');
 
     // retrieve map from file
-    const map = this.make.tilemap({ key: 'tilemap_'+this.key });
-    const tileset = map.addTilesetImage('default', 'tiles');
+    this.map = this.make.tilemap({ key: 'tilemap_'+this.key });
+    const tileset = this.map.addTilesetImage('default', 'tiles');
 
     // save map properties in a simple array
-    if (map.properties && map.properties.length && map.properties.length > 0) {
-      for (const prop of map.properties) {
+    if (this.map.properties && this.map.properties.length && this.map.properties.length > 0) {
+      for (const prop of this.map.properties) {
         this.properties[prop.name] = prop.value;
       }
     }
@@ -68,7 +68,7 @@ export default class GameScene extends Phaser.Scene {
     // this.background.setOrigin(0,0).setTileScale(2);
 
     // make layers
-    const addLayer = new LayerFactory(this, map, tileset);
+    const addLayer = new LayerFactory(this, this.map, tileset);
     this.layers.background = addLayer.background();
     this.platforms = addLayer.platforms();
     this.layers.messages = addLayer.messages();
@@ -80,7 +80,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (this.platforms == null) {
-      throw new TilemapError('Platforms layer is missing', null, null, map);
+      throw new TilemapError('Platforms layer is missing', null, null, this.map);
     }
 
     // camera follow the player

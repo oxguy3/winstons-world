@@ -1,4 +1,5 @@
 import 'phaser';
+import TilemapError from '../Errors/TilemapError';
 
 /**
  * A game object base class with a number of useful features. Mobs can be kill
@@ -19,6 +20,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     // This value is updated for all Mobs, but is currently only utilized by
     // the WalkingMob class.
     this.onIce = false;
+    this.id = -1;
 
     // PROPERTIES MEANT TO BE OVERRIDDEN
     // Is the sprite facing left in the sprite file?
@@ -154,5 +156,13 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     let onFloor = this.body.onFloor();
     onFloor = onFloor || (this.body.touching.down && this.onFloorMob);
     return onFloor;
+  }
+
+  get type() {
+    return this.name;
+  }
+
+  makeError(message, obj=null) {
+    return new TilemapError(this.scene.map, { name: 'Mobs' }, this, message);
   }
 }

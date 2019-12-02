@@ -47,19 +47,21 @@ export default class BigButton extends Mob {
     // validate that warpTo level actually exists
     const warpTo = this.getData('warpTo');
     if (typeof warpTo !== 'undefined' && this.scene.scene.get(warpTo) == null) {
-      throw "This button has a 'warpTo' property set to a non-existent level: "+warpTo;
+      throw this.makeError(`Invalid 'warpTo' value (non-existent level '${warpTo}')`);
     }
 
     // validate that if we have a message, we have all necessary properties,
     // and that they're all the right type
     const messageText = this.getData('messageText');
     const messageDuration = this.getData('messageDuration');
-    if ((typeof messageText === 'undefined') != (typeof messageDuration === 'undefined')) {
-      throw 'All buttons with messages must have both messageText and messageDuration set (this button only has one of them).';
+    if (typeof messageText === 'undefined' && typeof messageDuration !== 'undefined') {
+      throw this.makeError(`messageDuration is set, but messageText is not`)
+    } else if (typeof messageText !== 'undefined' && typeof messageDuration === 'undefined') {
+      throw this.makeError(`messageText is set, but messageDuration is not`)
     } else if (!['string', 'undefined'].includes(typeof messageText)) {
-      throw 'This button has a messageText that is not a string.';
+      throw this.makeError('messageText is not a string');
     } else if (!['number', 'undefined'].includes(typeof messageDuration)) {
-      throw 'This button has a messageDuration that is not a number.';
+      throw this.makeError('messageDuration is not a number');
     }
   }
 
