@@ -94,16 +94,25 @@ export default class BigButton extends Mob {
     const messageText = this.getData('messageText');
     const messageDuration = this.getData('messageDuration');
 
+    const warpFunc = function() {
+      const sound = this.scene.game.addSfx('sfx_level_complete');
+      this.scene.time.delayedCall(sound.duration*1000, function() {
+        this.scene.game.setScene(warpTo);
+      }, [], this);
+      if (this.scene.music) {
+        this.scene.music.stop();
+      }
+      sound.play();
+    }
+
     if (messageText != null) {
       const msg = new EventMessage(this.scene, messageText, messageDuration, 1);
       this.scene.ui.addMessage(msg);
-      msg.events.on('hide', function() {
-        this.scene.game.setScene(warpTo);
-      }, this);
+      msg.events.on('hide', warpFunc, this);
       msg.show();
 
     } else if (warpTo != null) {
-      this.scene.game.setScene(warpTo);
+      warpFunc();
     }
 
     if (this.getData('enableAlwaysIce')) {
