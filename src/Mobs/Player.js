@@ -57,7 +57,7 @@ export default class Player extends WalkingMob {
           this.scene.cameras.main.fadeIn(duration);
 
           // remake player object
-          this.scene.player = this.scene.layers.mobs.quickMake(this.constructor.name, this.spawnX, this.spawnY, this.properties);
+          this.scene.player = this.scene.layers.mobs.quickMake(this.name, this.spawnX, this.spawnY, this.properties);
           this.scene.cameras.main.startFollow(this.scene.player);
           this.destroy();
         }
