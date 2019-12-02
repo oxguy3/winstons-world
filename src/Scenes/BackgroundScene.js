@@ -26,7 +26,7 @@ export default class BackgroundScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    if (this.gs) {
+    if (this.gs && this.gs.sys && this.gs.sys.isActive()) {
       const gameCamera = this.gs.cameras.main;
       this.sprite.tilePositionX = gameCamera.scrollX / 8;
     }

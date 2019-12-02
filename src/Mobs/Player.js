@@ -36,26 +36,41 @@ export default class Player extends WalkingMob {
   }
 
   damage(attacker) {
-    // reset position and movement
-    this.setVelocity(0, 0);
-    this.setPosition(this.spawnX, this.spawnY);
-    this.onIce = false;
-
+    super.damage(attacker);
     // sound effect
     this.scene.game.playSfx('sfx_death', { volume: 0.7 });
 
-    // flashing animation
-    this.setAlpha(0);
-    let tw = this.scene.tweens.add({
-      targets: this,
-      alpha: 1,
-      duration: 100,
-      ease: 'Linear',
-      repeat: 5,
-    });
+    // clear UI so death animation is fully visible
+    this.scene.ui.unsetMessage();
 
-    // camera shake
-    this.scene.cameras.main.shake(250, 0.005);
+    this.scene.time.delayedCall(1000, function() {
+      const duration = 500;
+      this.scene.cameras.main.fadeOut(duration);
+      this.scene.time.delayedCall(500, function() {
+        this.scene.scene.restart();
+      }, [], this);
+    }, [], this);
+
+    // // reset position and movement
+    // this.setVelocity(0, 0);
+    // this.setPosition(this.spawnX, this.spawnY);
+    // this.onIce = false;
+    //
+    // // sound effect
+    // this.scene.game.playSfx('sfx_death', { volume: 0.7 });
+    //
+    // // flashing animation
+    // this.setAlpha(0);
+    // let tw = this.scene.tweens.add({
+    //   targets: this,
+    //   alpha: 1,
+    //   duration: 100,
+    //   ease: 'Linear',
+    //   repeat: 5,
+    // });
+    //
+    // // camera shake
+    // this.scene.cameras.main.shake(250, 0.005);
   }
 
   onMobCollide(obj) {

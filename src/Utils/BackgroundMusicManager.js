@@ -84,6 +84,10 @@ export default class BackgroundMusicManager {
     return this.music.pause();
   }
 
+  destroy() {
+    this.music.destroy();
+  }
+
   get isPlaying() {
     return this.music.isPlaying;
   }

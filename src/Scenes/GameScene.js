@@ -117,7 +117,7 @@ export default class GameScene extends Phaser.Scene {
     }.bind(this));
 
     // free up all custom variables when stopping this scene
-    this.events.on('shutdown', this.shutdown);
+    this.events.on('shutdown', this.shutdown, this);
 
     // update the user's save progress
     this.game.settings.set('lastLevel', this.key).then(function(key) {
@@ -146,9 +146,11 @@ export default class GameScene extends Phaser.Scene {
     this.scene.moveAbove('background', this.key);
 
     // initalize background music
-    if (this.data.get('music')) {
+    if (this.data.get('music') && !this.music) {
       this.music = new BackgroundMusicManager(this, this.data.get('music'));
       this.music.play();
+    } else {
+      this.music.resume();
     }
 
     // fade in the camera
@@ -172,6 +174,7 @@ export default class GameScene extends Phaser.Scene {
     this.platforms = null;
     this.layers = {};
     this.ui = null;
+    this.background = null;
     this.properties = [];
     this.music = null;
   }
