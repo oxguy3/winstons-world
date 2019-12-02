@@ -1,13 +1,4 @@
-{ "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"level3.json"
-        }
-    },
- "height":50,
+{ "height":50,
  "infinite":false,
  "layers":[
         {
@@ -38,7 +29,169 @@
          "draworder":"topdown",
          "id":4,
          "name":"Messages",
-         "objects":[],
+         "objects":[
+                {
+                 "height":205,
+                 "id":35,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"WINSTON! This is Commander Simon speaking. The war on the Dino Dogs is underway!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":225,
+                 "x":98,
+                 "y":1244
+                }, 
+                {
+                 "height":251,
+                 "id":36,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"Get to the end of the city to win the battle and BOOST YOUR SCORE!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":252,
+                 "x":656,
+                 "y":1176
+                }, 
+                {
+                 "height":211,
+                 "id":37,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"I went to a coffee shop near here once, but when I got my cup. . ."
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":260,
+                 "x":1210,
+                 "y":1148
+                }, 
+                {
+                 "height":198,
+                 "id":38,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"IT SAID LYMAN!!!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":203,
+                 "x":1690,
+                 "y":1271
+                }, 
+                {
+                 "height":154,
+                 "id":39,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"I AM COMMANDER SIMON! S! I! M! O! N! I WILL NOT BE DISRESPECTED BY A MEASLY DINO DOG!!!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":171,
+                 "x":2065,
+                 "y":1298
+                }, 
+                {
+                 "height":240,
+                 "id":40,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"I'm just . . . really glad we declared war."
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":257,
+                 "x":2651,
+                 "y":838
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -437,6 +590,16 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"enableAlwaysIce",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"enableFlippedControls",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"messageDuration",
                          "type":"int",
                          "value":-1
@@ -469,6 +632,16 @@
                  "id":29,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"enableAlwaysIce",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"enableFlippedControls",
+                         "type":"bool",
+                         "value":false
+                        }, 
                         {
                          "name":"messageDuration",
                          "type":"int",
@@ -516,7 +689,7 @@
                  "type":"DinoDog",
                  "visible":true,
                  "width":32,
-                 "x":4261.33333333333,
+                 "x":4261.33,
                  "y":1360
                 }, 
                 {
@@ -538,10 +711,10 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":35,
+ "nextobjectid":41,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.3.0",
+ "tiledversion":"1.2.5",
  "tileheight":32,
  "tilesets":[
         {

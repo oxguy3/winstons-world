@@ -1,13 +1,4 @@
-{ "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"level1.json"
-        }
-    },
- "height":28,
+{ "height":28,
  "infinite":false,
  "layers":[
         {
@@ -26,7 +17,110 @@
          "draworder":"topdown",
          "id":4,
          "name":"Messages",
-         "objects":[],
+         "objects":[
+                {
+                 "height":379,
+                 "id":40,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"Remember 3 things! Head to the right! Kill all Dino Dogs! And most importantly . . . \nFOLLOW MY ORDERS!!!!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":187,
+                 "x":1278,
+                 "y":130
+                }, 
+                {
+                 "height":396,
+                 "id":42,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"WINSTON! This is Commander Simon speaking. Today is your first day in the field!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":277,
+                 "x":-1,
+                 "y":119
+                }, 
+                {
+                 "height":340,
+                 "id":43,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"A Dino Dog! Kill it to BOOST YOUR SCORE!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":188,
+                 "x":640,
+                 "y":171
+                }, 
+                {
+                 "height":282,
+                 "id":44,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":-1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"Now, press the lower button to BOMB the rest of the Dino Dogs in the area and BOOST YOUR SCORE!!!"
+                        }],
+                 "rotation":0,
+                 "type":"AreaMessage",
+                 "visible":true,
+                 "width":190,
+                 "x":2048,
+                 "y":228
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -149,14 +243,24 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"enableAlwaysIce",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"enableFlippedControls",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"messageDuration",
                          "type":"int",
-                         "value":-1
+                         "value":3000
                         }, 
                         {
                          "name":"messageText",
                          "type":"string",
-                         "value":""
+                         "value":"Well done. On to the next level!"
                         }, 
                         {
                          "name":"playerOnly",
@@ -173,7 +277,7 @@
                  "visible":true,
                  "width":32,
                  "x":2304,
-                 "y":512
+                 "y":543
                 }, 
                 {
                  "gid":36,
@@ -182,14 +286,24 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"enableAlwaysIce",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"enableFlippedControls",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"messageDuration",
                          "type":"int",
-                         "value":-1
+                         "value":5000
                         }, 
                         {
                          "name":"messageText",
                          "type":"string",
-                         "value":""
+                         "value":"YOU DISOBEYED MY ORDERS!!! For that, you FAILED this mission!\n\n.( . . why do we even have that button?)"
                         }, 
                         {
                          "name":"playerOnly",
@@ -206,7 +320,7 @@
                  "visible":true,
                  "width":32,
                  "x":2304,
-                 "y":384
+                 "y":415
                 }],
          "offsetx":1,
          "offsety":-30,
@@ -217,10 +331,16 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":39,
+ "nextobjectid":45,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"music",
+         "type":"string",
+         "value":"title_screen_theme"
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.3.0",
+ "tiledversion":"1.2.5",
  "tileheight":32,
  "tilesets":[
         {
