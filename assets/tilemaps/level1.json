@@ -36,7 +36,7 @@
                         {
                          "name":"text",
                          "type":"string",
-                         "value":"Remember 3 things! Head to the right! Kill all Dino Dogs! And most importantly . . . \nFOLLOW MY ORDERS!!!!"
+                         "value":"Remember 3 things! Head to the right! Kill all Dino Dogs! And most importantly . . . "
                         }],
                  "rotation":0,
                  "type":"TimedMessage",
@@ -120,6 +120,33 @@
                  "width":190,
                  "x":2048,
                  "y":228
+                }, 
+                {
+                 "height":336,
+                 "id":45,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"duration",
+                         "type":"int",
+                         "value":5000
+                        }, 
+                        {
+                         "name":"repeat",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"text",
+                         "type":"string",
+                         "value":"FOLLOW MY ORDERS!!!!"
+                        }],
+                 "rotation":0,
+                 "type":"TimedMessage",
+                 "visible":true,
+                 "width":230,
+                 "x":1628,
+                 "y":193
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -331,7 +358,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":45,
+ "nextobjectid":46,
  "orientation":"orthogonal",
  "properties":[
         {
