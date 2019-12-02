@@ -21,7 +21,7 @@ export default class CreditsScene extends Phaser.Scene {
     let titleText = this.add.bitmapText(10, 200, 'fool', this.game.config.gameTitle, 64);
     titleText.setTint(0xbb3333, 0xbb3333, 0x550000, 0x550000);
 
-    const credits = "Hayden Schiff - Programming\nNick Klawitter - Level Design, Character Art\nCharles Harte - Script, Sound Design\nPatsy Schomaeker - Tile and Background Art\n\nAdditional assets by Kenney.nl, Void, egordorichev"
+    const credits = "Hayden Schiff - Programming\nNick Klawitter - Level Design, Character Art\nCharles Harte - Script, Composing, Sound Design\nPatsy Schomaeker - Tile and Background Art\n\nAdditional assets by Kenney.nl, Void, egordorichev\nPowered by Phaser 3 - made by Richard Davey"
     let creditsText = this.add.bitmapText(10, 274, 'fool', credits, 32);
     creditsText.setTint(0x000000);
 
