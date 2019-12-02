@@ -7,26 +7,26 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
     this.mappings = {
       up: {
         keys: [ 'W', 'UP' ],
-        pad: [ 'up' ],
-        leftStick: 'up',
+        pad: [ 'up', 12 ],
+        // leftStick: 'up',
         char: 'button_up'
       },
       down: {
         keys: [ 'S', 'DOWN' ],
-        pad: [ 'down' ],
-        leftStick: 'down',
+        pad: [ 'down', 13 ],
+        // leftStick: 'down',
         char: 'button_down'
       },
       left: {
         keys: [ 'A', 'LEFT' ],
-        pad: [ 'left' ],
-        leftStick: 'left',
+        pad: [ 'left', 14 ],
+        // leftStick: 'left',
         char: 'button_left'
       },
       right: {
         keys: [ 'D', 'RIGHT' ],
-        pad: [ 'right' ],
-        leftStick: 'right',
+        pad: [ 'right', 15 ],
+        // leftStick: 'right',
         char: 'button_right'
       },
       action: {
@@ -51,7 +51,7 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
       },
       pause: {
         keys: [ 'ESC', 'P' ],
-        pad: [ 7 ], // TODO: check that this is actually start
+        pad: [ 8, 9 ],
         char: 'dpad_left'
       }
     };
@@ -74,18 +74,17 @@ export default class ButtonHandler { // extends Phaser.Events.EventEmitter
         return true;
       }
     }
-
     // handle gamepad #1
     // TODO: handle disconnects; maybe make all gamepads work?
     let pad1 = this.input.gamepad.pad1;
     if (typeof pad1 !== 'undefined') {
-      for (const b in mapping.pad) {
+      for (const b of mapping.pad) {
         if (typeof b === 'number') {
           if (pad1.isButtonDown(b)) {
             return true;
           }
         } else {
-          if (this.input.gamepad.pad1[mapping.pad[b]]) {
+          if (this.input.gamepad.pad1[b]) {
             return true;
           }
         }
