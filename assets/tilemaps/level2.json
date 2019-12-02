@@ -166,7 +166,7 @@
                  "y":1060.18
                 }, 
                 {
-                 "height":273.666,
+                 "height":229.926251503554,
                  "id":47,
                  "name":"",
                  "properties":[
@@ -220,7 +220,7 @@
                  "y":844.045
                 }, 
                 {
-                 "height":695.789,
+                 "height":448.659420995079,
                  "id":49,
                  "name":"",
                  "properties":[
@@ -237,9 +237,9 @@
                  "rotation":0,
                  "type":"AreaMessage",
                  "visible":true,
-                 "width":474.02,
-                 "x":4551.25,
-                 "y":491.411
+                 "width":280.471612903226,
+                 "x":4744.79838709677,
+                 "y":645.593613449973
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -336,29 +336,6 @@
                 {
                  "gid":34,
                  "height":32,
-                 "id":14,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"goLeft",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"range",
-                         "type":"int",
-                         "value":100
-                        }],
-                 "rotation":0,
-                 "type":"DinoDog",
-                 "visible":true,
-                 "width":32,
-                 "x":1792,
-                 "y":1344
-                }, 
-                {
-                 "gid":34,
-                 "height":32,
                  "id":15,
                  "name":"",
                  "properties":[
@@ -376,7 +353,7 @@
                  "type":"DinoDog",
                  "visible":true,
                  "width":32,
-                 "x":1920,
+                 "x":1856,
                  "y":1344
                 }, 
                 {
@@ -399,30 +376,7 @@
                  "type":"DinoDog",
                  "visible":true,
                  "width":32,
-                 "x":2016,
-                 "y":1344
-                }, 
-                {
-                 "gid":34,
-                 "height":32,
-                 "id":17,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"goLeft",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"range",
-                         "type":"int",
-                         "value":100
-                        }],
-                 "rotation":0,
-                 "type":"DinoDog",
-                 "visible":true,
-                 "width":32,
-                 "x":2144,
+                 "x":2080,
                  "y":1344
                 }, 
                 {
@@ -1326,8 +1280,7 @@
                          "name":"kill",
                          "type":"bool",
                          "value":false
-                        }],
-                 "type":"firehydrant"
+                        }]
                 }, 
                 {
                  "id":27,
