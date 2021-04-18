@@ -42,43 +42,45 @@ module.exports = {
     port: 8000
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: '*.json',
-        context: 'assets',
-        to: 'assets'
-      },
-      {
-        from: '**/*.{fnt,png}',
-        context: 'assets/fonts',
-        to: 'assets/fonts'
-      },
-      {
-        from: '**/*.png',
-        context: 'assets/images',
-        to: 'assets/images'
-      },
-      {
-        from: '**/*.{mp3,m4a,ogg,opus}',
-        context: 'assets/sound',
-        to: 'assets/sound'
-      },
-      {
-        from: '*.json',
-        context: 'assets/tilemaps',
-        to: 'assets/tilemaps'
-      },
-      {
-        from: '*.png',
-        context: 'assets/tilesets',
-        to: 'assets/tilesets'
-      },
-      {
-        from: '**/*',
-        context: 'public',
-        to: './'
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: '*.json',
+          context: 'assets',
+          to: 'assets'
+        },
+        {
+          from: '**/*.{fnt,png}',
+          context: 'assets/fonts',
+          to: 'assets/fonts'
+        },
+        {
+          from: '**/*.png',
+          context: 'assets/images',
+          to: 'assets/images'
+        },
+        {
+          from: '**/*.{mp3,m4a,ogg,opus}',
+          context: 'assets/sound',
+          to: 'assets/sound'
+        },
+        {
+          from: '*.json',
+          context: 'assets/tilemaps',
+          to: 'assets/tilemaps'
+        },
+        {
+          from: '*.png',
+          context: 'assets/tilesets',
+          to: 'assets/tilesets'
+        },
+        {
+          from: '**/*',
+          context: 'public',
+          to: './'
+        },
+      ]
+    }),
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
       WEBGL_RENDERER: JSON.stringify(true)
