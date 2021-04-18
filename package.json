@@ -1,6 +1,6 @@
 {
   "name": "winstons-world",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Video game project for DMC 1000 (Foundations of Digital Media) at UC, Fall 2019",
   "scripts": {
     "build": "webpack --config webpack/prod.js",
