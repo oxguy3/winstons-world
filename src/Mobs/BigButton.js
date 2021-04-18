@@ -119,6 +119,11 @@ export default class BigButton extends Mob {
       }
     }
 
+    // immediately freeze the player if this is a warp button
+    if (warpTo != null) {
+      this.scene.player.alive = false;
+    }
+
     if (messageText != null) {
       const msg = new EventMessage(this.scene, messageText, messageDuration, 1);
       this.scene.ui.addMessage(msg);
