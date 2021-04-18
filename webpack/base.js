@@ -1,7 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -35,7 +34,8 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, '../dist/')
+    path: path.join(__dirname, '../dist/'),
+    clean: true,
   },
   devServer: {
     contentBase: path.join(__dirname, '../dist/'),
@@ -79,9 +79,6 @@ module.exports = {
         to: './'
       },
     ]),
-    new CleanWebpackPlugin({
-      root: path.resolve(__dirname, "../dist/")
-    }),
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
       WEBGL_RENDERER: JSON.stringify(true)
